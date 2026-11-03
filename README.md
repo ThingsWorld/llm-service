@@ -4,6 +4,8 @@
 
 需求映射、初始仓库审计和分阶段计划见 [实施计划](docs/implementation-plan.md)；每阶段的真实命令、结果与限制见 [测试记录](docs/test-records.md)。源码底座和固定提交见 [SOURCES.md](SOURCES.md)。参考仓库成绩没有导入本项目。
 
+CPU阶段已在GitHub通过18项软诊断与133项工程测试；本地真实浏览器13项核心流程、两个实际SIGKILL恢复窗口通过。精确源码提交及原始报告见测试记录。GPU部署、真实模型/Agent/计费、性能与KV/Prefix/Attention实测仍待Daytona连接后执行，不声明正式分数或性能达标。
+
 ## CPU 开发与软评测
 
 使用 Python 3.12（默认解释器不同可指定路径），不需要 GPU：

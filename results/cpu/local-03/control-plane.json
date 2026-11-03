@@ -1,0 +1,159 @@
+{
+  "schema": "credential-service-test/1",
+  "suite": "mock",
+  "official_score": false,
+  "commit_sha": "62f3e025b140b5a826d8b9ae9c731a559fc0607c",
+  "working_tree_dirty": true,
+  "source_working_tree_dirty": false,
+  "started_at": "2026-11-03T04:45:54.375673+00:00",
+  "checks": [
+    {
+      "test_id": "two_tenants",
+      "scenario": 1,
+      "expected": "documented HTTP contract assertions",
+      "actual": "HTTP assertions passed",
+      "passed": true,
+      "evidence": {
+        "tenants": 2,
+        "keys": 4,
+        "concurrent_requests": 4,
+        "correct_attribution": 4
+      }
+    },
+    {
+      "test_id": "key_storage",
+      "scenario": 2,
+      "expected": "documented HTTP contract assertions",
+      "actual": "HTTP assertions passed",
+      "passed": true,
+      "evidence": {
+        "list_redacted": true,
+        "admin_denied": true,
+        "disk_scan": "external test, not this HTTP client"
+      }
+    },
+    {
+      "test_id": "rotate",
+      "scenario": 3,
+      "expected": "documented HTTP contract assertions",
+      "actual": "HTTP assertions passed",
+      "passed": true,
+      "evidence": {
+        "old_http": 401,
+        "new_http": 200,
+        "history_preserved": true
+      }
+    },
+    {
+      "test_id": "revoke_expiry_disable",
+      "scenario": 4,
+      "expected": "documented HTTP contract assertions",
+      "actual": "HTTP assertions passed",
+      "passed": true,
+      "evidence": {
+        "revoked_http": 401,
+        "expired_http": 401,
+        "disabled_http": 403,
+        "model_calls": 0
+      }
+    },
+    {
+      "test_id": "exact_billing",
+      "scenario": 5,
+      "expected": "documented HTTP contract assertions",
+      "actual": "HTTP assertions passed",
+      "passed": true,
+      "evidence": {
+        "tokens_each": [
+          100,
+          50
+        ],
+        "charges": [
+          500,
+          500
+        ],
+        "total": 1000
+      }
+    },
+    {
+      "test_id": "concurrent_idempotency",
+      "scenario": 6,
+      "expected": "documented HTTP contract assertions",
+      "actual": "HTTP assertions passed",
+      "passed": true,
+      "evidence": {
+        "attempts": 20,
+        "model_calls": 1,
+        "cost": 500,
+        "conflicts": 19
+      }
+    },
+    {
+      "test_id": "atomic_reservation",
+      "scenario": 7,
+      "expected": "documented HTTP contract assertions",
+      "actual": "HTTP assertions passed",
+      "passed": true,
+      "evidence": {
+        "attempts": 20,
+        "admitted": 1,
+        "quota_rejections": 19,
+        "balance": 180,
+        "control": "fixture delay; explicit signal barrier additionally verified in CPU transaction test"
+      }
+    },
+    {
+      "test_id": "shared_limits",
+      "scenario": 8,
+      "expected": "documented HTTP contract assertions",
+      "actual": "HTTP assertions passed",
+      "passed": true,
+      "evidence": {
+        "shared_rpm": 429,
+        "shared_token_limit": 402,
+        "shared_concurrency": 429
+      }
+    },
+    {
+      "test_id": "stream_cancellation",
+      "scenario": 9,
+      "expected": "documented HTTP contract assertions",
+      "actual": "HTTP assertions passed",
+      "passed": true,
+      "evidence": {
+        "request_id": "6a776e92a4b94d84a80e640639aac945",
+        "abort_observed": true,
+        "active": 0,
+        "queued": 0,
+        "ledger_status": "pending_reconciliation"
+      }
+    },
+    {
+      "test_id": "price_and_credits",
+      "scenario": 11,
+      "expected": "documented HTTP contract assertions",
+      "actual": "HTTP assertions passed",
+      "passed": true,
+      "evidence": {
+        "costs": [
+          500,
+          800
+        ],
+        "historic_versions": 2,
+        "total": 1300,
+        "credit_applied_once": 2000
+      }
+    }
+  ],
+  "skipped": [
+    {
+      "scenario": 10,
+      "reason": "HTTP client cannot SIGKILL; see separate recovery.json from scripts/local_cpu.py"
+    },
+    {
+      "scenario": 12,
+      "reason": "Requires real GPU: run --suite live"
+    }
+  ],
+  "finished_at": "2026-11-03T04:45:58.335494+00:00"
+}

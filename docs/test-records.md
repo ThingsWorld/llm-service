@@ -61,6 +61,17 @@
 
 第二个已push提交 `fbecae6a7c7bd05f241b01be8f382a92ded388b8` 的 GitHub [软诊断41578962624](https://github.com/ThingsWorld/llm-service/actions/runs/41578962624) 与 [工程测试41578962601](https://github.com/ThingsWorld/llm-service/actions/runs/41578962601) 均为success；后续修改继续对应新运行。
 
+## 已提交源码的精确复测
+
+源码提交：`62f3e025b140b5a826d8b9ae9c731a559fc0607c`，已push。该版本所有源码在复测时无未提交修改，报告 `source_working_tree_dirty=false`；生成结果文件造成的整个工作区 dirty 不等于源码变化。
+
+- [GitHub软诊断41580002389](https://github.com/ThingsWorld/llm-service/actions/runs/41580002389)：success，18/18；[原始报告](../results/actions/41580002389/report.json)。
+- [GitHub工程测试41580002390](https://github.com/ThingsWorld/llm-service/actions/runs/41580002390)：success，133/133，10.625秒；[原始JUnit](../results/actions/41580002390/engineering.xml)。
+- `.venv-test/bin/python scripts/local_cpu.py --console --out results/cpu/local-03`（使用上述已安装的浏览器模块与本地库环境）：[接口18/18](../results/cpu/local-03/interfaces.json)、[HTTP管理10项通过](../results/cpu/local-03/control-plane.json)、[浏览器13/13](../results/cpu/local-03/console.json)。HTTP自测的场景10由外部恢复报告覆盖，场景12仍等待真实GPU，没有把skipped写成passed。
+- [两次SIGKILL恢复](../results/cpu/local-03/recovery.json)：未知usage窗口 **1.855秒**释放预占并保留null费用；可信usage已journal窗口 **2.249秒**恰好结算500 micro-USD。两窗口均验证监听socket归属、幂等PID和余额、后续可恢复服务。
+
+后续记录提交只增加脱敏报告和文档时，源码证据仍明确绑定上述提交，不改写报告的 commit。当前阶段没有启动、申请或正式提交任何Daytona GPU运行；GPU性能与全部机制实测仍未完成。
+
 ## 待执行与待确认
 
 - 后续提交仍需新的 GitHub Actions 结果；旧运行不能当成新 SHA 通过。
