@@ -1,0 +1,13 @@
+context_length: 4096
+dtype: bfloat16
+max_running_requests: 32
+max_total_tokens: 16384
+max_prefill_tokens: 4096
+mem_fraction_static: 0.8
+attention_backend: flashinfer
+prefix_cache: true
+gateway_slots: 32
+gateway_queue: 64
+request_timeout: 30
+cuda_graph: true
+sampling_defaults: openai

@@ -1,0 +1,43 @@
+{
+  "schema": "credential-service-test/1",
+  "suite": "mock",
+  "official_score": false,
+  "commit_sha": "049f423d14d2592f029725ea48fe7ef2c028227d",
+  "working_tree_dirty": true,
+  "source_files_sha256": "b50c6ec036919e46dee64a4e3cc0136853ac10ad17eca69067cb644b977f4c0d",
+  "started_at": "2026-11-03T04:14:58.908152+00:00",
+  "checks": [
+    {
+      "test_id": "unknown_usage",
+      "expected": "adjusted_unknown within 60s; no duplicate charge",
+      "actual": {
+        "status": "adjusted_unknown",
+        "cost_micro_usd": null,
+        "recovered_seconds": 2.454
+      },
+      "passed": true,
+      "evidence": {
+        "request_id": "d8e9c20fe6904cc6a52f319d3951f4e1",
+        "actual_sigkill": true,
+        "listener_pid_verified": true
+      }
+    },
+    {
+      "test_id": "journalled_usage",
+      "expected": "completed within 60s; no duplicate charge",
+      "actual": {
+        "status": "completed",
+        "cost_micro_usd": 500,
+        "recovered_seconds": 2.249
+      },
+      "passed": true,
+      "evidence": {
+        "request_id": "efe6fb350d1147589eeb64e83be467a2",
+        "actual_sigkill": true,
+        "listener_pid_verified": true
+      }
+    }
+  ],
+  "finished_at": "2026-11-03T04:15:18.849886+00:00",
+  "execution_environment": "local_cpu_actual_processes"
+}

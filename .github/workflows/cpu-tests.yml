@@ -1,0 +1,23 @@
+name: CPU engineering tests
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.lock -r requirements-dev.lock
+      - run: python -m pytest -q --junitxml=results/cpu/engineering.xml
+      - run: bash -n setup.sh experiments/run.sh
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: cpu-engineering-tests
+          path: results/cpu/engineering.xml
