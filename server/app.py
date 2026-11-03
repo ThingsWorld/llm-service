@@ -168,8 +168,8 @@ def create_app(backend=None, key=None, config=None, store=None):
         store.record_usage(rid, usage)
         store.settle(rid)
 
-    def interrupted(rid):
-        store.fail(rid)
+    def interrupted(rid, code='request_interrupted'):
+        store.fail(rid, code)
         recovery.live.discard(rid)
 
     @app.get('/healthz')
@@ -269,7 +269,7 @@ def create_app(backend=None, key=None, config=None, store=None):
                                                           'message': 'upstream stream failed'}}) + '\n\n'
                 finally:
                     gate.release()
-                    interrupted(rid)
+                    interrupted(rid, stream_status)
                     if stream_status != 'complete':
                         abort_later(rid)
                     metrics.event(rid, stream_status, start, queue_ms=queue_ms, error_code=stream_error_code)
@@ -290,10 +290,19 @@ def create_app(backend=None, key=None, config=None, store=None):
                                 'engine rejected request')
         except httpx.HTTPError:
             raise HTTPException(503, 'engine unavailable')
+        except LedgerError:
+            status = 'rejected'
+            raise
+        except HTTPException as exc:
+            if exc.status_code == 429:
+                status = 'rejected'
+            elif exc.status_code == 499:
+                status = 'cancelled'
+            raise
         finally:
             if not handed_off:
                 if admitted:
-                    interrupted(rid)
+                    interrupted(rid, status)
                 if held:
                     gate.release()
                 if engine_started and status != 'complete':

@@ -66,3 +66,16 @@ mock 需先运行隔离 contract 服务和受控 fixture（`local_cpu.py` 自动
 `experiments/run.sh --case kv|prefix|attention --out results/<new-run>` 是固定入口；内部 `kv_cache.py`、`prefix_cache.py`、`flash_attention.py` 分别对应任务书 kv.py、prefix.py、attention.py。实验会显式停止自己的服务以独占 GPU；结束后重新运行 setup。KV 用固定 1.5B FP32，Prefix 用服务 7B BF16，Attention 只用合成张量。不得混写模型或精度，也不能把 PyTorch FlashAttention 与服务 FlashInfer 当成同一实现。
 
 性能方法、冻结阈值与未验证项见 [docs/performance.md](docs/performance.md)。当前本仓库没有真实 GPU 性能/机制实验结果，不声明达标。每次输出用新目录，保留失败行、原始数据和完整 SHA。正式 GPU 评测需用户主动提交已 push 的完整 40 位 SHA；push 只触发 CPU 工作流。
+
+GPU 上设置好私密环境变量后，可分步执行 `bash scripts/gpu_validate.sh smoke`（部署、幂等、live、取消）、`bench`（完整服务矩阵）、`experiments`（三个机制实验）。这些命令实际消耗已有 GPU 的运行时间，先核实平台剩余时间。KV 单独执行时，给 `experiments/run.sh` 显式指定任务书的 1.5B MODEL_ID/REVISION，避免继承服务的 7B 身份。实验结束后显式 setup 恢复服务。
+
+taskbook 指定的公开测量客户端使用 Transformers 4.51.3 / tokenizers 0.21.4，与 SGLang 的锁定运行时 4.57.1 分开安装，防止互相升级：
+
+```bash
+python3.12 -m venv .venv-benchmark
+.venv-benchmark/bin/python -m pip install -r requirements-benchmark.lock
+export BENCH_PYTHON="$PWD/.venv-benchmark/bin/python"
+python3 scripts/fetch_public_tools.py --out .cache/my-new-public-tools
+```
+
+fetch 只下载和校验9份公开工具，不启动模型。`bench` 也会重新刷新到一个新目录并保存该批 manifest/acceptance。`python -m experiments.verify_evidence --case kv --directory results/<run>/kv --commit <完整SHA>` 检查本次文件矩阵、输入一致、数值门槛与机制字段；验证器不能证明自报 GPU 身份或产生官方成绩。

@@ -193,6 +193,10 @@ class Checks:
             self.call('PUT','/admin/pricing',data={'model':self.model,'input_micro_usd_per_token':2,'output_micro_usd_per_token':6})
     def live(self):
         evidence=[]
+        assert self.generate(self.boot).status_code==200
+        benchmark=self.call('GET','/v1/usage',key=self.boot)
+        assert any(r['status']=='completed' and r['route']=='/v1/chat/completions' for r in benchmark['items'])
+        prices={p['pricing_version']:p for p in self.call('GET','/admin/pricing')['items']}
         for name in ('Alice','Bob'):
             tid=self.tenant(name=name);key=self.issue(tid)
             assert self.generate(key['api_key']).status_code==200
@@ -207,7 +211,34 @@ class Checks:
             assert len(rows)==5 and all(row['status']=='completed' and row['tenant_id']==tid and row['key_id']==key['key_id'] for row in rows)
             assert sum(row['cost_micro_usd'] for row in rows)==u['summary']['cost_micro_usd']==100000-u['summary']['balance_micro_usd']
             assert u['summary']['reserved_micro_usd']==u['summary']['reserved_tokens']==0
-            evidence.append({'tenant_id':tid,'key_id':key['key_id'],'parent_request_id':parent,'model_requests':4,'summary':u['summary']})
+            parent_row=next(row for row in rows if row['request_id']==parent)
+            assert parent_row['route']=='/agent/run' and parent_row['parent_request_id'] is None
+            assert (parent_row['input_tokens'],parent_row['output_tokens'],parent_row['cost_micro_usd'])==(0,0,0)
+            for row in rows:
+                price=prices[row['pricing_version']]
+                assert row['cost_micro_usd']==row['input_tokens']*price['input_micro_usd_per_token']+row['output_tokens']*price['output_micro_usd_per_token']
+            # All seven ordinary-key management writes must be side-effect free.
+            paths=['/admin/tenants',f'/admin/tenants/{tid}/keys','/admin/pricing','/admin/usage?tenant_id='+tid]
+            before=[self.call('GET',path) for path in paths]
+            writes=[('POST','/admin/tenants',{'name':'forbidden','balance_micro_usd':1,'token_limit':1,'rpm_limit':1,'concurrency_limit':1}),
+                ('PATCH','/admin/tenants/'+tid,{'status':'disabled'}),
+                ('POST',f'/admin/tenants/{tid}/credits',{'delta_micro_usd':1,'reason':'forbidden'}),
+                ('POST',f'/admin/tenants/{tid}/keys',{'name':'forbidden'}),
+                ('POST','/admin/keys/'+key['key_id']+'/rotate',{}),
+                ('POST','/admin/keys/'+key['key_id']+'/revoke',{}),
+                ('PUT','/admin/pricing',{'model':self.model,'input_micro_usd_per_token':3,'output_micro_usd_per_token':7})]
+            for method,path,body in writes:
+                assert self.raw(method,path,key=key['api_key'],data=body,idem=uuid.uuid4().hex).status_code in (401,403)
+            assert before==[self.call('GET',path) for path in paths]
+            new=self.call('POST','/admin/keys/'+key['key_id']+'/rotate',data={})
+            assert self.generate(key['api_key']).status_code==401
+            assert self.generate(new['api_key']).status_code==200
+            final=self.usage(tid)
+            assert any(row['key_id']==key['key_id'] for row in final['items'])
+            assert any(row['key_id']==new['key_id'] and row['status']=='completed' for row in final['items'])
+            assert sum(row['cost_micro_usd'] for row in final['items'])==final['summary']['cost_micro_usd']==100000-final['summary']['balance_micro_usd']
+            evidence.append({'tenant_id':tid,'key_id':key['key_id'],'parent_request_id':parent,'model_requests':5,
+                             'rotation_new_http':200,'rotation_old_http':401,'management_writes_denied':7,'summary':final['summary']})
         return {'tenants':evidence,'engine':'existing native SGLang'}
     def close(self):
         for tid in self.created:
@@ -224,6 +255,9 @@ def main():
     result={'schema':'credential-service-test/1','suite':args.suite,'official_score':False,
         'commit_sha':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         'working_tree_dirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT)),
+        'source_working_tree_dirty':bool(subprocess.check_output(['git','status','--porcelain','--',
+            'server','control_plane','agent','configs','migrations','scripts','tests','benchmarks','experiments',
+            'console','.github','setup.sh','requirements*.lock'],cwd=ROOT)),
         'started_at':stamp(),'checks':[],'skipped':[]}
     checks=None
     try:

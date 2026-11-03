@@ -56,6 +56,7 @@ def main():
             off=replay(False,True)[3]; on=replay(True,True)[3]
             error=float((off-on).abs().max()); valid=bool(torch.allclose(off,on,atol=atol,rtol=rtol))
             top1=float((off.argmax(-1)==on.argmax(-1)).float().mean())
+            valid=valid and error <= atol and top1 == 1.0
             for cache in (False,True): replay(cache)
             for repeat in range(3):
                 for cache in ([False,True] if repeat%2==0 else [True,False]):

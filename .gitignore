@@ -15,4 +15,8 @@ __pycache__/
 *:Zone.Identifier
 results/**/*.trace.json
 node_modules/
-
+models/
+weights/
+*.safetensors
+pytorch_model*.bin
+*.ckpt

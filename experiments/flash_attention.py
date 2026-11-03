@@ -17,7 +17,7 @@ def main():
         with sdpa_kernel(SDPBackend.MATH): reference = sdpa(q,k,v,is_causal=True,dropout_p=0)
         with sdpa_kernel(SDPBackend.FLASH_ATTENTION): optimized = sdpa(q,k,v,is_causal=True,dropout_p=0)
         error = float((reference.float()-optimized.float()).abs().max())
-        valid = bool(torch.allclose(reference,optimized,atol=.02,rtol=.02))
+        valid = error <= .02 and bool(torch.allclose(reference,optimized,atol=.02,rtol=.02))
         for name,backend in [('math',SDPBackend.MATH),('flash',SDPBackend.FLASH_ATTENTION)]:
             with sdpa_kernel(backend), torch.inference_mode():
                 for _ in range(5): sdpa(q,k,v,is_causal=True,dropout_p=0)

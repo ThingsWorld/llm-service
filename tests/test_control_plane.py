@@ -280,3 +280,20 @@ def test_revoked_key_admitted_agent_continues_but_new_admission_rejected(tmp_pat
     with pytest.raises(LedgerError) as failure:store.reserve(auth,'new','/v1/chat/completions',body(),100,80)
     assert failure.value.status==401
     assert store.usage(auth['tenant_id'])['summary']['cost_micro_usd']==500
+
+
+def test_usage_filters_and_groups_remain_tenant_scoped():
+    with TestClient(create_app(Engine(),key=BOOT)) as c:
+        a=make_tenant(c);b=make_tenant(c,name='Bob')
+        keys=[issue(c,t) for t in (a,a,b)]
+        for k in keys:
+            assert c.post('/v1/chat/completions',headers=headers(k['api_key']),json=body()).status_code==200
+        full=c.get('/v1/usage',headers=headers(keys[0]['api_key'])).json()
+        assert len(full['groups']['key'])==2
+        for dimension in ('key','model','date'):
+            assert sum(g['cost_micro_usd'] for g in full['groups'][dimension])==1000
+            assert sum(g['input_tokens'] for g in full['groups'][dimension])==200
+        scoped=c.get('/v1/usage',headers=headers(keys[0]['api_key']),params={'key_id':keys[1]['key_id'],'model':MODEL}).json()
+        assert len(scoped['items'])==1 and scoped['summary']['cost_micro_usd']==500
+        assert scoped['summary']['used_tokens']==150
+        assert c.get('/v1/usage',headers=headers(keys[0]['api_key']),params={'key_id':keys[2]['key_id']}).status_code==404

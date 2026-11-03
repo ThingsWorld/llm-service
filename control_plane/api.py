@@ -73,13 +73,14 @@ def install(app, store):
     @app.put('/admin/pricing')
     async def price(body:Price): return store.pricing(body.model_dump())
     @app.get('/admin/usage')
-    async def usage(tenant_id:str, start:str|None=Query(None,alias='from'),end:str|None=Query(None,alias='to'),cursor:int=Query(0,ge=0),limit:int=Query(100,ge=1,le=500)):
-        return store.usage(tenant_id,start,end,cursor,limit)
+    async def usage(tenant_id:str, start:str|None=Query(None,alias='from'),end:str|None=Query(None,alias='to'),cursor:int=Query(0,ge=0),limit:int=Query(100,ge=1,le=500),key_id:str|None=None,model:str|None=None):
+        return store.usage(tenant_id,start,end,cursor,limit,key_id,model)
     @app.get('/v1/usage')
-    async def own_usage(request:Request,cursor:int=Query(0,ge=0),limit:int=Query(100,ge=1,le=500)):
-        if set(request.query_params)-{'cursor','limit'}:
+    async def own_usage(request:Request,cursor:int=Query(0,ge=0),limit:int=Query(100,ge=1,le=500),key_id:str|None=None,model:str|None=None,
+                        start:str|None=Query(None,alias='from'),end:str|None=Query(None,alias='to')):
+        if set(request.query_params)-{'cursor','limit','key_id','model','from','to'}:
             raise LedgerError(403,'tenant_scope_forbidden')
-        return store.usage(request.state.auth['tenant_id'],cursor=cursor,limit=limit)
+        return store.usage(request.state.auth['tenant_id'],start,end,cursor,limit,key_id,model)
     @app.get('/admin/audit')
     async def audit(tenant_id:str|None=None,cursor:int=Query(0,ge=0),limit:int=Query(100,ge=1,le=500)):
         return store.audits(tenant_id,cursor,limit)

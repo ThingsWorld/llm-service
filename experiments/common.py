@@ -16,7 +16,7 @@ def tensor_hash(tensor):
     return hashlib.sha256(tensor.detach().contiguous().view(__import__('torch').uint8).cpu().numpy().tobytes()).hexdigest()
 
 def write(path, value):
-    Path(path).write_text(json.dumps(value, ensure_ascii=False, indent=2)+'\n')
+    Path(path).write_text(json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False)+'\n')
 
 class Evidence:
     def __init__(self, case, parameters):
@@ -41,7 +41,7 @@ class Evidence:
         row = {'ok': True, 'error': None, **values}
         self.rows.append(row)
         with (self.out/'raw.jsonl').open('a') as f:
-            f.write(json.dumps(row, ensure_ascii=False)+'\n'); f.flush()
+            f.write(json.dumps(row, ensure_ascii=False, allow_nan=False)+'\n'); f.flush()
         print(json.dumps(row, ensure_ascii=False), flush=True)
 
     def finish(self, summary):

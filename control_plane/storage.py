@@ -298,6 +298,7 @@ class Store:
                 return
             if row['engine_started']:
                 db.execute("UPDATE requests SET status='pending_reconciliation',error_code=? WHERE request_id=?", (code,rid))
+                self.audit(db, 'request_interrupted', row['tenant_id'], rid, error_code=code)
             else:
                 db.execute("UPDATE requests SET status='rejected',input_tokens=0,output_tokens=0,cached_tokens=0,cost_micro_usd=0,reserved_input=0,reserved_output=0,reserved_micro_usd=0,error_code=?,finished_at=? WHERE request_id=?", (code,now(),rid))
 
@@ -318,14 +319,20 @@ class Store:
             if row['status'] not in ACTIVE:
                 return
             # No invented usage or cost. Release only this reservation and preserve unknowns.
-            db.execute("UPDATE requests SET status='adjusted_unknown',reserved_input=0,reserved_output=0,reserved_micro_usd=0,error_code=?,finished_at=? WHERE request_id=?", (reason,now(),rid))
+            db.execute("UPDATE requests SET status='adjusted_unknown',reserved_input=0,reserved_output=0,reserved_micro_usd=0,error_code=COALESCE(error_code,?),finished_at=? WHERE request_id=?", (reason,now(),rid))
             self.audit(db, 'credit_adjustment', row['tenant_id'], rid, reason=reason,
                        released_micro_usd=row['reserved_micro_usd'], released_tokens=row['reserved_input']+row['reserved_output'], usage_known=False)
 
-    def usage(self, tid, start=None, end=None, cursor=0, limit=100):
+    def usage(self, tid, start=None, end=None, cursor=0, limit=100, key_id=None, model=None):
         with self.connection() as db:
             tenant = self._tenant(db, tid)
             where, args = 'tenant_id=?', [tid]
+            if key_id:
+                owned=db.execute('SELECT 1 FROM api_keys WHERE key_id=? AND tenant_id=?',(key_id,tid)).fetchone()
+                if not owned: raise LedgerError(404,'key_not_found')
+                where += ' AND key_id=?';args.append(key_id)
+            if model:
+                where += ' AND model=?';args.append(model)
             for op,value in [('>=',start),('<',end)]:
                 if value:
                     where += ' AND created_at'+op+'?'; args.append(value)
@@ -333,8 +340,16 @@ class Store:
             rows = db.execute('SELECT rowid AS cursor,request_id,tenant_id,key_id,parent_request_id,route,model,status,input_tokens,output_tokens,cached_tokens,cost_micro_usd,pricing_version,reserved_micro_usd,error_code,created_at,finished_at FROM requests WHERE '+where+' AND rowid>? ORDER BY rowid LIMIT ?', (*args,cursor,limit+1)).fetchall()
             summary = {**self._totals(db,tid), 'balance_micro_usd':tenant['balance_micro_usd']}
             summary.update(input_tokens=sums['i'],output_tokens=sums['o'],cost_micro_usd=sums['c'],requests=sums['n'])
+            summary['used_tokens']=sums['i']+sums['o']
+            status_totals=db.execute("SELECT COUNT(CASE WHEN status IN ('rejected','adjusted_unknown','pending_reconciliation') THEN 1 END) failed,COUNT(CASE WHEN error_code='cancelled' THEN 1 END) cancelled,COUNT(CASE WHEN input_tokens IS NULL THEN 1 END) unknown FROM requests WHERE "+where,args).fetchone()
+            summary.update(failed_requests=status_totals['failed'],cancelled_requests=status_totals['cancelled'],
+                           unknown_usage_requests=status_totals['unknown'])
+            groups={}
+            for label,expression in [('key','key_id'),('model','model'),('date','substr(created_at,1,10)')]:
+                grouped=db.execute('SELECT '+expression+' AS dimension,COUNT(*) requests,COALESCE(SUM(input_tokens),0) input_tokens,COALESCE(SUM(output_tokens),0) output_tokens,COALESCE(SUM(cost_micro_usd),0) cost_micro_usd,COUNT(CASE WHEN input_tokens IS NULL THEN 1 END) unknown_usage_requests FROM requests WHERE '+where+' GROUP BY '+expression+' ORDER BY '+expression,args)
+                groups[label]=[dict(r) for r in grouped]
             summary['available_micro_usd'] = summary['balance_micro_usd']-summary['reserved_micro_usd']
-            return {'summary':summary,'items':[dict(r) for r in rows[:limit]],'next_cursor':rows[limit-1]['cursor'] if len(rows)>limit else None}
+            return {'summary':summary,'groups':groups,'items':[dict(r) for r in rows[:limit]],'next_cursor':rows[limit-1]['cursor'] if len(rows)>limit else None}
 
     def audits(self, tid=None, cursor=0, limit=100):
         with self.connection() as db:

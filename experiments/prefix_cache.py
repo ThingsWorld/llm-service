@@ -12,7 +12,8 @@ from .common import Evidence, digest, write, entry
 def main():
     evidence=Evidence('prefix', {'prefix_tokens':512,'requests':8,'repeats':3,
         'variants':['off','on'],'groups':['shared','unique'],'max_new_tokens':8,
-        'temperature':0,'ttft_slo_ms':200,'e2e_slo_ms':1500})
+        'temperature':0,'ttft_slo_ms':None,'e2e_slo_ms':None,
+        'slo_status':'pending_confirmation_no_prefix_specific_slo'})
     tok=AutoTokenizer.from_pretrained(os.environ['MODEL_ID'],revision=os.environ['MODEL_REVISION'])
     prefixes=[]
     for i in range(8):
@@ -69,19 +70,26 @@ def main():
                             text=obj.get('text','');meta=obj.get('meta_info',{})
                             quality=text.strip().strip('.!')=='OK'
                             state='cold' if index==0 else ('hot' if enabled and group=='shared' else 'subsequent')
+                            cached=meta.get('cached_tokens')
+                            hit_valid=(type(cached) is int and
+                                (cached == 0 if not enabled else
+                                 cached >= 512 if group=='shared' and index>0 else cached < 512))
                             row={'variant':variant,'group':group,'repeat':repeat,'index':index,'cache_state':state,
                                 'input_hash':digest(ids),'prefix_hash':digest(ids[:512]),'prefix_length':512,
                                 'input_tokens':len(ids),'cached_tokens':meta.get('cached_tokens'),
                                 'output':text,'quality_pass':quality,'ttft_ms':None if first is None else (first-start)*1000,
                                 'e2e_ms':elapsed,'completion_tokens':meta.get('completion_tokens'),
-                                'transport_ok':error is None,'ok':error is None and quality and isinstance(meta.get('cached_tokens'),int),
-                                'error':error or (None if quality else 'quality_check_failed')}
+                                'transport_ok':error is None,'cache_evidence_valid':hit_valid,
+                                'ok':error is None and quality and hit_valid,
+                                'error':error or ('quality_check_failed' if not quality else
+                                                 None if hit_valid else 'cache_counter_mismatch')}
                             evidence.row(**row);group_rows.append(row)
                         duration=time.monotonic()-window
                         summaries.append({'variant':variant,'group':group,'repeat':repeat,'seconds':duration,
                             'success_rate':sum(r['ok'] for r in group_rows)/8,
                             'quality_rate':sum(r['quality_pass'] for r in group_rows)/8,
-                            'quality_goodput':sum(r['ok'] and r['quality_pass'] and r['ttft_ms']<=200 and r['e2e_ms']<=1500 for r in group_rows)/duration})
+                            'correct_requests_per_second':sum(r['ok'] and r['quality_pass'] for r in group_rows)/duration,
+                            'quality_goodput':None,'slo_status':'pending_confirmation_no_prefix_specific_slo'})
                 (evidence.out/f'{variant}-metrics.txt').write_text(client.get('/metrics').text)
         finally:
             os.killpg(process.pid,signal.SIGTERM) if process.poll() is None else None
@@ -90,8 +98,9 @@ def main():
             log.close();time.sleep(2)
     reuse_valid=all((r['cached_tokens'] or 0)>=512 for r in evidence.rows if r['variant']=='on' and r['group']=='shared' and r['index']>0)
     off_valid=all(r['cached_tokens']==0 for r in evidence.rows if r['variant']=='off')
-    if not reuse_valid or not off_valid:
-        evidence.row(variant='cache_evidence',ok=False,error='cache hit counters do not match expected controlled reuse',cache_state=None)
-    evidence.finish({'verified_prefix_hits':reuse_valid,'off_cache_zero':off_valid,'groups':summaries,'counter_source':'SGLang /generate meta_info.cached_tokens',
+    cold_unique_valid=all(type(r['cached_tokens']) is int and r['cached_tokens']<512 for r in evidence.rows
+        if r['variant']=='on' and (r['index']==0 or r['group']=='unique'))
+    evidence.finish({'verified_prefix_hits':reuse_valid,'off_cache_zero':off_valid,
+        'cold_and_unique_below_prefix':cold_unique_valid,'groups':summaries,'counter_source':'SGLang /generate meta_info.cached_tokens',
         'input_note':'Exactly 512 shared prefix IDs; all full token IDs saved. Unique group retains the short common chat header, which is legitimate reuse.'})
 if __name__=='__main__': entry(main)

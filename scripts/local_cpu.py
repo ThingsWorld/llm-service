@@ -40,11 +40,18 @@ def source_identity():
     sha = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     dirty = bool(subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True))
     digest = hashlib.sha256()
-    for directory in ('server', 'control_plane', 'agent', 'configs', 'migrations', 'scripts', 'tests'):
+    directories=('server','control_plane','agent','configs','migrations','scripts','tests',
+                 'benchmarks','experiments','console','.github')
+    source_dirty=bool(subprocess.check_output(['git','status','--porcelain','--',*directories,
+                                               'setup.sh','requirements*.lock'],cwd=ROOT,text=True))
+    for directory in directories:
         for path in sorted((ROOT / directory).rglob('*')):
             if path.is_file() and '__pycache__' not in path.parts:
                 digest.update(str(path.relative_to(ROOT)).encode() + b'\0' + path.read_bytes() + b'\0')
-    return {'commit_sha': sha, 'working_tree_dirty': dirty, 'source_files_sha256': digest.hexdigest()}
+    for path in [ROOT/'setup.sh',*sorted(ROOT.glob('requirements*.lock'))]:
+        digest.update(path.name.encode()+b'\0'+path.read_bytes()+b'\0')
+    return {'commit_sha': sha, 'working_tree_dirty': dirty,
+            'source_working_tree_dirty':source_dirty,'source_files_sha256': digest.hexdigest()}
 
 
 def download_tools():
@@ -195,6 +202,7 @@ def crash_checks(env, gateway_env, base):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', type=Path, required=True)
+    parser.add_argument('--console', action='store_true', help='Also run the installed Playwright browser against the real console')
     args = parser.parse_args()
     args.out.mkdir(parents=True, exist_ok=False)
     identity, started = source_identity(), stamp()
@@ -216,6 +224,9 @@ def main():
                     **identity, 'started_at': started, 'checks': crash_checks(env, gateway_env, base),
                     'finished_at': stamp(), 'execution_environment': 'local_cpu_actual_processes'}
         (args.out / 'recovery.json').write_text(json.dumps(recovery, indent=2) + '\n')
+        if args.console:
+            subprocess.run(['node','scripts/check_console.cjs','--base-url',base,
+                            '--out',str(args.out/'console.json')],env=env,cwd=ROOT,check=True,timeout=90)
     return 0
 
 

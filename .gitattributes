@@ -1,0 +1,3 @@
+# Preserve the supplied taskbook and raw XML diagnostic text without rewriting it.
+agentist-llm-project-taskbook.md whitespace=-blank-at-eol
+results/**/*.xml whitespace=-blank-at-eol
