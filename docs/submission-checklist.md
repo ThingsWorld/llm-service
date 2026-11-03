@@ -9,7 +9,7 @@
 | baseline / optimized | configs/*.yaml；/info；supervisor.engine_command | CPU 参数/命令检查通过；GPU 性能未验证 |
 | 网关、SSE、队列与取消 | server/；真实 socket/Event 测试 | CPU 通过；GPU 取消与显存恢复待执行 |
 | 多租户 Key、轮换、记账、额度、恢复 | control_plane/；migrations/；pricing.json | 本地 CPU/HTTP/两窗口 SIGKILL 通过；正式15项黑盒及 live 门槛未运行 |
-| 管理页面 | console/index.html；scripts/check_console.cjs | 真实浏览器测试单独记录；不能用 HTML 壳检查替代 |
+| 管理页面 | console/index.html；scripts/check_console.cjs | 本地Chromium13项核心交互通过；GPU用量与其他浏览器待验证 |
 | Agent 父子账本与白名单 | agent/；server/app.py；CPU 请求校验与调用轨迹测试 | CPU 协议/模拟调用通过；真实模型推理待验证 |
 | 18 项软诊断 | .github/workflows/llm-soft.yml；GitHub artifact | 已在公开 main 成功运行，按完整 SHA 对应记录 |
 | 公开自测与压测 | scripts/check_control_plane.py；benchmarks/；fetch_public_tools.py | HTTP mock 与工具哈希通过；完整768请求 GPU矩阵未执行 |

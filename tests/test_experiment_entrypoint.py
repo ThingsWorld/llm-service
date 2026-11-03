@@ -94,15 +94,18 @@ def test_case_identity_defaults_and_mismatches_fail_before_stop(tmp_path,case,mo
     (tmp_path/'.runtime/runtime.json').write_text(json.dumps({'engine_python':str(binary/'engine'),'engine_bin':str(binary),'gateway_bin':str(binary)}))
     env={'PATH':str(binary)+':'+os.environ['PATH'],'HOME':str(tmp_path)}
     command=['bash','experiments/run.sh','--case',case,'--out','results/identity']
-    for explicit in ({},{'MODEL_ID':model,'MODEL_REVISION':revision}):
+    valid=[{},{'MODEL_ID':model,'MODEL_REVISION':revision}]
+    if case=='kv':valid.append({'MODEL_ID':MODEL,'MODEL_REVISION':REVISION})
+    for explicit in valid:
         subprocess.run(command,cwd=tmp_path,env={**env,**explicit},capture_output=True,check=True)
         actual=json.loads((tmp_path/'identity.json').read_text())
         assert actual['MODEL_ID']==model and actual['MODEL_REVISION']==revision
         if case=='kv':assert actual['KV_DTYPE']=='float32'
     (tmp_path/'stopped').unlink();(tmp_path/'identity.json').unlink()
-    invalid=[{'MODEL_ID':''}, {'MODEL_REVISION':''}, {'MODEL_ID':'wrong'}, {'MODEL_REVISION':'wrong'},
-             {'MODEL_ID':MODEL if case=='kv' else KV_MODEL}]
-    if case=='kv':invalid.append({'KV_DTYPE':'bfloat16'})
+    invalid=[{'MODEL_ID':''}, {'MODEL_REVISION':''}, {'MODEL_ID':'wrong'}, {'MODEL_REVISION':'wrong'}]
+    if case=='kv':invalid.extend([{'KV_DTYPE':'bfloat16'},{'KV_MODEL_ID':'wrong'},
+                                 {'MODEL_ID':MODEL,'MODEL_REVISION':KV_REVISION}])
+    else:invalid.append({'MODEL_ID':KV_MODEL})
     for values in invalid:
         result=subprocess.run(command,cwd=tmp_path,env={**env,**values},capture_output=True)
         assert result.returncode==2

@@ -317,6 +317,7 @@ def create_app(backend=None, key=None, config=None, store=None):
         start = time.monotonic()
         held = False
         children = []
+        unfinished_children = set()
         admitted = False
         async def infer(messages):
             child = rid + '-' + str(len(children))
@@ -324,10 +325,12 @@ def create_app(backend=None, key=None, config=None, store=None):
                        'temperature': 0, 'max_tokens': 160, 'response_format': {'type': 'json_object'}}
             await begin(request, payload, '/agent/model_call', parent=rid, rid=child)
             children.append(child)
+            unfinished_children.add(child)
             try:
                 store.started(child)
                 value = await backend.complete(payload, child)
                 finish(child, value.get('usage'))
+                unfinished_children.discard(child)
             finally:
                 interrupted(child)
             metrics.event(child, 'agent_model_call', start,
@@ -354,7 +357,7 @@ def create_app(backend=None, key=None, config=None, store=None):
                 interrupted(rid)
             if held:
                 gate.release()
-            for child in children:
+            for child in unfinished_children:
                 abort_later(child)
     return app
 

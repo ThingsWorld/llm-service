@@ -18,13 +18,21 @@ esac
 if [[ "$(python3 -c 'import json; print(json.load(open(".runtime/runtime.json")).get("mode","native"))')" == contract-test ]]; then
   echo 'GPU experiments require native setup; CPU fixture mode is not GPU evidence'; exit 1
 fi
-# A principle experiment has its own pinned identity; never relabel a service
-# model as a different experiment model after accepting caller configuration.
+# KV has its own taskbook identity. A normal service shell carries the pinned
+# 7B MODEL_ID; accept that known context and explicitly select the fixed 1.5B
+# experiment. Arbitrary/mismatched identities still fail before stopping service.
 if [[ "$case_name" == kv ]]; then
   expected_model=Qwen/Qwen2.5-1.5B-Instruct
   expected_revision=989aa7980e4cf806f80c7fef2b1adb7bc71aa306
   [[ "${KV_DTYPE-float32}" == float32 ]] || { echo 'KV experiment requires float32'; exit 2; }
   export KV_DTYPE=float32
+  if [[ "${MODEL_ID-$expected_model}" == Qwen/Qwen2.5-7B-Instruct ]]; then
+    [[ "${MODEL_REVISION-a09a35458c702b33eeacc393d103063234e8bc28}" == a09a35458c702b33eeacc393d103063234e8bc28 ]] || { echo 'Service revision differs from pinned context'; exit 2; }
+  else
+    [[ "${MODEL_ID-$expected_model}" == "$expected_model" && "${MODEL_REVISION-$expected_revision}" == "$expected_revision" ]] || { echo 'KV model identity differs from pinned contract'; exit 2; }
+  fi
+  [[ "${KV_MODEL_ID-$expected_model}" == "$expected_model" && "${KV_MODEL_REVISION-$expected_revision}" == "$expected_revision" ]] || { echo 'KV override differs from pinned contract'; exit 2; }
+  export MODEL_ID="$expected_model" MODEL_REVISION="$expected_revision"
 else
   expected_model=Qwen/Qwen2.5-7B-Instruct
   expected_revision=a09a35458c702b33eeacc393d103063234e8bc28

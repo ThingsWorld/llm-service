@@ -3,7 +3,9 @@
 const fs = require('node:fs');
 const assert = require('node:assert/strict');
 const {execFileSync} = require('node:child_process');
-const {chromium} = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
+const playwrightModule = process.env.PLAYWRIGHT_MODULE || 'playwright';
+const {chromium} = require(playwrightModule);
+const playwrightVersion = require(playwrightModule+'/package.json').version;
 const args = process.argv.slice(2);
 const base = args[args.indexOf('--base-url') + 1];
 const out = args[args.indexOf('--out') + 1];
@@ -70,7 +72,7 @@ let chromiumVersion=null;
     commit_sha:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),
     working_tree_dirty:!!execFileSync('git',['status','--porcelain'],{encoding:'utf8'}).trim(),
     started_at:started,finished_at:new Date().toISOString(),official_score:false,gpu_used:false,
-    chromium_version:chromiumVersion,node_version:process.version,
+    chromium_version:chromiumVersion,playwright_version:playwrightVersion,node_version:process.version,
     browser_binary_target:process.env.PLAYWRIGHT_HOST_PLATFORM_OVERRIDE||'detected',
     host_kernel:require('node:os').release(),checks};
   fs.writeFileSync(out,JSON.stringify(result,null,2)+'\n',{flag:'wx'});

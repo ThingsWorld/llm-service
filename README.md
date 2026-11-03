@@ -67,7 +67,7 @@ mock 需先运行隔离 contract 服务和受控 fixture（`local_cpu.py` 自动
 
 性能方法、冻结阈值与未验证项见 [docs/performance.md](docs/performance.md)。当前本仓库没有真实 GPU 性能/机制实验结果，不声明达标。每次输出用新目录，保留失败行、原始数据和完整 SHA。正式 GPU 评测需用户主动提交已 push 的完整 40 位 SHA；push 只触发 CPU 工作流。
 
-GPU 上设置好私密环境变量后，可分步执行 `bash scripts/gpu_validate.sh smoke`（部署、幂等、live、取消）、`bench`（完整服务矩阵）、`experiments`（三个机制实验）。这些命令实际消耗已有 GPU 的运行时间，先核实平台剩余时间。KV 单独执行时，给 `experiments/run.sh` 显式指定任务书的 1.5B MODEL_ID/REVISION，避免继承服务的 7B 身份。实验结束后显式 setup 恢复服务。
+GPU 上设置好私密环境变量后，可分步执行 `bash scripts/gpu_validate.sh smoke`（部署、幂等、live、取消）、`bench`（完整服务矩阵）、`experiments`（三个机制实验）。这些命令实际消耗已有 GPU 的运行时间，先核实平台剩余时间。KV 入口显式选择任务书的固定1.5B FP32实验模型，支持从已有7B服务环境直接调用；任意错误模型/revision仍在停止服务前拒绝。实验结束后显式 setup 恢复服务。
 
 taskbook 指定的公开测量客户端使用 Transformers 4.51.3 / tokenizers 0.21.4，与 SGLang 的锁定运行时 4.57.1 分开安装，防止互相升级：
 

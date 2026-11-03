@@ -68,7 +68,7 @@ def main():
                             except Exception as exc:error=type(exc).__name__
                             elapsed=(time.monotonic()-start)*1000
                             text=obj.get('text','');meta=obj.get('meta_info',{})
-                            quality=text.strip().strip('.!')=='OK'
+                            quality=text.strip()=='OK'
                             state='cold' if index==0 else ('hot' if enabled and group=='shared' else 'subsequent')
                             cached=meta.get('cached_tokens')
                             hit_valid=(type(cached) is int and

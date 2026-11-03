@@ -1,0 +1,108 @@
+{
+  "schema": "llm-console-browser/1",
+  "suite": "mock",
+  "execution": "actual_headless_chromium_real_gateway_sqlite",
+  "commit_sha": "fbecae6a7c7bd05f241b01be8f382a92ded388b8",
+  "working_tree_dirty": true,
+  "started_at": "2026-11-03T04:39:29.270Z",
+  "finished_at": "2026-11-03T04:39:31.070Z",
+  "official_score": false,
+  "gpu_used": false,
+  "chromium_version": "141.0.7390.37",
+  "node_version": "v24.21.0",
+  "browser_binary_target": "ubuntu24.04-x64",
+  "host_kernel": "6.18.54.1-microsoft-standard-WSL2",
+  "checks": [
+    {
+      "test_id": "anonymous_console_shell",
+      "expected": "real console/backend assertions",
+      "actual": "passed",
+      "passed": true,
+      "evidence": {}
+    },
+    {
+      "test_id": "admin_connect_memory_only",
+      "expected": "real console/backend assertions",
+      "actual": "passed",
+      "passed": true,
+      "evidence": {}
+    },
+    {
+      "test_id": "tenant_create",
+      "expected": "real console/backend assertions",
+      "actual": "passed",
+      "passed": true,
+      "evidence": {}
+    },
+    {
+      "test_id": "shared_quota_update",
+      "expected": "real console/backend assertions",
+      "actual": "passed",
+      "passed": true,
+      "evidence": {}
+    },
+    {
+      "test_id": "key_issue_masked_list",
+      "expected": "real console/backend assertions",
+      "actual": "passed",
+      "passed": true,
+      "evidence": {}
+    },
+    {
+      "test_id": "key_rotate",
+      "expected": "real console/backend assertions",
+      "actual": "passed",
+      "passed": true,
+      "evidence": {}
+    },
+    {
+      "test_id": "key_revoke",
+      "expected": "real console/backend assertions",
+      "actual": "passed",
+      "passed": true,
+      "evidence": {}
+    },
+    {
+      "test_id": "credit_adjustment",
+      "expected": "real console/backend assertions",
+      "actual": "passed",
+      "passed": true,
+      "evidence": {}
+    },
+    {
+      "test_id": "price_versioning",
+      "expected": "real console/backend assertions",
+      "actual": "passed",
+      "passed": true,
+      "evidence": {}
+    },
+    {
+      "test_id": "real_bill_display",
+      "expected": "real console/backend assertions",
+      "actual": "passed",
+      "passed": true,
+      "evidence": {}
+    },
+    {
+      "test_id": "tenant_disable",
+      "expected": "real console/backend assertions",
+      "actual": "passed",
+      "passed": true,
+      "evidence": {}
+    },
+    {
+      "test_id": "audit_display",
+      "expected": "real console/backend assertions",
+      "actual": "passed",
+      "passed": true,
+      "evidence": {}
+    },
+    {
+      "test_id": "logout_clears_identity_and_data",
+      "expected": "real console/backend assertions",
+      "actual": "passed",
+      "passed": true,
+      "evidence": {}
+    }
+  ]
+}

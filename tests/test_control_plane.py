@@ -208,6 +208,7 @@ def test_agent_two_metered_model_calls_with_parent_idempotency():
         assert len(children)==2 and children[0]['parent_request_id']==r.headers['X-Request-ID']
         assert c.post('/agent/run',headers=headers(key,'agent-once'),json=payload).status_code==409
         assert len(engine.calls)==2
+    assert not engine.aborts # Completed model calls are not cancellation acknowledgements.
 
 
 def test_restart_reconciles_unknown_and_settles_journal_exactly_once(tmp_path):

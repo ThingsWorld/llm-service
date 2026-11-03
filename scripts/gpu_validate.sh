@@ -32,6 +32,7 @@ if [[ "$stage" == smoke ]]; then
   .venv/bin/python -m experiments.cancellation --out "$out/cancellation"
 elif [[ "$stage" == bench ]]; then
   : "${BENCH_PYTHON:?provide the pinned 4.51.3 benchmark-client Python; see requirements-benchmark.lock}"
+  "$BENCH_PYTHON" -c 'import importlib.metadata as m; assert all(m.version(n)==v for n,v in {"httpx":"0.28.1","transformers":"4.51.3","tokenizers":"0.21.4","jinja2":"3.1.6"}.items()), "Benchmark client version drift"'
   tools=$(python3 scripts/fetch_public_tools.py)
   cp "$tools/tools-manifest.json" "$out/tools-manifest.json"
   cp "$tools/acceptance.json" "$out/acceptance.json"

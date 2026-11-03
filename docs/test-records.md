@@ -47,10 +47,24 @@
 
 `scripts/fetch_public_tools.py` 已实际下载全部9份公开客户端并逐文件核对清单 SHA-256；当前 acceptance 与任务书原始 hash 完全一致，见 [tool-preflight.json](../results/tool-preflight.json)。这一步不加载模型、不申请 GPU。
 
+补充核对：公开测量客户端独立安装到 `.venv-benchmark`，Transformers 4.51.3/tokenizers 0.21.4/httpx 0.28.1/jinja2 3.1.6 与实际24包闭包已冻结；pip check 及公开 CLI --help 通过，见 [benchmark-client.json](../results/benchmark-client.json)。没有运行模型推理。KV 入口已验证可直接从固定7B服务环境选择任务书的1.5B原理模型，错误/交叉 revision 仍拒绝；相关入口测试7/7通过。
+
+最新完整本地工程测试 **133 passed / 8.66秒**，见 [engineering-04.xml](../results/cpu/engineering-04.xml)。随后针对 Agent 的清理修正补充回归：正常完成子调用不再误发 abort、污染取消确认计数；失败/超时仍传播取消。
+
+### 真实浏览器与第二次 HTTP/崩溃自测
+
+`PLAYWRIGHT_MODULE=<本地安装目录> .venv-test/bin/python scripts/local_cpu.py --console --out results/cpu/local-02` 实际运行：公开诊断18/18、管理HTTP10项通过（2项单独跳过）、两个SIGKILL窗口通过，以及 [管理页13项真实Chromium交互全部通过](../results/cpu/local-02/console.json)。覆盖无凭据壳、管理员连接、用户创建、共享配额、一次性key/掩码列表、轮换、撤销、余额调整、调价版本、真实账单、停用、审计、退出清理。
+
+浏览器为 Playwright 1.56.1 / Chromium 141.0.7390.37。此本机Ubuntu26环境使用官方Ubuntu24构建的兼容浏览器，额外3个库仅下载解包到被忽略的缓存，通过该进程 LD_LIBRARY_PATH 加载；没有修改系统包、GPU环境或网关依赖。该记录只证明本次浏览器/环境的功能路径，不代表全部浏览器兼容性或页面性能。
+
+[第二次真实恢复报告](../results/cpu/local-02/recovery.json)：未知usage **2.114秒**恢复，费用仍null；journalled usage **2.300秒**恢复、500 micro-USD恰好一次。均核实监听PID、实际SIGKILL、预占释放与重跑幂等。记录的 HEAD 为 `fbecae6a7c7bd05f241b01be8f382a92ded388b8`、source_working_tree_dirty=true，属于开发复测，不冒充该精确提交未经修改的实测。
+
+第二个已push提交 `fbecae6a7c7bd05f241b01be8f382a92ded388b8` 的 GitHub [软诊断41578962624](https://github.com/ThingsWorld/llm-service/actions/runs/41578962624) 与 [工程测试41578962601](https://github.com/ThingsWorld/llm-service/actions/runs/41578962601) 均为success；后续修改继续对应新运行。
+
 ## 待执行与待确认
 
 - 后续提交仍需新的 GitHub Actions 结果；旧运行不能当成新 SHA 通过。
-- 管理页面真实浏览器全部交互：待执行；当前 HTML 与 HTTP API 测试不等于完整页面验收。
+- 管理页面核心交互已在本地真实浏览器验证；全部浏览器/代理链路兼容性与真实GPU页面用量仍待验证。
 - Daytona 的 SSH Host、可用时间、RTX 4090 身份：待用户资源就绪后核实，不申请新 GPU。
 - SGLang native 干净安装、切换、live 计费/轮换/Agent、GPU 取消、768 请求性能、三项机制实验：未执行。
 - 平台 15 项正式 credentials 黑盒与对应 live 门槛、正式 GPU 评测：未执行；平台 staging/配额遗留矛盾待平台当前状态确认。
