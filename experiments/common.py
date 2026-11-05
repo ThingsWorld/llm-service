@@ -30,6 +30,7 @@ class Evidence:
             raise RuntimeError('GPU required; CPU/mock results cannot stand in for GPU')
         self.rows = []
         self.manifest = {'case': case, 'time': datetime.now(timezone.utc).isoformat(),
+            'execution_environment': os.environ.get('LLM_TEST_ENVIRONMENT','unspecified'),
             'commit': os.environ.get('SOURCE_COMMIT'), 'model': os.environ['MODEL_ID'],
             'revision': os.environ['MODEL_REVISION'], 'parameters': parameters,
             'gpu': subprocess.check_output(['nvidia-smi','--query-gpu=name,uuid,driver_version,memory.total','--format=csv,noheader'],text=True).strip(),

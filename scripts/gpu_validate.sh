@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
-# Explicitly run on the user's existing Daytona; never allocates a machine.
+# Optional self-test on an existing compatible GPU server; never allocates one.
 set -euo pipefail
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.."
 stage="${1:-smoke}"
 case "$stage" in smoke|bench|experiments) ;; *) echo 'Usage: bash scripts/gpu_validate.sh smoke|bench|experiments'; exit 2;; esac
+export LLM_TEST_ENVIRONMENT="${LLM_TEST_ENVIRONMENT:-unspecified}"
+case "$LLM_TEST_ENVIRONMENT" in daytona|self-managed|unspecified) ;; *) echo 'LLM_TEST_ENVIRONMENT must be daytona, self-managed, or unspecified'; exit 2;; esac
 : "${API_KEY:?set the ordinary inference key privately}"
 : "${ADMIN_API_KEY:?set the independent admin key privately}"
 : "${KEY_HASH_SECRET:?set a stable private pepper of at least 32 bytes}"
@@ -18,10 +20,23 @@ gpu_identity=$(nvidia-smi --query-gpu=name,uuid,driver_version,memory.total --fo
 [[ "$gpu_identity" == *'RTX 4090'* && "$gpu_identity" != *$'\n'* ]] || { echo 'Expected one RTX 4090; stop and confirm hardware'; exit 1; }
 git diff --exit-code --quiet
 git diff --cached --exit-code --quiet
-out="results/daytona/$(date -u +%Y%m%dT%H%M%S)-$stage"
+out="results/gpu/$LLM_TEST_ENVIRONMENT/$(date -u +%Y%m%dT%H%M%S)-$stage"
 mkdir -p "$out"
 git rev-parse HEAD > "$out/commit.txt"
 printf '%s\n' "$gpu_identity" > "$out/gpu.txt"
+python3 - "$out" "$stage" "$LLM_TEST_ENVIRONMENT" <<'PY'
+from datetime import datetime, timezone
+import json, os
+from pathlib import Path
+import sys
+root=Path(sys.argv[1])
+context={'schema':'llm-gpu-self-test-context/1','execution_environment':sys.argv[3],
+    'stage':sys.argv[2],'started_at':datetime.now(timezone.utc).isoformat(),
+    'commit_sha':(root/'commit.txt').read_text().strip(),
+    'gpu':(root/'gpu.txt').read_text().strip(),'model_id':os.environ['MODEL_ID'],
+    'model_revision':os.environ['MODEL_REVISION'],'official_score':False}
+(root/'context.json').write_text(json.dumps(context,indent=2,allow_nan=False)+'\n')
+PY
 if [[ "$stage" == smoke ]]; then
   BENCH_PROFILE=baseline bash setup.sh
   cp "$DATA_DIR/gateway.pid" "$out/baseline-first.pid"

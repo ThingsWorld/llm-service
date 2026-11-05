@@ -93,3 +93,14 @@
 - `.venv-test/bin/python -m pytest -q --junitxml=results/cpu/setup-contract-20261105/engineering.xml`：**135 passed / 8.54秒**；[原始JUnit](../results/cpu/setup-contract-20261105/engineering.xml)。
 - `bash -n setup.sh experiments/run.sh scripts/gpu_validate.sh`、`git diff --check`：通过。
 - 本次测试基于 `b9c9fb55fe73ad5db945d430d3cda5826f5e2859` 的开发工作区（仅文档和测试修改），不改写先前提交的报告与SHA。真实GPU安装、模型就绪、预算和性能结果仍待实测。
+
+## 2026-11-05：支持自建RTX 4090服务器的自测来源标记
+
+用户询问能否在公司自建4090上测试。核对核心setup没有Daytona API依赖，仍按Linux/Python3.12/固定模型与锁定栈启动；公司的系统、驱动、空闲显存与可达性尚待实际检查。本次没有连接公司机器或产生GPU实测结果。
+
+将可选GPU自测的输出目录从固定 `results/daytona/` 改为 `results/gpu/<环境>/<时间>-<阶段>/`。`LLM_TEST_ENVIRONMENT=self-managed` 标记自建机，`daytona` 标记Daytona练习机，未指定时为 `unspecified`。新增context.json记录环境标签、GPU、完整SHA、模型和 official_score=false；三项机制manifest也记录标签。正式评测的根setup入口不变，自建机结果不能代替平台Daytona正式重建与评分。
+
+- 新增自测来源回归：self-managed/daytona/未指定三种标签、无效标签拒绝，以及输出不含三种服务凭据；**4 passed / 0.22秒**。
+- 全量CPU测试：**139 passed / 8.31秒**，见 [原始JUnit](../results/cpu/self-managed-context-20261105/engineering.xml)。
+- `bash -n setup.sh experiments/run.sh scripts/gpu_validate.sh`、`git diff --check`：通过。
+- 新测试使用临时目录与合成shell替身验证元数据行为，不启动GPU、模型或真实公司服务；测试结果不表示公司GPU环境已兼容或性能已达标。

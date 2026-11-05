@@ -49,6 +49,20 @@ setup 同配置重跑幂等，切换 profile 只停止自己拥有的进程组�
 
 `scripts/gpu_validate.sh` 是可选的练习自测编排，内部也通过 setup 启动服务；它不能取代上述正式入口。正式评测由平台在 setup 成功后运行自己的接口、性能、Agent和机制检查。
 
+自建的公司RTX 4090服务器也可用于开发、自测和优化。当前安装路径面向Linux x86_64/Python 3.12，系统须有可用的NVIDIA驱动，并能访问或已缓存锁定依赖及指定模型。缺少编译头文件/工具时，自动补齐路径按Ubuntu源编写；其他Linux发行版需先核实已有工具链兼容性。`setup.sh` 本身不调用Daytona API。
+
+公司服务器不会由评测平台自动注入变量：在该机私密配置 `.env` 中的三个服务凭据、DATA_DIR及实际HF_HOME，导出环境后运行同一个 `bash setup.sh`。可选自测明确标记来源：
+
+```bash
+set -a
+source .env
+set +a
+bash setup.sh
+LLM_TEST_ENVIRONMENT=self-managed bash scripts/gpu_validate.sh smoke
+```
+
+其他自测阶段同样设置 `LLM_TEST_ENVIRONMENT=self-managed`。Daytona练习机填 `daytona`；未指定则记录为 `unspecified`，不推断机器归属。自测结果保存到 `results/gpu/<环境>/<时间>-<阶段>/`，context.json记录实际GPU、代码SHA、模型及来源；机制manifest也保留该标签。公司机器结果属于真实GPU自测，可用于发现错误和比较优化，官方分数及Daytona固定快照的重建/性能验收仍由平台正式运行决定。
+
 ## 接口、鉴权与实验账本
 
 - `/healthz` 公开；`/console` 只公开没有数据的登录壳。其余接口要求 Bearer。管理员凭据只用于 `/admin/*`；普通 key 可用 `/info`、`/metrics`、`/v1/models`、`/v1/chat/completions`、`/v1/usage`、`/agent/run`。
