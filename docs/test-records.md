@@ -164,3 +164,16 @@
 结论仍为未修复。已整理[平台核验复现说明](known-model-accuracy-issue.md)，未自动联系他人、提交正式评测或消耗正式次数。进一步需要确认固定模型/负载上的上游生成行为；不自行更换模型、改提示、修补答案或挑选有利seed冒充修复。
 
 补充同版SGLang的Transformers模型实现控制，权重、BF16、中性解码及原始JSON请求一致。首次手动探针漏配venv的ninja路径，JIT阶段失败、0个模型请求；保留原始日志。复用native_setup环境配置后完成两个非流式请求，仍分别输出9173和82、0/2正确。两份探针源码与control_code_sha256核对一致，结果独立保存，不计为完整矩阵或正式分数。探针自动停止自己的引擎后再次确认GPU空闲24041MiB/0%、8000/30000均无监听。补充控制没有带来有效修复。
+
+## 2026-11-05：继续追查两处错误，独立推理与生成决策
+
+用户要求完整修复后才正式评测。本轮未找到同时正确的合法候选，没有启动正式评测，也没有可宣称修复完成的SHA。生产默认配置和模型输出处理未改变，额外诊断源码与完整负结果均保存。
+
+- [输入/采样/独立推理复核](../results/gpu/accuracy-causal-review-20261105/README.md)：公司checkout仍为`f8582900e8210eb44b433f93d6743d7422424347`；8个额外探针代码各自SHA-256与报告一致，不冒称已包含于旧checkout。5个控制完整，3个不完整；31次实际完成生成、2次正确，没有全部正确的完整控制。
+- 旧控制客户端和运行时tokenizer的完整IDs完全一致，512/1024。SGLang Chat默认、显式中性采样、直接canonical input_ids、logprobs四组各2例均错。logprobs错误选择相对正确下一字符的差分别约1.625和1.0；错误在生成阶段已经存在。
+- 独立Transformers BF16 eager/SDPA、强制SDPA MATH、attention中间值FP32、禁用BF16低精度matmul归约、FP32残差完成16次，2次短例正确、长例全部失败；HF未加JSON grammar，仅作诊断。不能宣布具体根因或推断所有引擎问题已排除，不能把短例偶然正确当作发布修复。
+- 3个不完整控制保留真实错误：flush_cache临时400后v2有界等待；device_map缺accelerate后改普通加载，不改锁定依赖；FP32残差探针RoPE导致dtype提升后v6保持BF16。前者已完成7次生成，后两者均0次；不把探针异常当作模型答错。
+- `.venv-benchmark/bin/python results/gpu/accuracy-causal-review-20261105/review.py`：实际完整性通过，8个控制/31次生成/2正确/0全部正确控制；重验固定输入、IDs、输出token、答案、原始响应和探针hash。完整性通过不等于正确率通过。
+- 全量CPU测试：**159 passed / 8.95秒**，见[原始JUnit](../results/cpu/accuracy-causal-20261105/engineering.xml)。本轮生产源码未改，不重复宣称GPU模型修复。
+- [清理原始日志](../results/gpu/accuracy-causal-review-20261105/raw/cleanup.log)：8000/30000无监听，RTX4090空闲24041 MiB、利用率0%，仅退出自有测试进程；没有重启、关机或修改驱动。
+- OpenLabs只读资料查询仍返回公开参考`27284ce8455cf845eade7e2e2f4b4c18c7e67454`与验收配置`d5cd2fdc90056e710cf741ac1eec4c5b042ea3818d505e4a3975697f1df9241f`。这是材料检索，没有产生专项修复回复或正式成绩。已更新脱敏复现说明，尚未发给课程人员。

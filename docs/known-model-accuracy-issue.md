@@ -17,6 +17,12 @@
 
 同版SGLang的Transformers模型实现控制也用相同BF16权重和请求复现两处错误，0/2正确，见[原始报告](../results/environment/self-managed-20261105/transformers-control-with-runtime/report.json)。这仍不能证明所有可能的上游问题都已排除；当前只能确认已测试方案没有有效修复。
 
+后续比较旧版控制端与运行时完整token IDs，512/1024均完全一致；直接向native /generate提交这些IDs、JSON schema与显式中性采样，错误仍在。生成logprobs中，短例错误`7`相对正确下一字`1`的对数概率高约1.625，长例错误`8`相对正确`7`高1.0，错误已经发生在贪心生成决策。[完整证据与脚本](../results/gpu/accuracy-causal-review-20261105/README.md)。
+
+完全独立于SGLang的Transformers BF16 SDPA、SDPA MATH、attention中间值FP32也复现两错；eager短例正确、长例却增加字段错误。禁用BF16 matmul低精度归约、FP32残差也没有同时正确的配置。HF探针未加JSON grammar，只作诊断；不能替代服务验收或据此宣布具体上游根因。不完整探针与失败输出均保留。
+
+2026-11-05通过OpenLabs只读核对，返回公开参考版本仍为`27284ce8455cf845eade7e2e2f4b4c18c7e67454`，acceptance.json版本`d5cd2fdc90056e710cf741ac1eec4c5b042ea3818d505e4a3975697f1df9241f`。检索没有产生专项修复结论、平台复核回复或正式成绩。本说明尚未发给Mentor或平台人员。
+
 复现源码完整SHA：`f8582900e8210eb44b433f93d6743d7422424347`。已有兼容服务、私密环境及固定benchmark客户端后，默认配置执行：
 
 ```bash

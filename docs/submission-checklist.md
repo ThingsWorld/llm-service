@@ -2,6 +2,8 @@
 
 此清单记录交付状态，不代替平台正式评测。Daytona练习GPU数据已返回并复核，存在正确率失败；正式结论尚未取得。
 
+**发布阻塞：两处固定样本正确率错误尚未修复。** [输入、采样与独立推理补测](../results/gpu/accuracy-causal-review-20261105/README.md)没有产生同时正确的候选；任何本轮调查归档SHA均不能作为“修复已完成”证明。先完成合法修复与完整回归，再提交正式评测。
+
 | 核对项 | 路径/依据 | 当前状态 |
 |---|---|---|
 | 根 setup 固定合同 | setup.sh；native_setup.py；--contract-test / --stop | 练习GPU服务与profile切换已运行；完整setup stdout缺失，正式洁净快照重建待验证 |

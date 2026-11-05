@@ -1,0 +1,230 @@
+{
+  "schema": "accuracy-causal-review/1",
+  "official_score": false,
+  "integrity_pass": true,
+  "all_correct_controls": 0,
+  "controls": [
+    {
+      "name": "independent-hf-control-v1",
+      "source_commit": "f8582900e8210eb44b433f93d6743d7422424347",
+      "complete": false,
+      "samples": 0,
+      "correct": 0,
+      "error_type": "ValueError",
+      "groups": []
+    },
+    {
+      "name": "independent-hf-control-v2",
+      "source_commit": "f8582900e8210eb44b433f93d6743d7422424347",
+      "complete": true,
+      "samples": 4,
+      "correct": 1,
+      "error_type": null,
+      "groups": [
+        {
+          "variant": "eager",
+          "samples": 2,
+          "correct": 1
+        },
+        {
+          "variant": "sdpa",
+          "samples": 2,
+          "correct": 0
+        }
+      ]
+    },
+    {
+      "name": "independent-hf-control-v3",
+      "source_commit": "f8582900e8210eb44b433f93d6743d7422424347",
+      "complete": true,
+      "samples": 4,
+      "correct": 0,
+      "error_type": null,
+      "groups": [
+        {
+          "variant": "eager-upcast",
+          "samples": 2,
+          "correct": 0
+        },
+        {
+          "variant": "sdpa-math",
+          "samples": 2,
+          "correct": 0
+        }
+      ]
+    },
+    {
+      "name": "independent-hf-control-v4",
+      "source_commit": "f8582900e8210eb44b433f93d6743d7422424347",
+      "complete": true,
+      "samples": 4,
+      "correct": 0,
+      "error_type": null,
+      "groups": [
+        {
+          "variant": "eager",
+          "samples": 2,
+          "correct": 0
+        },
+        {
+          "variant": "sdpa",
+          "samples": 2,
+          "correct": 0
+        }
+      ]
+    },
+    {
+      "name": "independent-hf-control-v5",
+      "source_commit": "f8582900e8210eb44b433f93d6743d7422424347",
+      "complete": false,
+      "samples": 0,
+      "correct": 0,
+      "error_type": "RuntimeError",
+      "groups": []
+    },
+    {
+      "name": "independent-hf-control-v6",
+      "source_commit": "f8582900e8210eb44b433f93d6743d7422424347",
+      "complete": true,
+      "samples": 4,
+      "correct": 1,
+      "error_type": null,
+      "groups": [
+        {
+          "variant": "eager",
+          "samples": 2,
+          "correct": 1
+        },
+        {
+          "variant": "sdpa",
+          "samples": 2,
+          "correct": 0
+        }
+      ]
+    },
+    {
+      "name": "input-sampling-control-v1",
+      "source_commit": "f8582900e8210eb44b433f93d6743d7422424347",
+      "complete": false,
+      "samples": 7,
+      "correct": 0,
+      "error_type": "HTTPStatusError",
+      "groups": [
+        {
+          "variant": "chat-default",
+          "samples": 2,
+          "correct": 0
+        },
+        {
+          "variant": "chat-explicit-neutral",
+          "samples": 2,
+          "correct": 0
+        },
+        {
+          "variant": "chat-logprobs",
+          "samples": 1,
+          "correct": 0
+        },
+        {
+          "variant": "native-canonical",
+          "samples": 2,
+          "correct": 0
+        }
+      ]
+    },
+    {
+      "name": "input-sampling-control-v2",
+      "source_commit": "f8582900e8210eb44b433f93d6743d7422424347",
+      "complete": true,
+      "samples": 8,
+      "correct": 0,
+      "error_type": null,
+      "groups": [
+        {
+          "variant": "chat-default",
+          "samples": 2,
+          "correct": 0
+        },
+        {
+          "variant": "chat-explicit-neutral",
+          "samples": 2,
+          "correct": 0
+        },
+        {
+          "variant": "chat-logprobs",
+          "samples": 2,
+          "correct": 0
+        },
+        {
+          "variant": "native-canonical",
+          "samples": 2,
+          "correct": 0
+        }
+      ]
+    }
+  ],
+  "error_decisions": [
+    {
+      "id": "short-3",
+      "output_token_index": 5,
+      "selected": "7",
+      "expected_next_character": "1",
+      "selected_logprob": -0.1797446459531784,
+      "expected_logprob": -1.8047446012496948,
+      "logprob_gap": 1.6249999552965164
+    },
+    {
+      "id": "long-12",
+      "output_token_index": 243,
+      "selected": "8",
+      "expected_next_character": "7",
+      "selected_logprob": -0.3132617473602295,
+      "expected_logprob": -1.3132617473602295,
+      "logprob_gap": 1.0
+    }
+  ],
+  "limitations": [
+    "Two archived inputs only, not a full matrix or general accuracy estimate.",
+    "Independent Hugging Face controls omit JSON grammar and are diagnostic only.",
+    "Precision/residual variants change intermediate arithmetic; no production default was changed.",
+    "Matching errors across paths do not prove that all possible engine bugs are excluded.",
+    "No GPU attestation, threshold confirmation, fixed release, or formal evaluation."
+  ],
+  "artifact_sha256": {
+    "cleanup.log": "3d331fb0328344fedd4cb711b8b187bf1019bf1dc170f3204541d9e6ddb8244d",
+    "independent-hf-control-v1/probe.py": "697bf727781c41f3f6080b1ded99c759d941abe26664b8031e4ebaed625384e4",
+    "independent-hf-control-v1/report.json": "0cdf4896cb52edb62a1f85d47f5eca0f8bca604619520e412219ecd7b4ff9c6e",
+    "independent-hf-control-v2/probe.py": "baaecca170df642fc8a9f2349baf59c5348cf245da34421b992e850695c23802",
+    "independent-hf-control-v2/report.json": "f725f5f2ccf444e3eda53a877b87d4b25d6d42e1d78b57712f46232ad95709e6",
+    "independent-hf-control-v3/probe.py": "61c255a9df5ee2da8ca5aa80caba2d1ae8f6ca1a2787ff58485f6cd15c0f4e96",
+    "independent-hf-control-v3/report.json": "db08f5b29d26945b0eb25b7b889a1ab238890d547a2abb101eb34216fdf67daf",
+    "independent-hf-control-v4/probe.py": "093b129acb4469e3bdc3f1b92b49d7cfd314cf3d848bde6b21305c3592874f49",
+    "independent-hf-control-v4/report.json": "534f140078cf72d34f51033a3e6d143a4358d17c768edfedcb1c564ab05318bf",
+    "independent-hf-control-v5/probe.py": "4751bdc8bdce82bab9708cb2885a633c667001fc0fdb768b799faee13946d669",
+    "independent-hf-control-v5/report.json": "c3753e0d0d597a14e492bbddbe253207054b336c1cb40845021fb9e08be455f3",
+    "independent-hf-control-v6/probe.py": "a3f6455cd41d4eb1d46f60927eac0bef33cb8c59406011d3535a22fca8c0b628",
+    "independent-hf-control-v6/report.json": "ebaf07425fb181ee367f279197e53a24ab4f960feac7fc7ba8186b2624e83524",
+    "input-cases.json": "bc8d855f8347ee60bc531693d109bceaa859816c66b23c7f654c9666c5533141",
+    "input-sampling-control-v1/chat-default-long-12.json": "913cfd1e8dd059a348786c275960c86f057f36440930c736f7ddd8925440679b",
+    "input-sampling-control-v1/chat-default-short-3.json": "2b1868ebe1b0d3eb386e2274c3b01714d68dac75ed725e85840a3d3700734e86",
+    "input-sampling-control-v1/chat-explicit-neutral-long-12.json": "2b106fa6610514cd741e7866eba427bc765ec08dbd92d6b6df4dd426a85ea080",
+    "input-sampling-control-v1/chat-explicit-neutral-short-3.json": "ec4055eb4162402e30cd6f413b9ec013667849f00afd622014c5af2c1589211b",
+    "input-sampling-control-v1/chat-logprobs-short-3.json": "956ef8367d9e31bf910accdaa26086dc87818bf6b5233f362ad3a4ec74bbe19e",
+    "input-sampling-control-v1/engine.log": "38c6c7bb8ba16403b5622ee287dc5dfe9209e91f626cd8fc8d413762df44aa42",
+    "input-sampling-control-v1/native-canonical-long-12.json": "e952c4a4fc50b41122ed11adf7b02500c53b61aca926476d99f7e82257319398",
+    "input-sampling-control-v1/native-canonical-short-3.json": "c4d269f458f29288a0d3c206b8634dab278332ab96ab252220624e6fd05fa09a",
+    "input-sampling-control-v1/probe.py": "19100c031beaaf5189298606c954960588ec0ef2d8bbdbf9c31d7f3c5c94ad59",
+    "input-sampling-control-v1/report.json": "e66fbe8e299ca8127bd3fe9ee04727ae377443652c95a41bab1d0c1758e4f7f2",
+    "input-sampling-control-v2/chat-default-long-12.json": "77094d65741c7af74b3fada915611f6e6a3f075d5dd4254c67bbaa930f8f4039",
+    "input-sampling-control-v2/chat-default-short-3.json": "eb19ef941879292c4a4c09158ceb01dab598ff0f8eee2657d9ceb4da4804a6a9",
+    "input-sampling-control-v2/chat-explicit-neutral-long-12.json": "4f58a4b4671b3f3d66035f4a350e94faf5e33fa2e2d565f9ba122a5aa21facb6",
+    "input-sampling-control-v2/chat-explicit-neutral-short-3.json": "f4e39cb38c28ca3767b1b94a19eb28262d4b40660ba5a431935692556f09d47b",
+    "input-sampling-control-v2/chat-logprobs-long-12.json": "0c870be986c56933c27e50169b7bea53d88647f922cfeec0b09094b12b618502",
+    "input-sampling-control-v2/chat-logprobs-short-3.json": "3d283e12d86348126b9ab0ebd5189f57f290759c4a8a98f36586050bdec0564d",
+    "input-sampling-control-v2/engine.log": "9af1eabdc545d678559341297e9f695b7e6316786fe56a973fb3d98757070ab4",
+    "input-sampling-control-v2/native-canonical-long-12.json": "e93fe3c10bf04ef5c73025f5cf2a40aa4ecfb0e2c0569e6d35d9d566fb3d6649",
+    "input-sampling-control-v2/native-canonical-short-3.json": "4962aeb58940c8914f1a33e7d56b046e9ea67924b0d5945bb1330f686b071314",
+    "input-sampling-control-v2/probe.py": "cabcf345e66dc5412b60e29c52669cad157e2215b6c1d78a701c65da35cdcb0c",
+    "input-sampling-control-v2/report.json": "bf2cd915913593fb0e40d937face3485aab744dba3cb809ca152862ae9f07557"
+  }
+}

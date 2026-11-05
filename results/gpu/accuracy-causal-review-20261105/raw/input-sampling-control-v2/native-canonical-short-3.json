@@ -1,0 +1,46 @@
+{
+  "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+  "output_ids": [
+    4913,
+    307,
+    788,
+    24,
+    16,
+    22,
+    18,
+    1335,
+    8926,
+    3252,
+    59604,
+    2198,
+    25643,
+    788,
+    18,
+    24,
+    92,
+    151645
+  ],
+  "meta_info": {
+    "id": "eb662c0b41b145c99caf3a00ff996e6c",
+    "finish_reason": {
+      "type": "stop",
+      "matched": 151645
+    },
+    "prompt_tokens": 512,
+    "weight_version": "default",
+    "total_retractions": 0,
+    "queue_time": 0.00023698100085312035,
+    "prefill_launch_delay": 0.0005312199991749367,
+    "prefill_launch_latency": 0.0077502179992734455,
+    "prefill_finished_ts": 1793880555.3156009,
+    "completion_tokens": 18,
+    "cached_tokens": 0,
+    "cached_tokens_details": null,
+    "e2e_latency": 0.3351461887359619,
+    "request_received_ts": 1793880555.246057,
+    "request_sent_to_scheduler_ts": 1793880555.2464905,
+    "decode_finished_ts": 1793880555.5812032,
+    "inference_time": 0.3136865509986819,
+    "response_sent_to_client_ts": 1793880555.5813015
+  }
+}

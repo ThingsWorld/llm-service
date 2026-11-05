@@ -2,6 +2,8 @@
 
 当前结论：已定位输出字段错误，尚未证明具体原因，也没有已验证的修复。历史GPU数据继续对应源码 `1cbc12e510e2b8c7daa49ae6b8944e9baff99db3`，不能改标到新增诊断工具的提交上。
 
+继续补测canonical token输入、显式中性采样、生成logprobs及完全独立的Hugging Face BF16 eager/SDPA/MATH、attention中间值FP32、matmul归约与残差精度。[独立推理复核](../results/gpu/accuracy-causal-review-20261105/README.md)保留8个控制目录、31次完成生成与3个不完整运行；没有同时修复两个样本的配置。不能把一次短样本正确当作完整发布修复，也不能据此断言全部上游问题已排除。
+
 公司真实调查已完成六组数值配置及非流式探针，均未消除归档错误；[完整结果及源码对应](../results/gpu/self-managed-review-20261105/README.md)和[可交平台核验的说明](known-model-accuracy-issue.md)已归档。下列开关是诊断能力，默认关闭，不代表已经修复。
 
 short/C4相同输入在baseline和optimized都把91173写成9173；optimized long/C16把最后一条units 74写成82。JSON结构有效、请求已完成，但内容不正确。延长超时或降低成功标准无法修复这些错误。两profile均出现短任务错误，也不能据此单独认定FlashInfer、Radix Cache或连续批处理有缺陷。

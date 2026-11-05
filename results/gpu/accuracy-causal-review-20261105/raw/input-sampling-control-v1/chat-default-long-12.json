@@ -1,0 +1,30 @@
+{
+  "id": "90e9542982ff4038aac95f827dcc1955",
+  "object": "chat.completion",
+  "created": 1793880083,
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+        "reasoning_content": null,
+        "tool_calls": null
+      },
+      "logprobs": null,
+      "finish_reason": "stop",
+      "matched_stop": 151645
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1024,
+    "total_tokens": 1276,
+    "completion_tokens": 252,
+    "prompt_tokens_details": null,
+    "reasoning_tokens": 0
+  },
+  "metadata": {
+    "weight_version": "default"
+  }
+}

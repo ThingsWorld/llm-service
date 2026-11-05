@@ -3,3 +3,4 @@ agentist-llm-project-taskbook.md whitespace=-blank-at-eol
 results/**/*.xml whitespace=-blank-at-eol
 # Retain original engine-prefixed blank lines in the collected evidence logs.
 results/environment/self-managed-20261105/collection/*.log whitespace=-blank-at-eol
+results/gpu/accuracy-causal-review-20261105/raw/**/*.log whitespace=-blank-at-eol

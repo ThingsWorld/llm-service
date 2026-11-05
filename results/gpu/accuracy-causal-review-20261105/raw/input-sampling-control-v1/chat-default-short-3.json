@@ -1,0 +1,30 @@
+{
+  "id": "3544b6b83fa143dbbbfc58a766ea9703",
+  "object": "chat.completion",
+  "created": 1793880079,
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+        "reasoning_content": null,
+        "tool_calls": null
+      },
+      "logprobs": null,
+      "finish_reason": "stop",
+      "matched_stop": 151645
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 512,
+    "total_tokens": 530,
+    "completion_tokens": 18,
+    "prompt_tokens_details": null,
+    "reasoning_tokens": 0
+  },
+  "metadata": {
+    "weight_version": "default"
+  }
+}
