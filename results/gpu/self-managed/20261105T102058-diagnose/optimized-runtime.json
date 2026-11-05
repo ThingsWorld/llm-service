@@ -1,0 +1,24 @@
+{
+  "engine_python": "/home/qz/llm-service-accuracy-2a2ce25/.venv/bin/python",
+  "gateway_python": "/home/qz/llm-service-accuracy-2a2ce25/.venv/bin/python",
+  "versions": {
+    "sglang": "0.5.9",
+    "torch": "2.9.1",
+    "transformers": "4.57.1",
+    "sgl-kernel": "0.3.21",
+    "flashinfer-python": "0.6.3"
+  },
+  "mode": "native",
+  "hf_home": "/home/qz/.cache/huggingface",
+  "engine_bin": "/home/qz/llm-service-accuracy-2a2ce25/.venv/bin",
+  "gateway_bin": "/home/qz/llm-service-accuracy-2a2ce25/.venv/bin",
+  "cuda_home": "/usr/local/cuda",
+  "jit_tools": {
+    "cc": "/usr/bin/cc",
+    "c++": "/usr/bin/c++",
+    "ninja": "/home/qz/llm-service-accuracy-2a2ce25/.venv/bin/ninja",
+    "nvcc": "/usr/local/cuda/bin/nvcc"
+  },
+  "native_lock_applied": true,
+  "native_lock_sha256": "c721dbde87dbafe0598694d3a5fcfdf081ed50792371b0ccd240b99352728c14"
+}

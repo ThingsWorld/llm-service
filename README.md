@@ -107,3 +107,5 @@ fetch 只下载和校验9份公开工具，不启动模型。`bench` 也会重�
 练习结果可打包取回本机后提交Git，无需在GPU服务器配置Git写权限。确认本机压缩包完整、所需结果已保存后，在远端项目目录执行 `bash setup.sh --stop`，再通过平台销毁练习服务器；退出SSH或只停止服务不会销毁实例。`.env`、私密账本和模型权重不属于结果包。
 
 正确率问题的对照工具与复测命令见[输出诊断](docs/accuracy-diagnosis.md)。`bash scripts/gpu_validate.sh diagnose`对比完整网关与引擎直连，保留受影响完整分组和新seed控制；需要同样的私密环境与独立`BENCH_PYTHON`。`FP32_LM_HEAD=1`仅显式启用SGLang最终词表投影FP32对照，默认0，公司对照未消除已知错误；`/info`声明实际配置，setup切换该项会重启自有服务。`BENCH_SEED`允许完整bench使用另一个seed，默认仍为20261018；不得重试挑选有利seed冒充通过。
+
+公司RTX4090已实际完成六组数值配置对照及非流式探针，仍未消除这两处错误，见[完整调查](results/gpu/self-managed-review-20261105/README.md)和[平台核验复现说明](docs/known-model-accuracy-issue.md)。修复了直连诊断的空Authorization头问题，并保留首次客户端失败。所有数值候选默认关闭，不把数据一致性或CPU通过当作正确率修复。公司测试服务已停止，GPU资源已释放。

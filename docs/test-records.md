@@ -150,3 +150,17 @@
 源码`b07a87006bf8277809c4704edbf035e90190f0f3`修正直连请求头后，三个配置均实际完成384请求诊断：FlashInfer/head off，short网关及直连均45/48，long网关45/48、直连48/48；FlashInfer/head on和Triton/head off，两归档分组两路径均45/48。各配置的两类新seed控制、两路径均48/48。FP32输出层和单独切换后端没有修复归档错误，默认配置不因此改变。Triton/head off的直接非流式请求同样把91173写成9173、74写成82，不能归因于本项目SSE拼接。
 
 准备进一步的Triton FP32 attention中间结果与确定性推理单因素对照，默认关闭、按真实参数声明，避免FlashInfer确定性模式悄悄关闭Radix Cache。新增选项映射/缓存兼容性与setup重启/幂等回归，全量**159通过/8.96秒**，见[JUnit](../results/cpu/accuracy-diagnostic-20261105/numerical-controls.xml)。此处CPU通过不代表数值候选已通过GPU。
+
+### 公司调查完整归档：正确率仍未修复
+
+后续在源码`f8582900e8210eb44b433f93d6743d7422424347`实际完成Triton FP32 attention归约、确定性推理、以及归约+确定性+FP32 head组合三组对照；每组384请求均完成，两历史分组两路径均45/48，各新seed控制均48/48。没有一个候选消除既有字段错误，默认配置继续关闭这些选项。直接非流式的两个JSON模式样本及另外两个省略JSON约束的诊断探针也都复现原错误；后者改变请求格式，不作为验收证据。
+
+包括初次工具失败在内共7份诊断报告、2688矩阵尝试：2496成功完成、2421内容正确、75内容错误、192为初次客户端LocalProtocolError。每分组16个不同输入重复3轮，这些重复样本不能当作独立泛化样本或完整768请求性能验收。所有失败原样保留，[复核说明/逐配置表](../results/gpu/self-managed-review-20261105/README.md)。
+
+本机校验压缩包SHA-256 `260a6bff48b6fb41416be95914da292a4c3514fc6f286e9b3fd7df26012c9c9f`，导入77个原始文件/5,499,843字节；远端按三个实际凭据扫描无命中，本机检查归档路径/文件类型和凭据模式。执行 `.venv-benchmark/bin/python results/gpu/self-managed-review-20261105/review.py`：七次输入重生成、严格类型/答案判定、独立token重计数、原始矩阵和汇总重算一致；`integrity_pass=true`，`all_correct_runs=0`。这不是平台GPU证明或正式分数。
+
+源码f858290的[软诊断42014711876](https://github.com/ThingsWorld/llm-service/actions/runs/42014711876)与[工程测试42014711982](https://github.com/ThingsWorld/llm-service/actions/runs/42014711982)均核实success。数值候选负结果没有被CPU成功覆盖。测试后已停止本项目自有服务，GPU空闲24041MiB/利用率0%，未关机或销毁公司服务器，缓存与私密DATA_DIR留在远端。
+
+结论仍为未修复。已整理[平台核验复现说明](known-model-accuracy-issue.md)，未自动联系他人、提交正式评测或消耗正式次数。进一步需要确认固定模型/负载上的上游生成行为；不自行更换模型、改提示、修补答案或挑选有利seed冒充修复。
+
+补充同版SGLang的Transformers模型实现控制，权重、BF16、中性解码及原始JSON请求一致。首次手动探针漏配venv的ninja路径，JIT阶段失败、0个模型请求；保留原始日志。复用native_setup环境配置后完成两个非流式请求，仍分别输出9173和82、0/2正确。两份探针源码与control_code_sha256核对一致，结果独立保存，不计为完整矩阵或正式分数。探针自动停止自己的引擎后再次确认GPU空闲24041MiB/0%、8000/30000均无监听。补充控制没有带来有效修复。

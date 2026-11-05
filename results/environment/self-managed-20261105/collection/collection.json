@@ -1,0 +1,12 @@
+{
+  "official_score": false,
+  "service_stopped": true,
+  "contains_credentials": false,
+  "contains_weights": false,
+  "scope": "project diagnostic results and selected public metadata/logs only",
+  "credential_scan": {
+    "private_values_checked": 3,
+    "matches": 0
+  },
+  "gpu_after_cleanup": "NVIDIA GeForce RTX 4090, 24041 MiB, 0 %"
+}

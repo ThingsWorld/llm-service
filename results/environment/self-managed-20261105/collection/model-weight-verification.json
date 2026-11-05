@@ -1,0 +1,34 @@
+{
+  "schema": "llm-model-cache-verification/1",
+  "model_id": "Qwen/Qwen2.5-7B-Instruct",
+  "hf_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "download_source": "ModelScope Qwen/Qwen2.5-7B-Instruct",
+  "download_revision": "077a6aff06a7d75066ecc3abe12ce0d673873603",
+  "weights": [
+    {
+      "name": "model-00001-of-00004.safetensors",
+      "sha256": "a1333e6293854747c481288ea83b348226af178dd565c49b6f9495ba1966aba7",
+      "bytes": 3945441440,
+      "matches_frozen_hf": true
+    },
+    {
+      "name": "model-00002-of-00004.safetensors",
+      "sha256": "f5d25a2772cb825164a2a2c0fb6d51a87e282abf21e4dd75bc5cfb3cd0ea6185",
+      "bytes": 3864726352,
+      "matches_frozen_hf": true
+    },
+    {
+      "name": "model-00003-of-00004.safetensors",
+      "sha256": "8efdec4c1bc12317ae1a38dc42b595ce777738a64deea3fcb8a0a91381bcdfd5",
+      "bytes": 3864726424,
+      "matches_frozen_hf": true
+    },
+    {
+      "name": "model-00004-of-00004.safetensors",
+      "sha256": "1a72d403cdf0c1ec3cb7f289f17b394a01e64394c2e9b3c0f94dbce3faf879bd",
+      "bytes": 3556377672,
+      "matches_frozen_hf": true
+    }
+  ],
+  "inference_performed": false
+}

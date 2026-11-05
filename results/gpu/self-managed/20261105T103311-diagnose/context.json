@@ -1,0 +1,11 @@
+{
+  "schema": "llm-gpu-self-test-context/1",
+  "execution_environment": "self-managed",
+  "stage": "diagnose",
+  "started_at": "2026-11-05T10:33:11.538029+00:00",
+  "commit_sha": "b07a87006bf8277809c4704edbf035e90190f0f3",
+  "gpu": "NVIDIA GeForce RTX 4090, GPU-65d4eb93-28dd-048b-e3ad-d7e9a1d4d99b, 580.178.04, 24564 MiB",
+  "model_id": "Qwen/Qwen2.5-7B-Instruct",
+  "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "official_score": false
+}

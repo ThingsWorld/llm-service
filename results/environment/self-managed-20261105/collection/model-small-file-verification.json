@@ -1,0 +1,55 @@
+{
+  "source": "Hugging Face fixed revision",
+  "files": [
+    {
+      "name": ".gitattributes",
+      "git_blob_id": "a6344aac8c09253b3b630fb776ae94478aa0275b",
+      "sha256": "11ad7efa24975ee4b0c3c3a38ed18737f0658a5f75a0a96787b576a78a023361"
+    },
+    {
+      "name": "LICENSE",
+      "git_blob_id": "6634c8cc3133b3848ec74b9f275acaaa1ea618ab",
+      "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e"
+    },
+    {
+      "name": "README.md",
+      "git_blob_id": "4e9536cebaeb5cac673952ad5d0eeae469900f81",
+      "sha256": "f366f33bbf6bcadbb7d87f0a21a7b65584a56b8d58b0743c77c88bee625b93a6"
+    },
+    {
+      "name": "config.json",
+      "git_blob_id": "0178295f88afc3c7f279ed284f961f8c1be00654",
+      "sha256": "7463bb0ea78315365e6c6b74de4e73bbcc8359dfb0c5a737584e077d42c0b03c"
+    },
+    {
+      "name": "generation_config.json",
+      "git_blob_id": "0eb3c536657dcd12626e09eca4b6198c0cbcde1e",
+      "sha256": "3a8f9087e486054c8a4a08dae2e5a3ba62e23da212b5b8c08bc42cb983c3459f"
+    },
+    {
+      "name": "merges.txt",
+      "git_blob_id": "20024bfe7c83998e9aeaf98a0cd6a2ce6306c2f0",
+      "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+    },
+    {
+      "name": "model.safetensors.index.json",
+      "git_blob_id": "14d037fdda5a1311dcc0275003a7a370d84114e6",
+      "sha256": "624bf7c47cd12468fdc16e38a47cf4f19e0415b859a223ba3c027eed2f0e1028"
+    },
+    {
+      "name": "tokenizer.json",
+      "git_blob_id": "443909a61d429dff23010e5bddd28ff530edda00",
+      "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+    },
+    {
+      "name": "tokenizer_config.json",
+      "git_blob_id": "07bfe0640cb5a0037f9322287fbfc682806cf672",
+      "sha256": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+    },
+    {
+      "name": "vocab.json",
+      "git_blob_id": "4783fe10ac3adce15ac8f358ef5462739852c569",
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  ]
+}

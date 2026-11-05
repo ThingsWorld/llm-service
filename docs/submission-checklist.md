@@ -12,9 +12,9 @@
 | 管理页面 | console/index.html；scripts/check_console.cjs | 本地Chromium13项核心交互通过；GPU用量与其他浏览器待验证 |
 | Agent 父子账本与白名单 | agent/；server/app.py；CPU 请求校验与调用轨迹测试 | GPU双用户真实Agent父子账本HTTP断言通过；正式检查待运行 |
 | 18 项软诊断 | .github/workflows/llm-soft.yml；GitHub artifact | 已在公开 main 成功运行，按完整 SHA 对应记录 |
-| 公开自测与压测 | scripts/check_control_plane.py；benchmarks/；fetch_public_tools.py | 768测量+96预热，输入重生成、独立重计数和汇总重算通过；保留53超时及3条内容错误 |
+| 公开自测与压测 | scripts/check_control_plane.py；benchmarks/；fetch_public_tools.py | Daytona768测量+96预热已重算；公司6配置对照仍未修复内容错误，首次客户端工具缺陷单独保留 |
 | 三项机制入口 | experiments/run.sh --case kv/prefix/attention --out ... | GPU KV12/Attention18/Prefix96行证据通过；Prefix专用SLO待确认 |
-| 真实结果与图表 | results/；docs/test-records.md / performance.md | CPU及本次GPU原始记录、全部6份trace、复核脚本/JSON/CSV和3张图已归档 |
+| 真实结果与图表 | results/；docs/test-records.md / performance.md | Daytona原始数据/6份trace/3图及公司7次原始诊断、CPU复核JSON/CSV、负结果和复现说明已归档 |
 | 一键复现/职责/排障 | README；implementation-plan.md；SOURCES.md | 已说明路径对应、环境、恢复、价格与密钥规则 |
 | 隐私与产物排除 | .gitignore；凭据模式扫描；私有运行目录 | 不提交环境凭据、SSH临时命令、账本、权重、venv或浏览器下载 |
 | 公开仓库与完整提交 | https://github.com/ThingsWorld/llm-service | GitHub 已确认公开；具体 SHA 与运行见测试记录和 Git HEAD |

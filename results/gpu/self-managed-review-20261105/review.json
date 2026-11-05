@@ -1,0 +1,2487 @@
+{
+  "schema": "self-managed-accuracy-review/1",
+  "official_score": false,
+  "integrity_pass": true,
+  "runs": [
+    {
+      "run": "20261105T102058-diagnose",
+      "source_commit": "2a2ce25d345b27ea701024552d6939c979ab3178",
+      "engine_arguments": {
+        "model_path": "Qwen/Qwen2.5-7B-Instruct",
+        "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+        "version": "0.5.9",
+        "dtype": "bfloat16",
+        "attention_backend": "flashinfer",
+        "sampling_defaults": "openai",
+        "enable_fp32_lm_head": false,
+        "enable_deterministic_inference": false,
+        "max_running_requests": 32,
+        "disable_radix_cache": false,
+        "disable_cuda_graph": false
+      },
+      "attempts": 384,
+      "successful": 192,
+      "correct": 186,
+      "errors": {
+        "LocalProtocolError": 192
+      },
+      "all_correct": false
+    },
+    {
+      "run": "20261105T103043-diagnose",
+      "source_commit": "b07a87006bf8277809c4704edbf035e90190f0f3",
+      "engine_arguments": {
+        "model_path": "Qwen/Qwen2.5-7B-Instruct",
+        "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+        "version": "0.5.9",
+        "dtype": "bfloat16",
+        "attention_backend": "flashinfer",
+        "sampling_defaults": "openai",
+        "enable_fp32_lm_head": false,
+        "enable_deterministic_inference": false,
+        "max_running_requests": 32,
+        "disable_radix_cache": false,
+        "disable_cuda_graph": false
+      },
+      "attempts": 384,
+      "successful": 384,
+      "correct": 375,
+      "errors": {},
+      "all_correct": false
+    },
+    {
+      "run": "20261105T103311-diagnose",
+      "source_commit": "b07a87006bf8277809c4704edbf035e90190f0f3",
+      "engine_arguments": {
+        "model_path": "Qwen/Qwen2.5-7B-Instruct",
+        "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+        "version": "0.5.9",
+        "dtype": "bfloat16",
+        "attention_backend": "flashinfer",
+        "sampling_defaults": "openai",
+        "enable_fp32_lm_head": true,
+        "enable_deterministic_inference": false,
+        "max_running_requests": 32,
+        "disable_radix_cache": false,
+        "disable_cuda_graph": false
+      },
+      "attempts": 384,
+      "successful": 384,
+      "correct": 372,
+      "errors": {},
+      "all_correct": false
+    },
+    {
+      "run": "20261105T104659-diagnose",
+      "source_commit": "b07a87006bf8277809c4704edbf035e90190f0f3",
+      "engine_arguments": {
+        "model_path": "Qwen/Qwen2.5-7B-Instruct",
+        "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+        "version": "0.5.9",
+        "dtype": "bfloat16",
+        "attention_backend": "triton",
+        "sampling_defaults": "openai",
+        "enable_fp32_lm_head": false,
+        "enable_deterministic_inference": false,
+        "max_running_requests": 32,
+        "disable_radix_cache": false,
+        "disable_cuda_graph": false
+      },
+      "attempts": 384,
+      "successful": 384,
+      "correct": 372,
+      "errors": {},
+      "all_correct": false
+    },
+    {
+      "run": "20261105T105821-diagnose",
+      "source_commit": "f8582900e8210eb44b433f93d6743d7422424347",
+      "engine_arguments": {
+        "model_path": "Qwen/Qwen2.5-7B-Instruct",
+        "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+        "version": "0.5.9",
+        "dtype": "bfloat16",
+        "attention_backend": "triton",
+        "sampling_defaults": "openai",
+        "enable_fp32_lm_head": false,
+        "enable_deterministic_inference": false,
+        "max_running_requests": 32,
+        "disable_radix_cache": false,
+        "disable_cuda_graph": false,
+        "triton_attention_reduce_in_fp32": true
+      },
+      "attempts": 384,
+      "successful": 384,
+      "correct": 372,
+      "errors": {},
+      "all_correct": false
+    },
+    {
+      "run": "20261105T110006-diagnose",
+      "source_commit": "f8582900e8210eb44b433f93d6743d7422424347",
+      "engine_arguments": {
+        "model_path": "Qwen/Qwen2.5-7B-Instruct",
+        "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+        "version": "0.5.9",
+        "dtype": "bfloat16",
+        "attention_backend": "triton",
+        "sampling_defaults": "openai",
+        "enable_fp32_lm_head": false,
+        "enable_deterministic_inference": true,
+        "max_running_requests": 32,
+        "disable_radix_cache": false,
+        "disable_cuda_graph": false,
+        "triton_attention_reduce_in_fp32": false
+      },
+      "attempts": 384,
+      "successful": 384,
+      "correct": 372,
+      "errors": {},
+      "all_correct": false
+    },
+    {
+      "run": "20261105T110330-diagnose",
+      "source_commit": "f8582900e8210eb44b433f93d6743d7422424347",
+      "engine_arguments": {
+        "model_path": "Qwen/Qwen2.5-7B-Instruct",
+        "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+        "version": "0.5.9",
+        "dtype": "bfloat16",
+        "attention_backend": "triton",
+        "sampling_defaults": "openai",
+        "enable_fp32_lm_head": true,
+        "enable_deterministic_inference": true,
+        "max_running_requests": 32,
+        "disable_radix_cache": false,
+        "disable_cuda_graph": false,
+        "triton_attention_reduce_in_fp32": true
+      },
+      "attempts": 384,
+      "successful": 384,
+      "correct": 372,
+      "errors": {},
+      "all_correct": false
+    }
+  ],
+  "failed_outputs": [
+    {
+      "run": "20261105T102058-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r0-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T102058-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r1-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T102058-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r2-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T102058-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r0-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T102058-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r1-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T102058-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r2-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T103043-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r0-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T103043-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r1-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T103043-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r2-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T103043-diagnose",
+      "id": "accuracy-archived-short-c4-engine-r0-short-3",
+      "route": "engine",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T103043-diagnose",
+      "id": "accuracy-archived-short-c4-engine-r1-short-3",
+      "route": "engine",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T103043-diagnose",
+      "id": "accuracy-archived-short-c4-engine-r2-short-3",
+      "route": "engine",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T103043-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r0-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T103043-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r1-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T103043-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r2-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T103311-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r0-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T103311-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r1-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T103311-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r2-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T103311-diagnose",
+      "id": "accuracy-archived-short-c4-engine-r0-short-3",
+      "route": "engine",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T103311-diagnose",
+      "id": "accuracy-archived-short-c4-engine-r1-short-3",
+      "route": "engine",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T103311-diagnose",
+      "id": "accuracy-archived-short-c4-engine-r2-short-3",
+      "route": "engine",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T103311-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r0-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T103311-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r1-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T103311-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r2-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T103311-diagnose",
+      "id": "accuracy-archived-long-c16-engine-r0-long-12",
+      "route": "engine",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T103311-diagnose",
+      "id": "accuracy-archived-long-c16-engine-r1-long-12",
+      "route": "engine",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T103311-diagnose",
+      "id": "accuracy-archived-long-c16-engine-r2-long-12",
+      "route": "engine",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T104659-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r0-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T104659-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r1-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T104659-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r2-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T104659-diagnose",
+      "id": "accuracy-archived-short-c4-engine-r0-short-3",
+      "route": "engine",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T104659-diagnose",
+      "id": "accuracy-archived-short-c4-engine-r1-short-3",
+      "route": "engine",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T104659-diagnose",
+      "id": "accuracy-archived-short-c4-engine-r2-short-3",
+      "route": "engine",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T104659-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r0-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T104659-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r1-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T104659-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r2-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T104659-diagnose",
+      "id": "accuracy-archived-long-c16-engine-r0-long-12",
+      "route": "engine",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T104659-diagnose",
+      "id": "accuracy-archived-long-c16-engine-r1-long-12",
+      "route": "engine",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T104659-diagnose",
+      "id": "accuracy-archived-long-c16-engine-r2-long-12",
+      "route": "engine",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T105821-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r0-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T105821-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r1-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T105821-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r2-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T105821-diagnose",
+      "id": "accuracy-archived-short-c4-engine-r0-short-3",
+      "route": "engine",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T105821-diagnose",
+      "id": "accuracy-archived-short-c4-engine-r1-short-3",
+      "route": "engine",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T105821-diagnose",
+      "id": "accuracy-archived-short-c4-engine-r2-short-3",
+      "route": "engine",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T105821-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r0-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T105821-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r1-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T105821-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r2-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T105821-diagnose",
+      "id": "accuracy-archived-long-c16-engine-r0-long-12",
+      "route": "engine",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T105821-diagnose",
+      "id": "accuracy-archived-long-c16-engine-r1-long-12",
+      "route": "engine",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T105821-diagnose",
+      "id": "accuracy-archived-long-c16-engine-r2-long-12",
+      "route": "engine",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T110006-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r0-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T110006-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r1-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T110006-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r2-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T110006-diagnose",
+      "id": "accuracy-archived-short-c4-engine-r0-short-3",
+      "route": "engine",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T110006-diagnose",
+      "id": "accuracy-archived-short-c4-engine-r1-short-3",
+      "route": "engine",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T110006-diagnose",
+      "id": "accuracy-archived-short-c4-engine-r2-short-3",
+      "route": "engine",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T110006-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r0-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T110006-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r1-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T110006-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r2-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T110006-diagnose",
+      "id": "accuracy-archived-long-c16-engine-r0-long-12",
+      "route": "engine",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T110006-diagnose",
+      "id": "accuracy-archived-long-c16-engine-r1-long-12",
+      "route": "engine",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T110006-diagnose",
+      "id": "accuracy-archived-long-c16-engine-r2-long-12",
+      "route": "engine",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T110330-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r0-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T110330-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r1-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T110330-diagnose",
+      "id": "accuracy-archived-short-c4-gateway-r2-short-3",
+      "route": "gateway",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T110330-diagnose",
+      "id": "accuracy-archived-short-c4-engine-r0-short-3",
+      "route": "engine",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T110330-diagnose",
+      "id": "accuracy-archived-short-c4-engine-r1-short-3",
+      "route": "engine",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T110330-diagnose",
+      "id": "accuracy-archived-short-c4-engine-r2-short-3",
+      "route": "engine",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "run": "20261105T110330-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r0-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T110330-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r1-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T110330-diagnose",
+      "id": "accuracy-archived-long-c16-gateway-r2-long-12",
+      "route": "gateway",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T110330-diagnose",
+      "id": "accuracy-archived-long-c16-engine-r0-long-12",
+      "route": "engine",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T110330-diagnose",
+      "id": "accuracy-archived-long-c16-engine-r1-long-12",
+      "route": "engine",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    },
+    {
+      "run": "20261105T110330-diagnose",
+      "id": "accuracy-archived-long-c16-engine-r2-long-12",
+      "route": "engine",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    }
+  ],
+  "supplementary_controls": [
+    {
+      "name": "transformers-control",
+      "complete": false,
+      "samples": 0,
+      "correct": 0,
+      "source_commit": "f8582900e8210eb44b433f93d6743d7422424347"
+    },
+    {
+      "name": "transformers-control-with-runtime",
+      "complete": true,
+      "samples": 2,
+      "correct": 0,
+      "source_commit": "f8582900e8210eb44b433f93d6743d7422424347"
+    }
+  ],
+  "supplementary_artifact_sha256": {
+    "transformers-control/report.json": "e6d8e63dfc58fe5951028cd41f47e5641bf1de743d4eef3db5e38541fdc9aec2",
+    "transformers-control/probe.py": "62e6361d7f8f398af2b4ec333b7dc9bd605e5cdd68fc9132443f20c8fcb2fedc",
+    "transformers-control/engine.log": "e7afd557d9c14c1365fb34330884c9204446e78b02d20c1e5e9f1eefb59b435f",
+    "transformers-control-with-runtime/report.json": "f73596b2c9e7a92171c731d4e00bc07bfcdc60aa94d1f720f4217e3ad501770a",
+    "transformers-control-with-runtime/probe.py": "60442a694c410f6160b39172a762808401f314bfd2d9a3f3fb459cc495f033d5",
+    "transformers-control-with-runtime/engine.log": "0e125953a8637bed8e8d5341f233cc5631e11595313b601dad2e77bd0b2648ee"
+  },
+  "limitation": "16 distinct inputs per cell repeated three times; separate configurations and routes can have different cache/batch histories. This is practice diagnosis, not independent GPU attestation or the full 768-request performance matrix.",
+  "artifact_sha256": {
+    "20261105T102058-diagnose/accuracy/inputs.json": "4f24a11aa0f53c53cd21c1096957094433e4c0358ffae73b465126aa141553b1",
+    "20261105T102058-diagnose/accuracy/raw.jsonl": "979796f0e6510461fb4ac12ed9604f3f0697dccae2c7dc9e34f1a8348fbe87a1",
+    "20261105T102058-diagnose/accuracy/report.json": "dc1fad108c88e1deda251f29928485e011df07a3d1e6e4fe31f2e749963a2de7",
+    "20261105T102058-diagnose/commit.txt": "bb1191386b7857f4fe6b7294bfd34474817fe3f1ad2ca1fc4fd13478f69f8a29",
+    "20261105T102058-diagnose/context.json": "7271fb7063f6890ebf5aba7664114d37bb6bacec5cc7331ffbd2e180406e7cb7",
+    "20261105T102058-diagnose/gpu.txt": "4a8b64d27c9d2cd7000d83d562a809627b8d3e79198278788917b90e62adb022",
+    "20261105T102058-diagnose/optimized-engine-command.json": "5f2520349ea6f07a54f60322bd3c9b1a0da8bd1ea47c544b9dc7fdb9223e06f9",
+    "20261105T102058-diagnose/optimized-native-dependencies.json": "2555ad959178e6360df2fc2ee79c2d05def8bfd7b504ae7f52457385e9d0c183",
+    "20261105T102058-diagnose/optimized-runtime.json": "fba0e9759c06e8351c3715662c9137499849329a7fad5d6232804b5d03ca7c52",
+    "20261105T103043-diagnose/accuracy/inputs.json": "4f24a11aa0f53c53cd21c1096957094433e4c0358ffae73b465126aa141553b1",
+    "20261105T103043-diagnose/accuracy/raw.jsonl": "c9088fcba498f48b047a669338c7faebacf25fe5308224a864557f8921b3fcf6",
+    "20261105T103043-diagnose/accuracy/report.json": "563aac3737a830bfcdb72cae5abbc14c23064b6fcedf3e287506d13ff0dc5266",
+    "20261105T103043-diagnose/commit.txt": "fa624bf9bf1e9b541de02aa94ce6813b5a7a886e85e5cee56c8de520c7c5e297",
+    "20261105T103043-diagnose/context.json": "b942d836d6e5646bb8ce3d489f89337efb38b931a79e296f9ada0968ef932910",
+    "20261105T103043-diagnose/gpu.txt": "4a8b64d27c9d2cd7000d83d562a809627b8d3e79198278788917b90e62adb022",
+    "20261105T103043-diagnose/optimized-engine-command.json": "5f2520349ea6f07a54f60322bd3c9b1a0da8bd1ea47c544b9dc7fdb9223e06f9",
+    "20261105T103043-diagnose/optimized-native-dependencies.json": "2555ad959178e6360df2fc2ee79c2d05def8bfd7b504ae7f52457385e9d0c183",
+    "20261105T103043-diagnose/optimized-runtime.json": "fba0e9759c06e8351c3715662c9137499849329a7fad5d6232804b5d03ca7c52",
+    "20261105T103311-diagnose/accuracy/inputs.json": "4f24a11aa0f53c53cd21c1096957094433e4c0358ffae73b465126aa141553b1",
+    "20261105T103311-diagnose/accuracy/raw.jsonl": "cc4a800859c10e95d41d7d90e2a7722f02edb40c78a804ec82478175208456f4",
+    "20261105T103311-diagnose/accuracy/report.json": "9f6860a74f0f5b045d4c8c6f8440772411fda92c4ceb45e4c382bccb9f087c15",
+    "20261105T103311-diagnose/commit.txt": "fa624bf9bf1e9b541de02aa94ce6813b5a7a886e85e5cee56c8de520c7c5e297",
+    "20261105T103311-diagnose/context.json": "a1b7fc08530d303bac2654c9c57579d5e208ab02680de50b84489bf79ca2b1b2",
+    "20261105T103311-diagnose/gpu.txt": "4a8b64d27c9d2cd7000d83d562a809627b8d3e79198278788917b90e62adb022",
+    "20261105T103311-diagnose/optimized-engine-command.json": "a9b8b18162a02bf04b5a82ac56517ff838f380c59c0a685e4f54f55e6b2b8ad6",
+    "20261105T103311-diagnose/optimized-native-dependencies.json": "2555ad959178e6360df2fc2ee79c2d05def8bfd7b504ae7f52457385e9d0c183",
+    "20261105T103311-diagnose/optimized-runtime.json": "fba0e9759c06e8351c3715662c9137499849329a7fad5d6232804b5d03ca7c52",
+    "20261105T104659-diagnose/accuracy/inputs.json": "4f24a11aa0f53c53cd21c1096957094433e4c0358ffae73b465126aa141553b1",
+    "20261105T104659-diagnose/accuracy/raw.jsonl": "f58a249d13705bb8c5e143ee4b90cd0923f6a4160ddb17c92701f4eab0fa4ab7",
+    "20261105T104659-diagnose/accuracy/report.json": "6a41afdd75b2594174e9640a4f51acc21a33208c8bd9857299eed42d8a00ef9c",
+    "20261105T104659-diagnose/commit.txt": "fa624bf9bf1e9b541de02aa94ce6813b5a7a886e85e5cee56c8de520c7c5e297",
+    "20261105T104659-diagnose/context.json": "cef42db49fc5aca41471fdb83fe5d330da771f861a5b5c824e9fa3cc752cc770",
+    "20261105T104659-diagnose/gpu.txt": "4a8b64d27c9d2cd7000d83d562a809627b8d3e79198278788917b90e62adb022",
+    "20261105T104659-diagnose/optimized-engine-command.json": "5d9a121b6bbf05924deea8a73cb1add7cbc64aa4f0ba275f69516c556599055f",
+    "20261105T104659-diagnose/optimized-native-dependencies.json": "2555ad959178e6360df2fc2ee79c2d05def8bfd7b504ae7f52457385e9d0c183",
+    "20261105T104659-diagnose/optimized-runtime.json": "fba0e9759c06e8351c3715662c9137499849329a7fad5d6232804b5d03ca7c52",
+    "20261105T105821-diagnose/accuracy/inputs.json": "4f24a11aa0f53c53cd21c1096957094433e4c0358ffae73b465126aa141553b1",
+    "20261105T105821-diagnose/accuracy/raw.jsonl": "0c0e2a9365b435ad9c075e78f9c1851e984ac252eb0fbdc8a7630aa397445052",
+    "20261105T105821-diagnose/accuracy/report.json": "aea94a26d3533bd147df361be91a92841e69774e7082a101fbc00de7347b3574",
+    "20261105T105821-diagnose/commit.txt": "a0d7c89a2ad7cf33ae49d8bf1eb8edbe50b65e5399974e10c740e3bf292b415f",
+    "20261105T105821-diagnose/context.json": "88091d9aea92341fa522c4cf29bae52ae06be66fdcd001dee9714975012fea0b",
+    "20261105T105821-diagnose/gpu.txt": "4a8b64d27c9d2cd7000d83d562a809627b8d3e79198278788917b90e62adb022",
+    "20261105T105821-diagnose/optimized-engine-command.json": "833d5e2d295f081dc856be71bd57c19d00ad79cc89c1afdb0593def124a8cff6",
+    "20261105T105821-diagnose/optimized-native-dependencies.json": "2555ad959178e6360df2fc2ee79c2d05def8bfd7b504ae7f52457385e9d0c183",
+    "20261105T105821-diagnose/optimized-runtime.json": "fba0e9759c06e8351c3715662c9137499849329a7fad5d6232804b5d03ca7c52",
+    "20261105T110006-diagnose/accuracy/inputs.json": "4f24a11aa0f53c53cd21c1096957094433e4c0358ffae73b465126aa141553b1",
+    "20261105T110006-diagnose/accuracy/raw.jsonl": "538d8b5be98f274edfaf967d06125bfc7eda9a7ec3d0dd0adff5997d0231c2a5",
+    "20261105T110006-diagnose/accuracy/report.json": "79c44d05752d11c559f0cd8881e071463b3ce5b03d022a2c0b8c74d7640280ae",
+    "20261105T110006-diagnose/commit.txt": "a0d7c89a2ad7cf33ae49d8bf1eb8edbe50b65e5399974e10c740e3bf292b415f",
+    "20261105T110006-diagnose/context.json": "b15d31c5c9d3b237a63ace24e668f1d10dd36dd58b7c9e19cd094815acdbf909",
+    "20261105T110006-diagnose/gpu.txt": "4a8b64d27c9d2cd7000d83d562a809627b8d3e79198278788917b90e62adb022",
+    "20261105T110006-diagnose/optimized-engine-command.json": "bd92f2895cdd36552d964fe40f9194383eedbf0247314d3f11578ced4791d614",
+    "20261105T110006-diagnose/optimized-native-dependencies.json": "2555ad959178e6360df2fc2ee79c2d05def8bfd7b504ae7f52457385e9d0c183",
+    "20261105T110006-diagnose/optimized-runtime.json": "fba0e9759c06e8351c3715662c9137499849329a7fad5d6232804b5d03ca7c52",
+    "20261105T110330-diagnose/accuracy/inputs.json": "4f24a11aa0f53c53cd21c1096957094433e4c0358ffae73b465126aa141553b1",
+    "20261105T110330-diagnose/accuracy/raw.jsonl": "d9a94a92eceead9f2b28177e25db6f1bd1acbd845ebe7472ae11d5a11eb77f9f",
+    "20261105T110330-diagnose/accuracy/report.json": "4c6cd286a32e92a39460e1e20e599b6a80c755e4893df35d8d016f0b72c6e68a",
+    "20261105T110330-diagnose/commit.txt": "a0d7c89a2ad7cf33ae49d8bf1eb8edbe50b65e5399974e10c740e3bf292b415f",
+    "20261105T110330-diagnose/context.json": "db53da5e4d77fc1f4bb01d80acb7b8f5f80c59eaa5d07b3de684775e5463d142",
+    "20261105T110330-diagnose/gpu.txt": "4a8b64d27c9d2cd7000d83d562a809627b8d3e79198278788917b90e62adb022",
+    "20261105T110330-diagnose/optimized-engine-command.json": "cb9dfce976c94dceee40d175ff10edf93391cd130201aba36f0b2b18ad728b26",
+    "20261105T110330-diagnose/optimized-native-dependencies.json": "2555ad959178e6360df2fc2ee79c2d05def8bfd7b504ae7f52457385e9d0c183",
+    "20261105T110330-diagnose/optimized-runtime.json": "fba0e9759c06e8351c3715662c9137499849329a7fad5d6232804b5d03ca7c52"
+  }
+}
