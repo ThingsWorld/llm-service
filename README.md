@@ -4,7 +4,7 @@
 
 需求映射、初始仓库审计和分阶段计划见 [实施计划](docs/implementation-plan.md)；每阶段的真实命令、结果与限制见 [测试记录](docs/test-records.md)。源码底座和固定提交见 [SOURCES.md](SOURCES.md)。参考仓库成绩没有导入本项目。
 
-CPU阶段已在GitHub通过18项软诊断与133项工程测试；本地真实浏览器13项核心流程、两个实际SIGKILL恢复窗口通过。精确源码提交及原始报告见测试记录。GPU部署、真实模型/Agent/计费、性能与KV/Prefix/Attention实测仍待GPU运行验证，不声明正式分数或性能达标。
+CPU阶段已在GitHub通过18项软诊断与工程测试，最新源码本地139项；真实浏览器13项核心流程、两个实际SIGKILL恢复窗口通过。Daytona RTX4090练习自测已取得完整768请求矩阵、双用户真实Agent/计费/轮换、20次取消以及KV/Prefix/Attention数据；本机重算与三机制证据检查通过。optimized四个冻结目标组中三个通过，long/C16因正确率47/48低于99%未通过；short/C4也有一条输出错误。详见[GPU复核](results/gpu/daytona/review-20261105/README.md)。未发起正式GPU评测，不声明整体达标。
 
 ## CPU 开发与软评测
 
@@ -89,7 +89,7 @@ mock 需先运行隔离 contract 服务和受控 fixture（`local_cpu.py` 自动
 
 `experiments/run.sh --case kv|prefix|attention --out results/<new-run>` 是固定入口；内部 `kv_cache.py`、`prefix_cache.py`、`flash_attention.py` 分别对应任务书 kv.py、prefix.py、attention.py。实验会显式停止自己的服务以独占 GPU；结束后重新运行 setup。KV 用固定 1.5B FP32，Prefix 用服务 7B BF16，Attention 只用合成张量。不得混写模型或精度，也不能把 PyTorch FlashAttention 与服务 FlashInfer 当成同一实现。
 
-性能方法、冻结阈值与未验证项见 [docs/performance.md](docs/performance.md)。当前本仓库没有真实 GPU 性能/机制实验结果，不声明达标。每次输出用新目录，保留失败行、原始数据和完整 SHA。正式 GPU 评测需用户主动提交已 push 的完整 40 位 SHA；push 只触发 CPU 工作流。
+性能方法、冻结阈值与实际结果见 [docs/performance.md](docs/performance.md)。每次输出用新目录，保留失败行、原始数据和完整源码SHA；当前GPU数据对应 `1cbc12e510e2b8c7daa49ae6b8944e9baff99db3`，后续归档提交不会改写这个来源。正式 GPU 评测需用户主动提交已 push 的完整 40 位 SHA；push 只触发 CPU 工作流。
 
 在已申请的练习GPU上设置好私密环境变量后，可选运行 `bash scripts/gpu_validate.sh smoke`（setup部署、幂等、live、取消）、`bench`（完整服务矩阵）、`experiments`（三个机制实验）。这些自测命令实际消耗已有 GPU 的运行时间，先核实平台剩余时间；正式评测不要求手动执行它们。KV 入口显式选择任务书的固定1.5B FP32实验模型，支持从已有7B服务环境直接调用；任意错误模型/revision仍在停止服务前拒绝。实验结束后显式 setup 恢复服务。
 
@@ -103,3 +103,5 @@ python3 scripts/fetch_public_tools.py --out .cache/my-new-public-tools
 ```
 
 fetch 只下载和校验9份公开工具，不启动模型。`bench` 也会重新刷新到一个新目录并保存该批 manifest/acceptance。`python -m experiments.verify_evidence --case kv --directory results/<run>/kv --commit <完整SHA>` 检查本次文件矩阵、输入一致、数值门槛与机制字段；验证器不能证明自报 GPU 身份或产生官方成绩。
+
+练习结果可打包取回本机后提交Git，无需在GPU服务器配置Git写权限。确认本机压缩包完整、所需结果已保存后，在远端项目目录执行 `bash setup.sh --stop`，再通过平台销毁练习服务器；退出SSH或只停止服务不会销毁实例。`.env`、私密账本和模型权重不属于结果包。

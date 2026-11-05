@@ -1,0 +1,30 @@
+{
+  "text": "OK",
+  "output_ids": [
+    3925,
+    151645
+  ],
+  "meta_info": {
+    "id": "95f098a50ccf4cc59a739ea6be3ebe1d",
+    "finish_reason": {
+      "type": "stop",
+      "matched": 151645
+    },
+    "prompt_tokens": 534,
+    "weight_version": "default",
+    "total_retractions": 0,
+    "queue_time": 0.0001823706552386284,
+    "prefill_launch_delay": 0.0005413517355918884,
+    "prefill_launch_latency": 0.014826176688075066,
+    "prefill_finished_ts": 1793868790.2907002,
+    "completion_tokens": 2,
+    "cached_tokens": 0,
+    "cached_tokens_details": null,
+    "e2e_latency": 0.07434916496276855,
+    "request_received_ts": 1793868790.2331204,
+    "request_sent_to_scheduler_ts": 1793868790.2332668,
+    "decode_finished_ts": 1793868790.3074696,
+    "inference_time": 0.07363148592412472,
+    "response_sent_to_client_ts": 1793868790.3076596
+  }
+}

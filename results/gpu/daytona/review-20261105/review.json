@@ -1,0 +1,488 @@
+{
+  "schema": "daytona-import-review/1",
+  "reviewed_at": "2026-11-05T09:04:10.109663+00:00",
+  "source_commit_sha": "1cbc12e510e2b8c7daa49ae6b8944e9baff99db3",
+  "official_score": false,
+  "integrity_pass": true,
+  "limitation": "CPU recheck of user-returned practice artifacts, not independent GPU attestation. Summary durations are recorded client windows, not reconstructed wall clocks.",
+  "input_regeneration_pass": true,
+  "independent_retokenization_pass": true,
+  "summary_recomputation_pass": true,
+  "profile_totals": [
+    {
+      "profile": "baseline",
+      "requests": 384,
+      "successful": 331,
+      "quality_pass": 330,
+      "errors": {
+        "sse_request_timeout": 53
+      }
+    },
+    {
+      "profile": "optimized",
+      "requests": 384,
+      "successful": 384,
+      "quality_pass": 382,
+      "errors": {}
+    }
+  ],
+  "optimized_target_checks": [
+    {
+      "workload": "short",
+      "concurrency": 8,
+      "passed": true,
+      "metrics": [
+        {
+          "metric": "output_tokens_per_second",
+          "actual": 315.9356746479542,
+          "threshold": 71,
+          "passed": true
+        },
+        {
+          "metric": "ttft_p95_ms",
+          "actual": 138.6117497459054,
+          "threshold": 1780,
+          "passed": true
+        },
+        {
+          "metric": "tpot_p95_ms",
+          "actual": 17.390110478219057,
+          "threshold": 35,
+          "passed": true
+        },
+        {
+          "metric": "e2e_p95_ms",
+          "actual": 478.3225189894438,
+          "threshold": 2350,
+          "passed": true
+        },
+        {
+          "metric": "slo_attainment",
+          "actual": 1.0,
+          "threshold": 0.95,
+          "passed": true
+        },
+        {
+          "metric": "success_rate",
+          "actual": 1.0,
+          "threshold": 0.99,
+          "passed": true
+        },
+        {
+          "metric": "quality_rate",
+          "actual": 1.0,
+          "threshold": 0.99,
+          "passed": true
+        },
+        {
+          "metric": "quality_goodput",
+          "actual": 17.491248423416152,
+          "threshold": 3.67,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "workload": "short",
+      "concurrency": 16,
+      "passed": true,
+      "metrics": [
+        {
+          "metric": "output_tokens_per_second",
+          "actual": 521.1889743387308,
+          "threshold": 128,
+          "passed": true
+        },
+        {
+          "metric": "ttft_p95_ms",
+          "actual": 197.847462259233,
+          "threshold": 1830,
+          "passed": true
+        },
+        {
+          "metric": "tpot_p95_ms",
+          "actual": 19.385276414040064,
+          "threshold": 40,
+          "passed": true
+        },
+        {
+          "metric": "e2e_p95_ms",
+          "actual": 597.1790608018637,
+          "threshold": 2600,
+          "passed": true
+        },
+        {
+          "metric": "slo_attainment",
+          "actual": 1.0,
+          "threshold": 0.95,
+          "passed": true
+        },
+        {
+          "metric": "success_rate",
+          "actual": 1.0,
+          "threshold": 0.99,
+          "passed": true
+        },
+        {
+          "metric": "quality_rate",
+          "actual": 1.0,
+          "threshold": 0.99,
+          "passed": true
+        },
+        {
+          "metric": "quality_goodput",
+          "actual": 28.821510101680964,
+          "threshold": 6.63,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "workload": "long",
+      "concurrency": 8,
+      "passed": true,
+      "metrics": [
+        {
+          "metric": "output_tokens_per_second",
+          "actual": 461.47561070946387,
+          "threshold": 254,
+          "passed": true
+        },
+        {
+          "metric": "ttft_p95_ms",
+          "actual": 277.2263437509537,
+          "threshold": 1870,
+          "passed": true
+        },
+        {
+          "metric": "tpot_p95_ms",
+          "actual": 16.728820714859232,
+          "threshold": 29,
+          "passed": true
+        },
+        {
+          "metric": "e2e_p95_ms",
+          "actual": 4390.289584174752,
+          "threshold": 8900,
+          "passed": true
+        },
+        {
+          "metric": "slo_attainment",
+          "actual": 1.0,
+          "threshold": 0.95,
+          "passed": true
+        },
+        {
+          "metric": "success_rate",
+          "actual": 1.0,
+          "threshold": 0.99,
+          "passed": true
+        },
+        {
+          "metric": "quality_rate",
+          "actual": 1.0,
+          "threshold": 0.99,
+          "passed": true
+        },
+        {
+          "metric": "quality_goodput",
+          "actual": 1.8457486304519843,
+          "threshold": 0.95,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "workload": "long",
+      "concurrency": 16,
+      "passed": false,
+      "metrics": [
+        {
+          "metric": "output_tokens_per_second",
+          "actual": 840.3553966191281,
+          "threshold": 485,
+          "passed": true
+        },
+        {
+          "metric": "ttft_p95_ms",
+          "actual": 452.7878388762474,
+          "threshold": 2070,
+          "passed": true
+        },
+        {
+          "metric": "tpot_p95_ms",
+          "actual": 17.4322807260098,
+          "threshold": 30,
+          "passed": true
+        },
+        {
+          "metric": "e2e_p95_ms",
+          "actual": 4661.920987069607,
+          "threshold": 9350,
+          "passed": true
+        },
+        {
+          "metric": "slo_attainment",
+          "actual": 0.9791666666666666,
+          "threshold": 0.95,
+          "passed": true
+        },
+        {
+          "metric": "success_rate",
+          "actual": 1.0,
+          "threshold": 0.99,
+          "passed": true
+        },
+        {
+          "metric": "quality_rate",
+          "actual": 0.9791666666666666,
+          "threshold": 0.99,
+          "passed": false
+        },
+        {
+          "metric": "quality_goodput",
+          "actual": 3.3582776669585086,
+          "threshold": 1.81,
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "all_optimized_targets_pass": false,
+  "failed_outputs": [
+    {
+      "id": "baseline-short-c4-r1-short-3",
+      "profile": "baseline",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "id": "optimized-short-c4-r1-short-3",
+      "profile": "optimized",
+      "text": "{\"id\":9173,\"city\":\"Paris\",\"units\":39}",
+      "expected": {
+        "id": 91173,
+        "city": "Paris",
+        "units": 39
+      }
+    },
+    {
+      "id": "optimized-long-c16-r2-long-12",
+      "profile": "optimized",
+      "text": "{\n  \"records\": [\n    {\n      \"id\": 33622,\n      \"city\": \"Tokyo\",\n      \"units\": 10\n    },\n    {\n      \"id\": 26212,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 12415,\n      \"city\": \"Berlin\",\n      \"units\": 85\n    },\n    {\n      \"id\": 29142,\n      \"city\": \"Tokyo\",\n      \"units\": 39\n    },\n    {\n      \"id\": 78972,\n      \"city\": \"Tokyo\",\n      \"units\": 2\n    },\n    {\n      \"id\": 77785,\n      \"city\": \"Boston\",\n      \"units\": 60\n    },\n    {\n      \"id\": 54520,\n      \"city\": \"Boston\",\n      \"units\": 82\n    },\n    {\n      \"id\": 77085,\n      \"city\": \"Berlin\",\n      \"units\": 82\n    }\n  ]\n}",
+      "expected": {
+        "records": [
+          {
+            "id": 33622,
+            "city": "Tokyo",
+            "units": 10
+          },
+          {
+            "id": 26212,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 12415,
+            "city": "Berlin",
+            "units": 85
+          },
+          {
+            "id": 29142,
+            "city": "Tokyo",
+            "units": 39
+          },
+          {
+            "id": 78972,
+            "city": "Tokyo",
+            "units": 2
+          },
+          {
+            "id": 77785,
+            "city": "Boston",
+            "units": 60
+          },
+          {
+            "id": 54520,
+            "city": "Boston",
+            "units": 82
+          },
+          {
+            "id": 77085,
+            "city": "Berlin",
+            "units": 74
+          }
+        ]
+      }
+    }
+  ],
+  "mechanisms": [
+    {
+      "schema": "llm-experiment-verification/1",
+      "case": "kv",
+      "commit_sha": "1cbc12e510e2b8c7daa49ae6b8944e9baff99db3",
+      "rows": 12,
+      "passed": true,
+      "official_score": false,
+      "limitation": "Validates recorded artifacts; does not independently attest GPU execution or grant points."
+    },
+    {
+      "schema": "llm-experiment-verification/1",
+      "case": "attention",
+      "commit_sha": "1cbc12e510e2b8c7daa49ae6b8944e9baff99db3",
+      "rows": 18,
+      "passed": true,
+      "official_score": false,
+      "limitation": "Validates recorded artifacts; does not independently attest GPU execution or grant points."
+    },
+    {
+      "schema": "llm-experiment-verification/1",
+      "case": "prefix",
+      "commit_sha": "1cbc12e510e2b8c7daa49ae6b8944e9baff99db3",
+      "rows": 96,
+      "passed": true,
+      "official_score": false,
+      "limitation": "Validates recorded artifacts; does not independently attest GPU execution or grant points."
+    }
+  ],
+  "pending": [
+    "long/C16 quality 47/48 < 0.99",
+    "short/C4 output mismatch in both profiles",
+    "prefix-specific SLO uncalibrated",
+    "isolated auth/ledger overhead comparison",
+    "clean fixed-snapshot rebuild and official grading",
+    "smoke setup idempotency has PID files but no full setup stdout"
+  ],
+  "artifact_sha256": {
+    "20261105T082520-smoke/baseline-first.pid": "e0e3fcdfb0803ca538910c12042cb6232acb9e3c6db8908524aea6ed560e5334",
+    "20261105T082520-smoke/cancellation/engine-after.txt": "665e1fc5188ceb7d985d2d17a4c72753542120cd04396a85e759d3d985d8a51a",
+    "20261105T082520-smoke/cancellation/engine-before.txt": "6486bf4c63bb7c9d6078d96de8b450ec8ca250423cd5ccc2d0e909127122d7f2",
+    "20261105T082520-smoke/cancellation/results.json": "d11ab82f0bca5040508d45ad0411efbc9b008016a271901941650ccb94c3fa60",
+    "20261105T082520-smoke/commit.txt": "6802d2383b722cfbead0fb3f1b46a1cacc41ce4a3242e839b442c29246aa10da",
+    "20261105T082520-smoke/context.json": "a0d3aac78e5098323ccdc923e06c235e9cf828252fed1b0d9b33ffa9348b6fc5",
+    "20261105T082520-smoke/control-plane-live.json": "c513aa4a6969649b78a2f4710b0398a8d4a5c6c05541bf1ef23ccd2aa3397b65",
+    "20261105T082520-smoke/gpu.txt": "10419f872352bf0a2c69e7fb4719416d920b34c7780bcc6901c74768cb7c01be",
+    "20261105T082811-bench/acceptance.json": "d5cd2fdc90056e710cf741ac1eec4c5b042ea3818d505e4a3975697f1df9241f",
+    "20261105T082811-bench/commit.txt": "6802d2383b722cfbead0fb3f1b46a1cacc41ce4a3242e839b442c29246aa10da",
+    "20261105T082811-bench/context.json": "132837a5d4d524fd9b15b31cfc6fb8bc6e93ad512919a8e1be0e6e92c0581ed7",
+    "20261105T082811-bench/gpu.txt": "10419f872352bf0a2c69e7fb4719416d920b34c7780bcc6901c74768cb7c01be",
+    "20261105T082811-bench/serving/baseline-benchmark-manifest.json": "e510f8fd1189347bf409f851214ae7d376015d15af30836c0b1e4b1b3329ab28",
+    "20261105T082811-bench/serving/baseline-long-c1-r0-inputs.json": "481482da1f8efc8216c32fc39b8513a2c179c242206647e00905d26c6c3af2f7",
+    "20261105T082811-bench/serving/baseline-long-c1-r1-inputs.json": "e96cfdd2d4d9f719e8b6725a813544f694b7682fa955fa6ea0e67f9220a3d8ab",
+    "20261105T082811-bench/serving/baseline-long-c1-r2-inputs.json": "476a1db34f7f3b9d30a127b1b35fb4cc2068bab1f9f77420701294adbd08251f",
+    "20261105T082811-bench/serving/baseline-long-c16-r0-inputs.json": "6630c9b5b05a28a21b20ef4f08e5bbc2a37f13b1ef4c38a7aac7ca285afa0cb2",
+    "20261105T082811-bench/serving/baseline-long-c16-r1-inputs.json": "fbe75882de423c98baaf255696f6075ea038939acc5345cb0d0d283a856a2522",
+    "20261105T082811-bench/serving/baseline-long-c16-r2-inputs.json": "4ba867ad4b23b14995b571019fae7fbf908ed8ac130558d14757d85d743696eb",
+    "20261105T082811-bench/serving/baseline-long-c4-r0-inputs.json": "8c80f72d8c02728f8e90ac871d592a710840bd18c2319c593ec46f968d147a81",
+    "20261105T082811-bench/serving/baseline-long-c4-r1-inputs.json": "fae5256c0def5b4f674732ac3c6cbc524717cd853f2a47470fc23c5004caaf6d",
+    "20261105T082811-bench/serving/baseline-long-c4-r2-inputs.json": "640a7c23931bf93941321b63a2563a4a80a2f537f1a37619ef41cce5fa5cd53d",
+    "20261105T082811-bench/serving/baseline-long-c8-r0-inputs.json": "8ab5bf83f86bc84e29f3c5c8ea34012f28bde4c1e5712812f09565fdcbb8809d",
+    "20261105T082811-bench/serving/baseline-long-c8-r1-inputs.json": "12e0b572ba96be1581d7d1e98d334995eaf84b61679765aeaf461505854e1d0c",
+    "20261105T082811-bench/serving/baseline-long-c8-r2-inputs.json": "aa589a0209a31b6e293c8b1f5fdf5ccc99b7ac399c8d80d3ae82b4a0f358d278",
+    "20261105T082811-bench/serving/baseline-serving-identity.json": "b3e5e225fadf288b4a03c5f00b668b7da6c5acfef435bda504c25b58a16aee5f",
+    "20261105T082811-bench/serving/baseline-serving-raw.jsonl": "ab425b5f879ea283f69bd3ae50cba703ed4962e6a0854263bd1bac6355b9cd94",
+    "20261105T082811-bench/serving/baseline-serving-summary.json": "1e275e30507db5cc5c9111bba911fffcde0c1782d763394e05a362f7b662df81",
+    "20261105T082811-bench/serving/baseline-serving-warmup.jsonl": "e68665b6618cca5b8ee3fe033ad9a2edb135feba861bbe93eb4c512e9b47d509",
+    "20261105T082811-bench/serving/baseline-short-c1-r0-inputs.json": "88cf77d55ebc6341295888f3c4688811c281203f0a3e5bfa35b6b2829f13662c",
+    "20261105T082811-bench/serving/baseline-short-c1-r1-inputs.json": "8697f7d6a91c22966cd4011529106f2ae4a1edd493063ef813549d2e55bc7bf9",
+    "20261105T082811-bench/serving/baseline-short-c1-r2-inputs.json": "2daeab5d2e4ac0f900b57b46827da3362c36ef269cedf01442c799b4adc660ce",
+    "20261105T082811-bench/serving/baseline-short-c16-r0-inputs.json": "15fcc5ca6f2efb4ff9d556ffa9dc64dda5eff99dda8bdfcfea1acce9b3a403f6",
+    "20261105T082811-bench/serving/baseline-short-c16-r1-inputs.json": "02d1b48c8a973fa9f1b71e7b84567e24692f2261d6134d3b9b365330d4e9fbbd",
+    "20261105T082811-bench/serving/baseline-short-c16-r2-inputs.json": "cc5f7e0c740395ac2d899bdf663be0c213e0c82792a37abba90d3f0a77eadee0",
+    "20261105T082811-bench/serving/baseline-short-c4-r0-inputs.json": "cbb40b877c91ad67d53be5a941bb8aac53a89967ba6e217fd244bb3d9d82fbcc",
+    "20261105T082811-bench/serving/baseline-short-c4-r1-inputs.json": "2818a2a4d66920efdd4f5927f9b1c268a00b887578c52e9998cba53b6d36bcb1",
+    "20261105T082811-bench/serving/baseline-short-c4-r2-inputs.json": "5e26c245992e2976608b15b08886c196451ec1ffa2674c5768118d20713d8105",
+    "20261105T082811-bench/serving/baseline-short-c8-r0-inputs.json": "3216622b5819be4641842046e2c1efddf4080fdac8564fa74532a79eefd54bbe",
+    "20261105T082811-bench/serving/baseline-short-c8-r1-inputs.json": "9687fb644bd634a570ca11dd56b249812dd9618da407b4ce79acd0469e6cc5bf",
+    "20261105T082811-bench/serving/baseline-short-c8-r2-inputs.json": "c2e4e87f43f4ac5bad20cd2e07b442c4a628b449a71945655f2b1ef826410789",
+    "20261105T082811-bench/serving/optimized-benchmark-manifest.json": "e510f8fd1189347bf409f851214ae7d376015d15af30836c0b1e4b1b3329ab28",
+    "20261105T082811-bench/serving/optimized-long-c1-r0-inputs.json": "481482da1f8efc8216c32fc39b8513a2c179c242206647e00905d26c6c3af2f7",
+    "20261105T082811-bench/serving/optimized-long-c1-r1-inputs.json": "e96cfdd2d4d9f719e8b6725a813544f694b7682fa955fa6ea0e67f9220a3d8ab",
+    "20261105T082811-bench/serving/optimized-long-c1-r2-inputs.json": "476a1db34f7f3b9d30a127b1b35fb4cc2068bab1f9f77420701294adbd08251f",
+    "20261105T082811-bench/serving/optimized-long-c16-r0-inputs.json": "6630c9b5b05a28a21b20ef4f08e5bbc2a37f13b1ef4c38a7aac7ca285afa0cb2",
+    "20261105T082811-bench/serving/optimized-long-c16-r1-inputs.json": "fbe75882de423c98baaf255696f6075ea038939acc5345cb0d0d283a856a2522",
+    "20261105T082811-bench/serving/optimized-long-c16-r2-inputs.json": "4ba867ad4b23b14995b571019fae7fbf908ed8ac130558d14757d85d743696eb",
+    "20261105T082811-bench/serving/optimized-long-c4-r0-inputs.json": "8c80f72d8c02728f8e90ac871d592a710840bd18c2319c593ec46f968d147a81",
+    "20261105T082811-bench/serving/optimized-long-c4-r1-inputs.json": "fae5256c0def5b4f674732ac3c6cbc524717cd853f2a47470fc23c5004caaf6d",
+    "20261105T082811-bench/serving/optimized-long-c4-r2-inputs.json": "640a7c23931bf93941321b63a2563a4a80a2f537f1a37619ef41cce5fa5cd53d",
+    "20261105T082811-bench/serving/optimized-long-c8-r0-inputs.json": "8ab5bf83f86bc84e29f3c5c8ea34012f28bde4c1e5712812f09565fdcbb8809d",
+    "20261105T082811-bench/serving/optimized-long-c8-r1-inputs.json": "12e0b572ba96be1581d7d1e98d334995eaf84b61679765aeaf461505854e1d0c",
+    "20261105T082811-bench/serving/optimized-long-c8-r2-inputs.json": "aa589a0209a31b6e293c8b1f5fdf5ccc99b7ac399c8d80d3ae82b4a0f358d278",
+    "20261105T082811-bench/serving/optimized-serving-identity.json": "75c805d9c90f4d3c83f2f49671e2b45cc3d1b246d362538e82c6ba6206503596",
+    "20261105T082811-bench/serving/optimized-serving-raw.jsonl": "9f17d07a577e92a8349770b07e685240adbec2f90e8ba418d216330fe6e5a135",
+    "20261105T082811-bench/serving/optimized-serving-summary.json": "ec72ff9dcf20afff8e63667d37eb898e043905a809beb930944fa059b19cc625",
+    "20261105T082811-bench/serving/optimized-serving-warmup.jsonl": "2fdd746f337da1cc0183274330d39b31518558d153f3f7379772e11360a775f2",
+    "20261105T082811-bench/serving/optimized-short-c1-r0-inputs.json": "88cf77d55ebc6341295888f3c4688811c281203f0a3e5bfa35b6b2829f13662c",
+    "20261105T082811-bench/serving/optimized-short-c1-r1-inputs.json": "8697f7d6a91c22966cd4011529106f2ae4a1edd493063ef813549d2e55bc7bf9",
+    "20261105T082811-bench/serving/optimized-short-c1-r2-inputs.json": "2daeab5d2e4ac0f900b57b46827da3362c36ef269cedf01442c799b4adc660ce",
+    "20261105T082811-bench/serving/optimized-short-c16-r0-inputs.json": "15fcc5ca6f2efb4ff9d556ffa9dc64dda5eff99dda8bdfcfea1acce9b3a403f6",
+    "20261105T082811-bench/serving/optimized-short-c16-r1-inputs.json": "02d1b48c8a973fa9f1b71e7b84567e24692f2261d6134d3b9b365330d4e9fbbd",
+    "20261105T082811-bench/serving/optimized-short-c16-r2-inputs.json": "cc5f7e0c740395ac2d899bdf663be0c213e0c82792a37abba90d3f0a77eadee0",
+    "20261105T082811-bench/serving/optimized-short-c4-r0-inputs.json": "cbb40b877c91ad67d53be5a941bb8aac53a89967ba6e217fd244bb3d9d82fbcc",
+    "20261105T082811-bench/serving/optimized-short-c4-r1-inputs.json": "2818a2a4d66920efdd4f5927f9b1c268a00b887578c52e9998cba53b6d36bcb1",
+    "20261105T082811-bench/serving/optimized-short-c4-r2-inputs.json": "5e26c245992e2976608b15b08886c196451ec1ffa2674c5768118d20713d8105",
+    "20261105T082811-bench/serving/optimized-short-c8-r0-inputs.json": "3216622b5819be4641842046e2c1efddf4080fdac8564fa74532a79eefd54bbe",
+    "20261105T082811-bench/serving/optimized-short-c8-r1-inputs.json": "9687fb644bd634a570ca11dd56b249812dd9618da407b4ce79acd0469e6cc5bf",
+    "20261105T082811-bench/serving/optimized-short-c8-r2-inputs.json": "c2e4e87f43f4ac5bad20cd2e07b442c4a628b449a71945655f2b1ef826410789",
+    "20261105T082811-bench/tools-manifest.json": "c73324930a8677b5bc7825d35e6601a5e37ef30ea614c6fa5c2a20eb1754b98a",
+    "20261105T085121-experiments/attention/comparison.svg": "0434887faeb94b46de45168e772edf5e19492699a1dc6fd9c75d891161a711aa",
+    "20261105T085121-experiments/attention/flash-1024-operators.json": "969a8501541a2ccfcfc64d9793c8814ec0a047ff232c18735aff6c52216e4240",
+    "20261105T085121-experiments/attention/flash-1024-trace-sha256.json": "2de66614b63da228b14597fa5bad7a46a37d2f1633467e3794373b8fe91219f0",
+    "20261105T085121-experiments/attention/flash-1024.trace.json": "5218221b30e79e671dadb0e97b58bedab2d474e979030181c9a600e08cce5fe4",
+    "20261105T085121-experiments/attention/flash-128-operators.json": "ac3fd91f7db493fb2cad7dc5a1cb80aed90f774c9c7101caea24a0d5fc06e332",
+    "20261105T085121-experiments/attention/flash-128-trace-sha256.json": "f2aa17b068b204a70b93e36b683bb3f6f41263aaf7b88f9dfb21c7d05ad64428",
+    "20261105T085121-experiments/attention/flash-128.trace.json": "1898d2d501f30c146216623be1c7cdcb69e94d5f775f1945bcf0212d51af1f85",
+    "20261105T085121-experiments/attention/flash-512-operators.json": "969a8501541a2ccfcfc64d9793c8814ec0a047ff232c18735aff6c52216e4240",
+    "20261105T085121-experiments/attention/flash-512-trace-sha256.json": "fa5e4218cd830e47ad9c30822c646675e95984083b253117dc76c482d5e59098",
+    "20261105T085121-experiments/attention/flash-512.trace.json": "ed2845743410f658d60676b17a1f500fc6635e28c7b8a8b68f37095fb254d2d4",
+    "20261105T085121-experiments/attention/manifest.json": "59a3e675750207a9918cc44a4d21e638e5b7c39949538876bc51ee86b880bd74",
+    "20261105T085121-experiments/attention/math-1024-operators.json": "cb4ab7c7355080c2cb467151b9c3bfc6f4f21bb5cdbf426118c7a856b51b6d67",
+    "20261105T085121-experiments/attention/math-1024-trace-sha256.json": "6cebdc9b2e6448c0ae59f457bd3ee664b350f575ac1a84c36cbd372e78fb936d",
+    "20261105T085121-experiments/attention/math-1024.trace.json": "921e567f5d3bb4abe5edf6182326502c4e4c77fcec1abf1a8d6ecc3e340ac210",
+    "20261105T085121-experiments/attention/math-128-operators.json": "fbac8163500e6e61ff8162f98bcfbfc6df99848354c77ccb5e8f9916c239036a",
+    "20261105T085121-experiments/attention/math-128-trace-sha256.json": "cc3a80bff91891abd6aca96ff63338b7ea3f8c183360139ea638f93dfecd53fd",
+    "20261105T085121-experiments/attention/math-128.trace.json": "19444ec73f7e290ac9653db0572efd1861a2f1bfd25c7827dd9ce35d4a67b36f",
+    "20261105T085121-experiments/attention/math-512-operators.json": "6bcef8b863249bd400338a4b7b9a529bc2d91658755eeb223d72f06e268596ed",
+    "20261105T085121-experiments/attention/math-512-trace-sha256.json": "8c646f59062603e310fd183d089571b5c650670654480dd0bfb37aadd32299f5",
+    "20261105T085121-experiments/attention/math-512.trace.json": "799ccfdbe3095adb62090e44432c5c67a917b08dd04433e78aa08a00f7495bac",
+    "20261105T085121-experiments/attention/raw.jsonl": "7b8101de72bf28f0726d07f0057e9274fa58489b7e885d498f3b811abadab1e6",
+    "20261105T085121-experiments/attention/summary.json": "f6ebc27aa4d7c0ef11691941b5c6a0c9f9842425b05229a47c6348dd1cea485f",
+    "20261105T085121-experiments/commit.txt": "6802d2383b722cfbead0fb3f1b46a1cacc41ce4a3242e839b442c29246aa10da",
+    "20261105T085121-experiments/context.json": "b273fcdb9d3d5af11ebd8af7d6b63bd61538023f072ef03dcf40f827df17b94f",
+    "20261105T085121-experiments/gpu.txt": "10419f872352bf0a2c69e7fb4719416d920b34c7780bcc6901c74768cb7c01be",
+    "20261105T085121-experiments/kv/comparison.svg": "7b0d610f6e814e934a36b6b9d818c685fa619c79b320a57a135b28001ed97336",
+    "20261105T085121-experiments/kv/manifest.json": "59baffa4398250ce37a27db637745a448a678552c5c7f1f0031506e3faba3bae",
+    "20261105T085121-experiments/kv/raw.jsonl": "0cf75d4db917b31f063ecefcfe0a17f416686928c03641116175c73082a9a92a",
+    "20261105T085121-experiments/kv/summary.json": "8a9a2207b94b09dc58c249664d9e32ff606a238bd0228aa9ad405a00614e9061",
+    "20261105T085121-experiments/prefix/comparison.svg": "d44f67208409c81e850c98e42dcd5459723256e4fead66a2e819a5882f4bf007",
+    "20261105T085121-experiments/prefix/inputs.json": "e4f6e2f1f325b8c9ec229b6b8eb202bb0cefba21d322d15c801afbcd942d2bee",
+    "20261105T085121-experiments/prefix/manifest.json": "532dccb42caf1e86c63d047767d5d8bdaa1b14ad830af0483bf063263803784c",
+    "20261105T085121-experiments/prefix/off-command.json": "00013d18bd5085ed4b194c671744789d43343eb4f4c6e47b5bfb31aaff1b6d46",
+    "20261105T085121-experiments/prefix/off-engine.log": "a3e464347034026ede1050bd125c41ab783ab6613310bd28b7a1722ea0c1290d",
+    "20261105T085121-experiments/prefix/off-kernel-warmup.json": "f9c701138140f445df5836afc643a4697f6203a359032b7db1e010eaf0c0cd05",
+    "20261105T085121-experiments/prefix/off-metrics.txt": "5a724263b83dfc46d5c81ddd7e26f7b85ed2ff834295bf89d74172fd4c207f4b",
+    "20261105T085121-experiments/prefix/off-shared-0-flush.json": "d3848f9bd993a22384d52e7376963755a7be7eca5a6476b615004aef5f59a257",
+    "20261105T085121-experiments/prefix/off-shared-1-flush.json": "18d4c0578d9083fa2d2a206f1d759fa31a3594a9fc4849b9d0996139305f12ce",
+    "20261105T085121-experiments/prefix/off-shared-2-flush.json": "5f7b903f795fdd802e22ec70d7decc174466c54549aa2898e06395f99a00ef6c",
+    "20261105T085121-experiments/prefix/off-unique-0-flush.json": "eeb0eb4040772b425c6a1b98debf8824aa3480dd1869d34c6a8654fe2cdffebb",
+    "20261105T085121-experiments/prefix/off-unique-1-flush.json": "e1993212866e0cf51bc77099b925beba0dc8c4ba9996700acc5013d505c2c02a",
+    "20261105T085121-experiments/prefix/off-unique-2-flush.json": "c867b501404687afeae4794fef3bf926b98b501130da8e6fe21d824bd25e0ffe",
+    "20261105T085121-experiments/prefix/on-command.json": "ea482a50f89e9c601bd6a2f5989533867e8afbe288452a35482b3da62f5d3367",
+    "20261105T085121-experiments/prefix/on-engine.log": "e1a3c7c671886420f80dabcb988cd9a57d0152270f2647d3bc3bfcd87cbfd328",
+    "20261105T085121-experiments/prefix/on-kernel-warmup.json": "35c68b2c0446a83c37d4e37f44ef5d9bb55f2f7078cd43af20f9735dba04443f",
+    "20261105T085121-experiments/prefix/on-metrics.txt": "960998130a84718c7708253ae57e67692f98641b0b93fb5999f9372d41a7f4ce",
+    "20261105T085121-experiments/prefix/on-shared-0-flush.json": "04f535aebd3cb0bbc76690b2200e6fa882fb56e5de054c54cd516a185f61012e",
+    "20261105T085121-experiments/prefix/on-shared-1-flush.json": "0c222a06fc6dc9969dce252982f2285e2d3101d35d14c39e571cd9c79159e93d",
+    "20261105T085121-experiments/prefix/on-shared-2-flush.json": "7c13fd2aed7c8cfd81299fec61cf8bc117ab8ac25628251f8c00856b4dce72e8",
+    "20261105T085121-experiments/prefix/on-unique-0-flush.json": "1445e5f5254bcc55f578b26e432ccf40be52ca28aace1cefa9344cd06f8fa84a",
+    "20261105T085121-experiments/prefix/on-unique-1-flush.json": "1b4b6bce5673fd71d389500e56db3ca257d68f3459698ad7989fd69a8e121f58",
+    "20261105T085121-experiments/prefix/on-unique-2-flush.json": "36976ee4da3912c1ad9427fec4429e1af96b78ed8b6ab5f6b078f9f956313d87",
+    "20261105T085121-experiments/prefix/raw.jsonl": "a8ac64ce479c1ffd026b3f6a84bcb47b05b6dc2753a98ddcd89b7e852f6e8e50",
+    "20261105T085121-experiments/prefix/summary.json": "5a0216de27c288b2149d41df14e4f5c625f669578921c8959bee3fa601c24035"
+  },
+  "received_archive_sha256": "ba85ff01b6e14cb28d0ad1a3044ab670ceec64d4468701cc85877bfc541da407"
+}

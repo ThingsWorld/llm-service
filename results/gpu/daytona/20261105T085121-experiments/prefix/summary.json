@@ -1,0 +1,141 @@
+{
+  "verified_prefix_hits": true,
+  "off_cache_zero": true,
+  "cold_and_unique_below_prefix": true,
+  "groups": [
+    {
+      "variant": "off",
+      "group": "shared",
+      "repeat": 0,
+      "seconds": 0.6813692525029182,
+      "success_rate": 1.0,
+      "quality_rate": 1.0,
+      "correct_requests_per_second": 11.741063998137687,
+      "quality_goodput": null,
+      "slo_status": "pending_confirmation_no_prefix_specific_slo"
+    },
+    {
+      "variant": "off",
+      "group": "shared",
+      "repeat": 1,
+      "seconds": 0.6826349850744009,
+      "success_rate": 1.0,
+      "quality_rate": 1.0,
+      "correct_requests_per_second": 11.719293875815746,
+      "quality_goodput": null,
+      "slo_status": "pending_confirmation_no_prefix_specific_slo"
+    },
+    {
+      "variant": "off",
+      "group": "shared",
+      "repeat": 2,
+      "seconds": 0.6828464642167091,
+      "success_rate": 1.0,
+      "quality_rate": 1.0,
+      "correct_requests_per_second": 11.715664383174003,
+      "quality_goodput": null,
+      "slo_status": "pending_confirmation_no_prefix_specific_slo"
+    },
+    {
+      "variant": "off",
+      "group": "unique",
+      "repeat": 0,
+      "seconds": 0.6822489043697715,
+      "success_rate": 1.0,
+      "quality_rate": 1.0,
+      "correct_requests_per_second": 11.725925756363086,
+      "quality_goodput": null,
+      "slo_status": "pending_confirmation_no_prefix_specific_slo"
+    },
+    {
+      "variant": "off",
+      "group": "unique",
+      "repeat": 1,
+      "seconds": 0.6819551736116409,
+      "success_rate": 1.0,
+      "quality_rate": 1.0,
+      "correct_requests_per_second": 11.730976330353101,
+      "quality_goodput": null,
+      "slo_status": "pending_confirmation_no_prefix_specific_slo"
+    },
+    {
+      "variant": "off",
+      "group": "unique",
+      "repeat": 2,
+      "seconds": 0.6815151115879416,
+      "success_rate": 1.0,
+      "quality_rate": 1.0,
+      "correct_requests_per_second": 11.73855115458829,
+      "quality_goodput": null,
+      "slo_status": "pending_confirmation_no_prefix_specific_slo"
+    },
+    {
+      "variant": "on",
+      "group": "shared",
+      "repeat": 0,
+      "seconds": 0.4416223280131817,
+      "success_rate": 1.0,
+      "quality_rate": 1.0,
+      "correct_requests_per_second": 18.11502610384594,
+      "quality_goodput": null,
+      "slo_status": "pending_confirmation_no_prefix_specific_slo"
+    },
+    {
+      "variant": "on",
+      "group": "shared",
+      "repeat": 1,
+      "seconds": 0.4262239094823599,
+      "success_rate": 1.0,
+      "quality_rate": 1.0,
+      "correct_requests_per_second": 18.76947731467208,
+      "quality_goodput": null,
+      "slo_status": "pending_confirmation_no_prefix_specific_slo"
+    },
+    {
+      "variant": "on",
+      "group": "shared",
+      "repeat": 2,
+      "seconds": 0.4254440376535058,
+      "success_rate": 1.0,
+      "quality_rate": 1.0,
+      "correct_requests_per_second": 18.803883218397424,
+      "quality_goodput": null,
+      "slo_status": "pending_confirmation_no_prefix_specific_slo"
+    },
+    {
+      "variant": "on",
+      "group": "unique",
+      "repeat": 0,
+      "seconds": 0.684107887558639,
+      "success_rate": 1.0,
+      "quality_rate": 1.0,
+      "correct_requests_per_second": 11.694061924281309,
+      "quality_goodput": null,
+      "slo_status": "pending_confirmation_no_prefix_specific_slo"
+    },
+    {
+      "variant": "on",
+      "group": "unique",
+      "repeat": 1,
+      "seconds": 0.6833555158227682,
+      "success_rate": 1.0,
+      "quality_rate": 1.0,
+      "correct_requests_per_second": 11.706937040477246,
+      "quality_goodput": null,
+      "slo_status": "pending_confirmation_no_prefix_specific_slo"
+    },
+    {
+      "variant": "on",
+      "group": "unique",
+      "repeat": 2,
+      "seconds": 0.6844702074304223,
+      "success_rate": 1.0,
+      "quality_rate": 1.0,
+      "correct_requests_per_second": 11.687871748330574,
+      "quality_goodput": null,
+      "slo_status": "pending_confirmation_no_prefix_specific_slo"
+    }
+  ],
+  "counter_source": "SGLang /generate meta_info.cached_tokens",
+  "input_note": "Exactly 512 shared prefix IDs; all full token IDs saved. Unique group retains the short common chat header, which is legitimate reuse."
+}

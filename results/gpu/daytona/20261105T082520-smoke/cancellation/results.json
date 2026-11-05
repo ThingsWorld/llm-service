@@ -1,0 +1,423 @@
+{
+  "time": "2026-11-05T08:26:24.759995+00:00",
+  "rows": [
+    {
+      "iteration": 0,
+      "request_id": "5b225c3ca36a41a9931abf6f2d1ba96a",
+      "ttft_ms": 29.476395808160305,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 1,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 1,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    },
+    {
+      "iteration": 1,
+      "request_id": "00bba34de7514e368cb283a43c06d163",
+      "ttft_ms": 32.75176323950291,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 2,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 2,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    },
+    {
+      "iteration": 2,
+      "request_id": "e9422e17e31344bea0a62bab68c7e193",
+      "ttft_ms": 33.92894472926855,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 3,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 3,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    },
+    {
+      "iteration": 3,
+      "request_id": "5b31a80e79d2464793cf7a5ad696acd6",
+      "ttft_ms": 31.89925104379654,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 4,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 4,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    },
+    {
+      "iteration": 4,
+      "request_id": "42b91f3f828e4ddda8ccce37195873c7",
+      "ttft_ms": 34.03668478131294,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 5,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 5,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    },
+    {
+      "iteration": 5,
+      "request_id": "64cf93b5cee84f51b96afc51e48c829d",
+      "ttft_ms": 30.368308536708355,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 6,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 6,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    },
+    {
+      "iteration": 6,
+      "request_id": "5588ed47ff4c4f41a2aa3ac244be6c04",
+      "ttft_ms": 25.324758142232895,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 7,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 7,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    },
+    {
+      "iteration": 7,
+      "request_id": "15896603aadf47d4b1cf93859b83c3bd",
+      "ttft_ms": 32.867101952433586,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 8,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 8,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    },
+    {
+      "iteration": 8,
+      "request_id": "2b5c15430ca64ee792b50fb82a8e6339",
+      "ttft_ms": 31.683879904448986,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 9,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 9,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    },
+    {
+      "iteration": 9,
+      "request_id": "e61631d8f08a45faadecacf68283d121",
+      "ttft_ms": 33.11936277896166,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 10,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 10,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    },
+    {
+      "iteration": 10,
+      "request_id": "4abeb5bc80d545048d9a0fba555b96f9",
+      "ttft_ms": 33.271132968366146,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 11,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 11,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    },
+    {
+      "iteration": 11,
+      "request_id": "f248998f4b394d638ef9b6fb392000f0",
+      "ttft_ms": 33.51747430860996,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 12,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 12,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    },
+    {
+      "iteration": 12,
+      "request_id": "067ba69db446461eb6f02fadfc17cca7",
+      "ttft_ms": 34.02055520564318,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 13,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 13,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    },
+    {
+      "iteration": 13,
+      "request_id": "bf10ae3e6cd44dfbbc0e6daed29ce830",
+      "ttft_ms": 34.996417351067066,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 14,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 14,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    },
+    {
+      "iteration": 14,
+      "request_id": "70d2c858d2f8412c8dbdc90c8feb8f42",
+      "ttft_ms": 28.275524266064167,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 15,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 15,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    },
+    {
+      "iteration": 15,
+      "request_id": "00533941007d48d79ca31892b50bd994",
+      "ttft_ms": 33.52683410048485,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 16,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 16,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    },
+    {
+      "iteration": 16,
+      "request_id": "622b5d07dd8e42e2b177d6cd31902de9",
+      "ttft_ms": 33.112552016973495,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 17,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 17,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    },
+    {
+      "iteration": 17,
+      "request_id": "2e45f183f1a64b7c8dff5843ccaba855",
+      "ttft_ms": 32.884121872484684,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 18,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 18,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    },
+    {
+      "iteration": 18,
+      "request_id": "6e9c9f46f95f4d0fb2b7f7672a3fb36d",
+      "ttft_ms": 33.29287376254797,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 19,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 19,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    },
+    {
+      "iteration": 19,
+      "request_id": "50164c5cbfa14005bea3a60939bae586",
+      "ttft_ms": 37.47949190437794,
+      "snapshot": {
+        "active": 0,
+        "queued": 0,
+        "counters": {
+          "complete": 7,
+          "failed": 0,
+          "cancelled": 20,
+          "timeout": 0,
+          "stream_error": 0,
+          "rejected": 0,
+          "abort_acknowledged": 20,
+          "abort_failed": 0,
+          "agent_model_call": 4
+        }
+      }
+    }
+  ],
+  "final": {
+    "active": 0,
+    "queued": 0,
+    "counters": {
+      "complete": 7,
+      "failed": 0,
+      "cancelled": 20,
+      "timeout": 0,
+      "stream_error": 0,
+      "rejected": 0,
+      "abort_acknowledged": 20,
+      "abort_failed": 0,
+      "agent_model_call": 4
+    }
+  },
+  "abort_acknowledged_delta": 20,
+  "official_score": false,
+  "limitation": "Gateway acknowledgements plus engine metrics are diagnostic; inspect raw engine evidence."
+}

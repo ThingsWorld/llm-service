@@ -104,3 +104,20 @@
 - 全量CPU测试：**139 passed / 8.31秒**，见 [原始JUnit](../results/cpu/self-managed-context-20261105/engineering.xml)。
 - `bash -n setup.sh experiments/run.sh scripts/gpu_validate.sh`、`git diff --check`：通过。
 - 新测试使用临时目录与合成shell替身验证元数据行为，不启动GPU、模型或真实公司服务；测试结果不表示公司GPU环境已兼容或性能已达标。
+
+## 2026-11-05：Daytona练习GPU返回数据与本机复核
+
+用户在Daytona执行 `bash setup.sh`、`bash scripts/gpu_validate.sh smoke`、`bench`、`experiments`，再将结果压缩包取回本机。三阶段context与机制manifest的完整源码SHA均为 `1cbc12e510e2b8c7daa49ae6b8944e9baff99db3`；RTX4090/24564MiB、驱动580.178.04，机制环境torch2.9.1/Transformers4.57.1/SGLang0.5.9/CUDA12.8。不是公司机器数据，也不是正式评测。
+
+本机gzip完整性检查通过，tar共125个原始文件/4,763,915字节，无链接和越界路径，凭据模式扫描无命中；压缩包SHA-256为 `ba85ff01b6e14cb28d0ad1a3044ab670ceec64d4468701cc85877bfc541da407`。[原始阶段目录与复核说明](../results/gpu/daytona/review-20261105/README.md)，原始文件逐项hash见review.json。六份profiler trace随归档提交保留，未因默认ignore而丢弃。
+
+- GPU live双租户真实Agent/流式/非流式/用量/费用/轮换/管理隔离HTTP断言通过；其他CPU隔离场景标为skipped，并非在此重复完成正式15项黑盒。
+- 取消20次：网关abort确认增量20、SGLang aborted计数20，末尾running/queue均0；独立显存回收时延未测。
+- 本机执行 `.venv-benchmark/bin/python results/gpu/daytona/review-20261105/review.py`：输入按seed重新生成、独立tokenizer重计输出、16组汇总重算均一致；768测量请求与96预热分别保存，全部失败保留。返回0表示完整性通过，不表示性能通过。
+- baseline：384请求、331完成、330正确，53个明确SSE超时；optimized：384请求全部完成、382正确。short/C4相同输入在两个profile均将91173写成9173；optimized long/C16最后一条units将74写成82。long/C16质量47/48低于99%，四个冻结目标组仅三组通过。未把错误重分类为容量失败，未放宽门槛。
+- 对每项执行 `.venv-test/bin/python -m experiments.verify_evidence --case <kv|attention|prefix> --directory results/gpu/daytona/20261105T085121-experiments/<case> --commit 1cbc12e510e2b8c7daa49ae6b8944e9baff99db3`：分别12/18/96行证据通过。KV最大绝对误差5.43594e-5且top1=100%；Attention最大0.015625、math/flash算子及六份trace hash通过；Prefix96行全部输出OK，off无命中、shared热命中≥512、unique最多6。
+- `.venv-analysis/bin/python results/gpu/daytona/review-20261105/plot.py`生成3张真实数据图；p50/p95及16组结果保存为CSV，不能以条件延迟忽略失败率。
+- 归档后重新运行全量CPU工程测试：**139 passed / 8.77秒**，见[原始JUnit](../results/cpu/gpu-archive-20261105/engineering.xml)；分析环境`pip check`无依赖冲突。该轮工作区仅增加文档、原始数据和离线复核/绘图文件，服务源码仍对应上述SHA。
+- GPU来源源码的[工程Actions 41982968884](https://github.com/ThingsWorld/llm-service/actions/runs/41982968884)与[软诊断41982968705](https://github.com/ThingsWorld/llm-service/actions/runs/41982968705)均已核实success；不把后续归档提交当作已在GPU重跑。
+
+原理与限制：连续批处理、前缀缓存和后端由profile同时改变，整体吞吐变化不能归因到单项。KV/Attention有独立同输入数值对照，Prefix有真实cached_tokens而非仅看速度。Prefix独立SLO未标定，因此goodput=null；鉴权/账本开销对照、持续负载、完整setup stdout/native freeze、洁净固定快照重建和正式评测均未完成。内容错误已定位，具体原因及修复效果需新GPU运行验证。此次只归档证据、文档和离线分析脚本，服务源码未改动。

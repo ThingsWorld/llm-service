@@ -1,0 +1,31 @@
+{
+  "case": "kv",
+  "time": "2026-11-05T08:51:25.522370+00:00",
+  "execution_environment": "daytona",
+  "commit": "1cbc12e510e2b8c7daa49ae6b8944e9baff99db3",
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+  "parameters": {
+    "lengths": [
+      128,
+      512
+    ],
+    "decode_tokens": 32,
+    "warmup": 1,
+    "repeats": 3,
+    "dtype": "float32",
+    "atol": 0.001,
+    "rtol": 0.0001,
+    "tf32": false,
+    "seed": 20261017
+  },
+  "gpu": "NVIDIA GeForce RTX 4090, GPU-b02f36ca-2996-2843-a5af-cccd115002a3, 580.178.04, 24564 MiB",
+  "software": {
+    "torch": "2.9.1",
+    "transformers": "4.57.1",
+    "sglang": "0.5.9"
+  },
+  "cuda": "12.8",
+  "complete": true,
+  "correctness_pass": true
+}

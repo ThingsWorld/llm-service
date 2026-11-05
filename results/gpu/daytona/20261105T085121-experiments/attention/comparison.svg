@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="306" viewBox="0 0 1000 306">
+<rect width="100%" height="100%" fill="#fafafa"/>
+<text x="24" y="30" font-family="sans-serif" font-size="20">Measured mean latency (ms); all recorded runs</text>
+<text x="20" y="70" font-family="monospace" font-size="13">math / 128 / None</text>
+<rect x="360" y="54" width="204.7" height="22" fill="#496ad5"/>
+<text x="574.7" y="70" font-family="monospace" font-size="13">0.160</text>
+<text x="20" y="106" font-family="monospace" font-size="13">flash / 128 / None</text>
+<rect x="360" y="90" width="32.8" height="22" fill="#496ad5"/>
+<text x="402.8" y="106" font-family="monospace" font-size="13">0.026</text>
+<text x="20" y="142" font-family="monospace" font-size="13">math / 512 / None</text>
+<rect x="360" y="126" width="331.9" height="22" fill="#496ad5"/>
+<text x="701.9" y="142" font-family="monospace" font-size="13">0.260</text>
+<text x="20" y="178" font-family="monospace" font-size="13">flash / 512 / None</text>
+<rect x="360" y="162" width="43.2" height="22" fill="#496ad5"/>
+<text x="413.2" y="178" font-family="monospace" font-size="13">0.034</text>
+<text x="20" y="214" font-family="monospace" font-size="13">math / 1024 / None</text>
+<rect x="360" y="198" width="490.0" height="22" fill="#496ad5"/>
+<text x="860.0" y="214" font-family="monospace" font-size="13">0.383</text>
+<text x="20" y="250" font-family="monospace" font-size="13">flash / 1024 / None</text>
+<rect x="360" y="234" width="42.9" height="22" fill="#496ad5"/>
+<text x="412.9" y="250" font-family="monospace" font-size="13">0.034</text>
+</svg>

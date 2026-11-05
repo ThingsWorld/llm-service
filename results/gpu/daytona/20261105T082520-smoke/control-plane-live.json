@@ -1,0 +1,116 @@
+{
+  "schema": "credential-service-test/1",
+  "suite": "live",
+  "official_score": false,
+  "commit_sha": "1cbc12e510e2b8c7daa49ae6b8944e9baff99db3",
+  "working_tree_dirty": true,
+  "source_working_tree_dirty": false,
+  "started_at": "2026-11-05T08:26:09.276082+00:00",
+  "checks": [
+    {
+      "test_id": "live_two_tenant_agent",
+      "scenario": 12,
+      "expected": "documented HTTP contract assertions",
+      "actual": "HTTP assertions passed",
+      "passed": true,
+      "evidence": {
+        "tenants": [
+          {
+            "tenant_id": "tenant_5ddfe7983e6b40669d9b8b389fa88100",
+            "key_id": "key_1d1a98e7e296474b90b874663ecd0d5d",
+            "parent_request_id": "8d0461a8801b4c69a3752bbd6d337faa",
+            "model_requests": 5,
+            "rotation_new_http": 200,
+            "rotation_old_http": 401,
+            "management_writes_denied": 7,
+            "summary": {
+              "input_tokens": 252,
+              "output_tokens": 70,
+              "used_tokens": 322,
+              "cost_micro_usd": 924,
+              "reserved_micro_usd": 0,
+              "reserved_tokens": 0,
+              "balance_micro_usd": 99076,
+              "requests": 6,
+              "failed_requests": 0,
+              "cancelled_requests": 0,
+              "unknown_usage_requests": 0,
+              "available_micro_usd": 99076
+            }
+          },
+          {
+            "tenant_id": "tenant_996548236fc141579b03067348385bad",
+            "key_id": "key_d9e3529ff8d444d7945cf7edc8d3e030",
+            "parent_request_id": "41c4be299ebf4060b17817e7f2fda101",
+            "model_requests": 5,
+            "rotation_new_http": 200,
+            "rotation_old_http": 401,
+            "management_writes_denied": 7,
+            "summary": {
+              "input_tokens": 252,
+              "output_tokens": 70,
+              "used_tokens": 322,
+              "cost_micro_usd": 924,
+              "reserved_micro_usd": 0,
+              "reserved_tokens": 0,
+              "balance_micro_usd": 99076,
+              "requests": 6,
+              "failed_requests": 0,
+              "cancelled_requests": 0,
+              "unknown_usage_requests": 0,
+              "available_micro_usd": 99076
+            }
+          }
+        ],
+        "engine": "existing native SGLang"
+      }
+    }
+  ],
+  "skipped": [
+    {
+      "scenario": 1,
+      "reason": "Requires isolated deterministic CPU fixture"
+    },
+    {
+      "scenario": 2,
+      "reason": "Requires isolated deterministic CPU fixture"
+    },
+    {
+      "scenario": 3,
+      "reason": "Requires isolated deterministic CPU fixture"
+    },
+    {
+      "scenario": 4,
+      "reason": "Requires isolated deterministic CPU fixture"
+    },
+    {
+      "scenario": 5,
+      "reason": "Requires isolated deterministic CPU fixture"
+    },
+    {
+      "scenario": 6,
+      "reason": "Requires isolated deterministic CPU fixture"
+    },
+    {
+      "scenario": 7,
+      "reason": "Requires isolated deterministic CPU fixture"
+    },
+    {
+      "scenario": 8,
+      "reason": "Requires isolated deterministic CPU fixture"
+    },
+    {
+      "scenario": 9,
+      "reason": "Requires isolated deterministic CPU fixture"
+    },
+    {
+      "scenario": 10,
+      "reason": "Requires isolated deterministic CPU fixture"
+    },
+    {
+      "scenario": 11,
+      "reason": "Requires isolated deterministic CPU fixture"
+    }
+  ],
+  "finished_at": "2026-11-05T08:26:22.645711+00:00"
+}
