@@ -146,8 +146,11 @@ async def request_once(client, base, key, model, item, tokenizer, timeout, ident
         if 'response_format' in item:body['response_format'] = dict(item['response_format'])
         if sampling_overrides:body.update(sampling_overrides)
         done = finished = False
+        headers = {'X-Request-ID': ident}
+        if key:
+            headers['Authorization'] = 'Bearer ' + key
         async with client.stream('POST', base.rstrip('/') + '/v1/chat/completions', json=body,
-                                 headers={'Authorization': 'Bearer ' + key, 'X-Request-ID': ident}) as response:
+                                 headers=headers) as response:
             row['status'] = response.status_code
             if response.status_code != 200:
                 row['error'] = f'http_{response.status_code}'

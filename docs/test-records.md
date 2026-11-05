@@ -136,3 +136,11 @@
 - 用户自行重启后重新连接，RTX4090/24564MiB、空闲24041MiB、利用率0%，加载驱动580.178.04、CUDA初始化0，8000/30000无监听。见[重启后原始报告](../results/environment/self-managed-20261105/post-reboot.json)。模型服务尚待隔离Python与依赖/模型准备。
 
 上述源码改动以归档提交`1bb97cecc83ed5e204b4e948d5b08bf0350015b3`为基准，不改写既有Daytona记录的源码SHA。远端SSH连接地址、用户名、私钥和任何服务凭据未写入这些公共结果；公司自测不能替代正式Daytona评分。
+
+### 公司初次重放与直连工具修正
+
+公司环境已完成Python3.12.15隔离安装、175包完整闭包校验、pip check和真实CUDA分配。网络阻断Hugging Face，按固定HF revision的Git blob哈希校验10个小文件，并以HF公布的SHA-256校验ModelScope官方Qwen镜像的四个权重分片，确认与原权重逐字节相同后使用离线缓存；没有替换模型或版本。
+
+源码`2a2ce25d345b27ea701024552d6939c979ab3178`第一次384行诊断中，经完整网关的192次请求全部完成，186正确：两个原始分组各45/48，两个新seed控制各48/48。两处数字错误均重复3次。引擎直连的192行均为客户端`LocalProtocolError/status=null`，没有发到GPU，不能算作模型答错。原因是诊断复用的request_once为无凭据直连构造了带尾空格的`Authorization: Bearer `，h11在真实HTTP传输中拒绝，而MockTransport未暴露这一错误。
+
+已修正为无key时不发送Authorization；普通网关请求仍带原始Bearer，服务鉴权规则未变。新增真实loopback TCP/h11回归，相关28项通过/0.32秒，全量**155通过/8.93秒**，见[JUnit](../results/cpu/accuracy-diagnostic-20261105/engine-header-regression.xml)。保留首次失败记录，修正后需重新运行GPU对照；此工具修正不声称修复模型内容错误。

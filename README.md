@@ -4,7 +4,7 @@
 
 需求映射、初始仓库审计和分阶段计划见 [实施计划](docs/implementation-plan.md)；每阶段的真实命令、结果与限制见 [测试记录](docs/test-records.md)。源码底座和固定提交见 [SOURCES.md](SOURCES.md)。参考仓库成绩没有导入本项目。
 
-CPU阶段已在GitHub通过18项软诊断与工程测试，最新开发工作区本地154项；真实浏览器13项核心流程、两个实际SIGKILL恢复窗口通过。Daytona RTX4090练习自测已取得完整768请求矩阵、双用户真实Agent/计费/轮换、20次取消以及KV/Prefix/Attention数据；本机重算与三机制证据检查通过。optimized四个冻结目标组中三个通过，long/C16因正确率47/48低于99%未通过；short/C4也有一条输出错误。详见[GPU复核](results/gpu/daytona/review-20261105/README.md)。未发起正式GPU评测，不声明整体达标。
+CPU阶段已在GitHub通过18项软诊断与工程测试，最新开发工作区本地155项；真实浏览器13项核心流程、两个实际SIGKILL恢复窗口通过。Daytona RTX4090练习自测已取得完整768请求矩阵、双用户真实Agent/计费/轮换、20次取消以及KV/Prefix/Attention数据；本机重算与三机制证据检查通过。optimized四个冻结目标组中三个通过，long/C16因正确率47/48低于99%未通过；short/C4也有一条输出错误。详见[GPU复核](results/gpu/daytona/review-20261105/README.md)。未发起正式GPU评测，不声明整体达标。
 
 ## CPU 开发与软评测
 

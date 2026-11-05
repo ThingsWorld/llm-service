@@ -1,5 +1,6 @@
 """Synthetic CPU transport checks, never GPU accuracy evidence."""
 import argparse
+import asyncio
 import json
 
 import httpx
@@ -85,3 +86,43 @@ def test_diagnostic_rejects_effective_engine_precision_drift_before_inference(tm
 def test_diagnostic_rejects_non_loopback_or_credential_urls(url):
     with pytest.raises(argparse.ArgumentTypeError):
         diagnostic.loopback_url(url)
+
+
+def test_unauthenticated_engine_route_uses_valid_headers_over_real_tcp():
+    """MockTransport misses h11's rejection of a trailing-space Bearer header."""
+    from benchmarks.serving_benchmark import request_once
+    received = []
+    async def scenario():
+        async def serve(reader, writer):
+            try:
+                headers = await reader.readuntil(b'\r\n\r\n')
+                received.append(headers.lower())
+                length = next(int(line.split(b':', 1)[1]) for line in headers.split(b'\r\n')
+                              if line.lower().startswith(b'content-length:'))
+                await reader.readexactly(length)
+                events = [{'choices': [{'delta': {'content': '{"id":'}, 'finish_reason': None}]},
+                          {'choices': [{'delta': {'content': '1}'}, 'finish_reason': 'stop'}],
+                           'usage': {'completion_tokens': 8}}]
+                body = (''.join('data: ' + json.dumps(e) + '\n\n' for e in events) +
+                        'data: [DONE]\n\n').encode()
+                writer.write(b'HTTP/1.1 200 OK\r\nContent-Type: text/event-stream\r\nContent-Length: ' +
+                             str(len(body)).encode() + b'\r\nConnection: close\r\n\r\n' + body)
+                await writer.drain()
+            except asyncio.IncompleteReadError:
+                pass
+            finally:
+                writer.close()
+                await writer.wait_closed()
+        server = await asyncio.start_server(serve, '127.0.0.1', 0)
+        port = server.sockets[0].getsockname()[1]
+        try:
+            async with httpx.AsyncClient(trust_env=False) as client:
+                return await request_once(client, f'http://127.0.0.1:{port}', '', MODEL,
+                    {'id': 'synthetic', 'input_tokens': 1, 'messages': [{'role': 'user', 'content': 'test'}],
+                     'max_tokens': 16, 'expected': {'id': 1}}, Tokenizer(), 2, 'synthetic-wire-test')
+        finally:
+            server.close()
+            await server.wait_closed()
+    row = asyncio.run(scenario())
+    assert row['ok'] and row['quality_pass'] and row['error'] is None
+    assert received and b'authorization:' not in received[0]
