@@ -265,3 +265,59 @@ def test_startup_logs_redact_all_three_injected_secrets(tmp_path,monkeypatch,cap
     native.forward_logs({path:{'offset':0,'pending':b''}})
     output=capsys.readouterr().out
     assert 'private-' not in output and output.count('[REDACTED]')==3
+
+
+@pytest.mark.parametrize('ready',[True,False])
+def test_plain_setup_owns_native_install_start_and_readiness(tmp_path,monkeypatch,ready):
+    """CPU orchestration regression only; all GPU/process effects are intercepted.
+
+    No developer gpu_validate script or preinstalled SGLANG_PYTHON is used.
+    Success/failure depends on readiness, not merely spawning the supervisor.
+    """
+    state=tmp_path/'runtime'
+    monkeypatch.setattr(native,'STATE',state)
+    monkeypatch.setattr(native.sys,'argv',['native_setup.py'])
+    # Restore every environment field that main may change after this test.
+    for name in ('CONTRACT_TEST','SOURCE_COMMIT','RUNTIME_DIR','PYTHONUNBUFFERED',
+                 'HF_HUB_DISABLE_XET','SGLANG_PYTHON','ENGINE_BASE_URL'):
+        monkeypatch.delenv(name,raising=False)
+    for name,value in {'API_KEY':'synthetic-native-ordinary-key',
+        'MODEL_ID':'Qwen/Qwen2.5-7B-Instruct',
+        'MODEL_REVISION':'a09a35458c702b33eeacc393d103063234e8bc28',
+        'BENCH_PROFILE':'optimized','HOST':'127.0.0.1','PORT':'8000',
+        'HF_HOME':str(tmp_path/'platform-model-cache'),'STARTUP_TIMEOUT':'10' if ready else '0'}.items():
+        monkeypatch.setenv(name,value)
+    commands=[];stops=[]
+    monkeypatch.setattr(native,'stop_owned',lambda:stops.append('owned-only'))
+    monkeypatch.setattr(native,'run',lambda args,**kwargs:commands.append(list(map(str,args))))
+    monkeypatch.setattr(native.subprocess,'check_output',lambda *args,**kwargs:'c'*40+'\n')
+    monkeypatch.setattr(native,'process_identity',lambda pid:'synthetic-start-ticks')
+    monkeypatch.setattr(native,'healthy',lambda host,port:ready)
+    monkeypatch.setattr(native,'verify_native_packages',lambda python:{'lock_sha256':'d'*64})
+    monkeypatch.setattr(native,'configure_runtime_environment',lambda *args:{'engine_bin':'/synthetic/bin'})
+    monkeypatch.setattr(native,'ensure_build_prerequisites',lambda python:None)
+    monkeypatch.setattr(native,'validate_jit_tools',lambda:{'cc':'/synthetic/cc','nvcc':'/synthetic/nvcc'})
+    monkeypatch.setattr(native,'runtime_versions',lambda python:dict(native.EXPECTED))
+    class Child:
+        pid=12345
+        def poll(self):return None
+    monkeypatch.setattr(native.subprocess,'Popen',lambda args,**kwargs:
+        (commands.append(list(map(str,args))) or Child()))
+    if ready:
+        native.main()
+    else:
+        with pytest.raises(RuntimeError,match='did not become ready'):native.main()
+    assert os.environ['CONTRACT_TEST']=='0'
+    installs=[c for c in commands if 'install' in c]
+    assert len(installs)==1
+    for lock in native.DEPENDENCY_FILES:
+        assert any(installs[0][i:i+2]==['-r',lock] for i in range(len(installs[0])-1))
+    assert ['nvidia-smi','-L'] in commands
+    assert any('torch.cuda.is_available()' in ' '.join(c) for c in commands)
+    assert any(c[-2:]==['-m','server.supervisor'] for c in commands)
+    assert not any('gpu_validate' in ' '.join(c) for c in commands)
+    runtime=json.loads((state/'runtime.json').read_text())
+    assert runtime['mode']=='native' and runtime['versions']['sglang']=='0.5.9'
+    assert runtime['native_lock_applied'] is True
+    assert runtime['hf_home']==str(tmp_path/'platform-model-cache')
+    assert len(stops)==(1 if ready else 2)

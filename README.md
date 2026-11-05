@@ -4,7 +4,7 @@
 
 需求映射、初始仓库审计和分阶段计划见 [实施计划](docs/implementation-plan.md)；每阶段的真实命令、结果与限制见 [测试记录](docs/test-records.md)。源码底座和固定提交见 [SOURCES.md](SOURCES.md)。参考仓库成绩没有导入本项目。
 
-CPU阶段已在GitHub通过18项软诊断与133项工程测试；本地真实浏览器13项核心流程、两个实际SIGKILL恢复窗口通过。精确源码提交及原始报告见测试记录。GPU部署、真实模型/Agent/计费、性能与KV/Prefix/Attention实测仍待Daytona连接后执行，不声明正式分数或性能达标。
+CPU阶段已在GitHub通过18项软诊断与133项工程测试；本地真实浏览器13项核心流程、两个实际SIGKILL恢复窗口通过。精确源码提交及原始报告见测试记录。GPU部署、真实模型/Agent/计费、性能与KV/Prefix/Attention实测仍待GPU运行验证，不声明正式分数或性能达标。
 
 ## CPU 开发与软评测
 
@@ -21,25 +21,33 @@ python3.12 -m venv .venv-test
 
 `.github/workflows/llm-soft.yml` 是任务书提供的官方 CPU 软诊断，push 与手动触发均固定完整 commit SHA，在 GitHub 托管 runner 执行，artifact 为 `llm-soft-report`。无须配置任何生产或平台 secrets。`cpu-tests.yml` 另外运行工程测试，两者都不产生官方分数。工作流需推到默认分支后手动入口才可用。
 
-## Daytona 一键部署
+## 正式评测的 setup.sh 启动合同
 
-仅连接本人已申请的 GPU；本项目代码不申请机器。使用私密环境文件或 shell 设置凭据，不把临时 SSH 命令或 key 放进 Git。可先复制 `.env.example` 到被忽略的 `.env`，替换三个凭据占位值，并在终端导出变量。`KEY_HASH_SECRET` 重启必须保持相同。
+正式评测由平台提供固定 Daytona Linux 基础快照、RTX 4090、驱动、Python、Git 与依赖/模型下载缓存；快照不包含本项目。评测系统 clone 整个仓库、切到指定完整 SHA，并以根目录 `setup.sh` 作为唯一服务启动入口：
 
 ```bash
-set -a
-source .env
-set +a
+export GIT_TERMINAL_PROMPT=0
+git clone https://github.com/ThingsWorld/llm-service.git
+cd llm-service
+git checkout --detach <40-character-commit-sha>
 bash setup.sh
-BENCH_PROFILE=optimized bash setup.sh
-curl --fail http://127.0.0.1:8000/healthz
-bash setup.sh --stop
 ```
 
-GPU 前提为 Linux x86_64、Python 3.12、RTX 4090 驱动和编译工具。setup 不使用 Docker/systemd，不安装宿主驱动；默认建立私有 `.venv` 并按完整 native lock 安装，检查真实 CUDA 运算后启动指定 revision 的 SGLang。缓存命中与干净下载分开记录。`SGLANG_PYTHON` 可显式选择已有固定版本运行时，必须记录该区别。
+平台同时注入任务书规定的 `HOST`、`PORT`、`API_KEY`、`MODEL_ID`、`MODEL_REVISION`、`BENCH_PROFILE`、`HF_HOME`，以及管理合同的 `ADMIN_API_KEY`、`KEY_HASH_SECRET`、`DATA_DIR`。正式流程直接读取这些变量，不要求预先创建 `.env`、配置 SSH 别名、手动安装 Python 包或另跑部署脚本。
+
+`setup.sh` 内部调用 `scripts/native_setup.py`，从脚本目录工作，建立私有 `.venv`，安装锁定依赖并核对版本，检查实际 CUDA 运算，然后由 `server/supervisor.py` 启动 SGLang 和网关。SGLang 按指定模型/revision 使用 `HF_HOME` 缓存或下载；只有模型与引擎已就绪、`/healthz` 返回200，setup 才成功退出。安装或启动失败返回非零，保留日志。它不依赖 Docker daemon 或 systemd，不修改 GPU 驱动。
+
+首次需要的本地编译头文件/工具也由 setup 检查；缺失时尝试通过现有 Ubuntu 源非交互安装，权限或安装失败则明确失败。默认路径自行安装声明的运行时；`SGLANG_PYTHON` 仅用于显式复用并校验已有运行时，不是必填的手工准备步骤。缓存命中与干净下载分开记录。GPU干净重建仍待实际验证，CPU编排测试不能证明GPU部署已通过。
 
 setup 同配置重跑幂等，切换 profile 只停止自己拥有的进程组（验证 PID 启动时间），有界等待就绪；日志位于被忽略的 `.runtime/`。`--contract-test` 仅连接外部 `ENGINE_BASE_URL`，只安装 CPU 网关依赖，其他真实鉴权、账本、限流与恢复实现一致。实际监听 PID 为 `$DATA_DIR/gateway.pid`；`--stop` 不删除 DATA_DIR 或停止外部 fixture。
 
 服务固定 `Qwen/Qwen2.5-7B-Instruct` revision `a09a35458c702b33eeacc393d103063234e8bc28`，BF16。baseline：running=1、KV=8192、Triton、prefix off、CUDA Graph off；optimized：running=32、KV=16384、FlashInfer、prefix on、CUDA Graph on。网关两组均 32 slots、64 queue，入引擎后由 SGLang 连续批处理，不在网关凑批。`/info` 报告实际 profile/config/version，CPU 模式明确 `mode=contract-test`，不能证明 GPU 已部署。
+
+## 已申请练习机上的自测
+
+练习机需要通过平台终端或 SSH 进入。SSH Host 别名只用于本机连接管理，不属于正式评测的交付要求。在练习机自行运行时，可把 `.env.example` 复制为被忽略的 `.env`，设置本服务的私密凭据、实际缓存和数据路径，再 `set -a; source .env; set +a` 导出环境；`KEY_HASH_SECRET` 与 `DATA_DIR` 重跑保持相同。服务启动仍执行 `bash setup.sh`。
+
+`scripts/gpu_validate.sh` 是可选的练习自测编排，内部也通过 setup 启动服务；它不能取代上述正式入口。正式评测由平台在 setup 成功后运行自己的接口、性能、Agent和机制检查。
 
 ## 接口、鉴权与实验账本
 
@@ -69,7 +77,7 @@ mock 需先运行隔离 contract 服务和受控 fixture（`local_cpu.py` 自动
 
 性能方法、冻结阈值与未验证项见 [docs/performance.md](docs/performance.md)。当前本仓库没有真实 GPU 性能/机制实验结果，不声明达标。每次输出用新目录，保留失败行、原始数据和完整 SHA。正式 GPU 评测需用户主动提交已 push 的完整 40 位 SHA；push 只触发 CPU 工作流。
 
-GPU 上设置好私密环境变量后，可分步执行 `bash scripts/gpu_validate.sh smoke`（部署、幂等、live、取消）、`bench`（完整服务矩阵）、`experiments`（三个机制实验）。这些命令实际消耗已有 GPU 的运行时间，先核实平台剩余时间。KV 入口显式选择任务书的固定1.5B FP32实验模型，支持从已有7B服务环境直接调用；任意错误模型/revision仍在停止服务前拒绝。实验结束后显式 setup 恢复服务。
+在已申请的练习GPU上设置好私密环境变量后，可选运行 `bash scripts/gpu_validate.sh smoke`（setup部署、幂等、live、取消）、`bench`（完整服务矩阵）、`experiments`（三个机制实验）。这些自测命令实际消耗已有 GPU 的运行时间，先核实平台剩余时间；正式评测不要求手动执行它们。KV 入口显式选择任务书的固定1.5B FP32实验模型，支持从已有7B服务环境直接调用；任意错误模型/revision仍在停止服务前拒绝。实验结束后显式 setup 恢复服务。
 
 taskbook 指定的公开测量客户端使用 Transformers 4.51.3 / tokenizers 0.21.4，与 SGLang 的锁定运行时 4.57.1 分开安装，防止互相升级：
 

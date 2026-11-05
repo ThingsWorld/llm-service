@@ -76,7 +76,20 @@
 
 - 后续提交仍需新的 GitHub Actions 结果；旧运行不能当成新 SHA 通过。
 - 管理页面核心交互已在本地真实浏览器验证；全部浏览器/代理链路兼容性与真实GPU页面用量仍待验证。
-- Daytona 的 SSH Host、可用时间、RTX 4090 身份：待用户资源就绪后核实，不申请新 GPU。
+- 练习机连接、可用时间、RTX 4090身份：如执行练习验证则在已有资源上核实。正式评测由平台clone指定SHA并执行setup，不以本机SSH配置为前置条件。
 - SGLang native 干净安装、切换、live 计费/轮换/Agent、GPU 取消、768 请求性能、三项机制实验：未执行。
 - 平台 15 项正式 credentials 黑盒与对应 live 门槛、正式 GPU 评测：未执行；平台 staging/配额遗留矛盾待平台当前状态确认。
 - Gateway 开销对照、GPU 显存峰值、p50/p95/吞吐/goodput：无本项目真实 GPU 数据，不宣称达标。
+
+## 2026-11-05：核对正式 setup 启动合同
+
+按用户指出的任务书合同修正文档：平台准备固定Daytona基础快照并注入环境变量，clone整个仓库、checkout完整SHA后直接执行 `bash setup.sh`。本机SSH别名、`.env`手工配置及 `scripts/gpu_validate.sh` 均不属于正式评测前置条件；它们只用于可选的练习机连接和自测。README已将两个流程明确分开。
+
+核对实现调用链：`setup.sh → scripts/native_setup.py → server.supervisor → SGLang + HTTP网关`。默认native路径安装完整锁定依赖、读取平台模型/revision与HF_HOME、检查CUDA并等待健康；CPU contract模式单独选择。启动入口及服务代码本次未作功能修改。
+
+新增两个默认native启动编排回归用例：不提供SGLANG_PYTHON、不调用gpu_validate，验证完整依赖安装与自有supervisor启动；就绪超时则清理自有进程并报错。测试拦截了依赖安装、CUDA、进程和健康检查，不使用真实GPU，不能证明干净GPU重建已通过。
+
+- `.venv-test/bin/python -m pytest -q tests/test_native_setup.py`：**21 passed / 0.10秒**。
+- `.venv-test/bin/python -m pytest -q --junitxml=results/cpu/setup-contract-20261105/engineering.xml`：**135 passed / 8.54秒**；[原始JUnit](../results/cpu/setup-contract-20261105/engineering.xml)。
+- `bash -n setup.sh experiments/run.sh scripts/gpu_validate.sh`、`git diff --check`：通过。
+- 本次测试基于 `b9c9fb55fe73ad5db945d430d3cda5826f5e2859` 的开发工作区（仅文档和测试修改），不改写先前提交的报告与SHA。真实GPU安装、模型就绪、预算和性能结果仍待实测。
