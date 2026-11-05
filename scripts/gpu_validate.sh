@@ -3,7 +3,7 @@
 set -euo pipefail
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.."
 stage="${1:-smoke}"
-case "$stage" in smoke|bench|experiments) ;; *) echo 'Usage: bash scripts/gpu_validate.sh smoke|bench|experiments'; exit 2;; esac
+case "$stage" in smoke|bench|experiments|diagnose) ;; *) echo 'Usage: bash scripts/gpu_validate.sh smoke|bench|experiments|diagnose'; exit 2;; esac
 export LLM_TEST_ENVIRONMENT="${LLM_TEST_ENVIRONMENT:-unspecified}"
 case "$LLM_TEST_ENVIRONMENT" in daytona|self-managed|unspecified) ;; *) echo 'LLM_TEST_ENVIRONMENT must be daytona, self-managed, or unspecified'; exit 2;; esac
 : "${API_KEY:?set the ordinary inference key privately}"
@@ -37,12 +37,21 @@ context={'schema':'llm-gpu-self-test-context/1','execution_environment':sys.argv
     'model_revision':os.environ['MODEL_REVISION'],'official_score':False}
 (root/'context.json').write_text(json.dumps(context,indent=2,allow_nan=False)+'\n')
 PY
+capture_runtime() {
+  local profile="$1" name
+  for name in runtime.json native-dependencies.json engine-command.json; do
+    if [[ -f ".runtime/$name" ]]; then
+      cp ".runtime/$name" "$out/$profile-$name"
+    fi
+  done
+}
 if [[ "$stage" == smoke ]]; then
   BENCH_PROFILE=baseline bash setup.sh
   cp "$DATA_DIR/gateway.pid" "$out/baseline-first.pid"
   BENCH_PROFILE=baseline bash setup.sh
   cmp "$DATA_DIR/gateway.pid" "$out/baseline-first.pid"
   BENCH_PROFILE=optimized bash setup.sh
+  capture_runtime optimized
   .venv/bin/python scripts/check_control_plane.py --base-url "http://127.0.0.1:$PORT" --suite live --out "$out/control-plane-live.json"
   .venv/bin/python -m experiments.cancellation --out "$out/cancellation"
 elif [[ "$stage" == bench ]]; then
@@ -53,10 +62,18 @@ elif [[ "$stage" == bench ]]; then
   cp "$tools/acceptance.json" "$out/acceptance.json"
   for profile in baseline optimized; do
     BENCH_PROFILE="$profile" bash setup.sh
+    capture_runtime "$profile"
     "$BENCH_PYTHON" "$tools/serving_benchmark.py" --base-url "http://127.0.0.1:$PORT" \
-      --profile "$profile" --config "$tools/acceptance.json" --seed 20261018 \
+      --profile "$profile" --config "$tools/acceptance.json" --seed "${BENCH_SEED:-20261018}" \
       --local-files-only --out "$out/serving"
   done
+elif [[ "$stage" == diagnose ]]; then
+  : "${BENCH_PYTHON:?provide the pinned benchmark-client Python}"
+  "$BENCH_PYTHON" -c 'import importlib.metadata as m; assert all(m.version(n)==v for n,v in {"httpx":"0.28.1","transformers":"4.51.3","tokenizers":"0.21.4","jinja2":"3.1.6"}.items()), "Benchmark client version drift"'
+  BENCH_PROFILE=optimized bash setup.sh
+  capture_runtime optimized
+  "$BENCH_PYTHON" -m benchmarks.diagnose_accuracy --base-url "http://127.0.0.1:$PORT" \
+    --seed "${ACCURACY_SEED:-20261105}" --out "$out/accuracy"
 else
   export BENCH_PROFILE=optimized
   MODEL_ID=Qwen/Qwen2.5-1.5B-Instruct MODEL_REVISION=989aa7980e4cf806f80c7fef2b1adb7bc71aa306 \

@@ -77,3 +77,29 @@ def test_invalid_json_format_rejected_before_engine_call(invalid):
                                json={'model': MODEL, 'messages': MESSAGES, 'response_format': invalid})
         assert response.status_code == 422
         assert backend.calls == []
+
+
+@pytest.mark.parametrize('content', ['{"id":91173,"city":"Paris","units":39}',
+                                    '{"id":9173,"city":"Paris","units":39}'])
+@pytest.mark.parametrize('width', [1, 7])
+def test_gateway_preserves_repeated_digits_and_wrong_model_output_across_sse_events(content, width):
+    class SplitBackend(TransportBackend):
+        def engine(self, request):
+            body = json.loads(request.content)
+            self.calls.append(body)
+            parts = [content[i:i + width] for i in range(0, len(content), width)]
+            events = [{'choices': [{'delta': {'content': p}, 'finish_reason': None}]} for p in parts]
+            events.append({'choices': [{'delta': {}, 'finish_reason': 'stop'}], 'usage': USAGE})
+            text = ''.join('data: ' + json.dumps(e) + '\n\n' for e in events) + 'data: [DONE]\n\n'
+            return httpx.Response(200, headers={'Content-Type': 'text/event-stream'}, text=text)
+    backend = SplitBackend()
+    with TestClient(create_app(backend, key='json-mode-fixture')) as client:
+        response = client.post('/v1/chat/completions', headers={'Authorization': 'Bearer json-mode-fixture'},
+            json={'model': MODEL, 'messages': MESSAGES, 'max_tokens': 64, 'temperature': 0,
+                  'stream': True, 'response_format': {'type': 'json_object'}})
+        assert response.status_code == 200
+        events = [json.loads(line[6:]) for line in response.text.splitlines()
+                  if line.startswith('data: ') and line != 'data: [DONE]']
+        assert ''.join(c['delta'].get('content', '') for e in events for c in e['choices']) == content
+        assert backend.calls[0]['messages'] == MESSAGES
+        assert backend.calls[0]['response_format'] == {'type': 'json_object'}

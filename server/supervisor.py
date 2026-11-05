@@ -20,6 +20,8 @@ def engine_command(config, cache=None):
         '--attention-backend', config['attention_backend'],
         '--sampling-defaults', config.get('sampling_defaults', 'openai'), '--enable-metrics',
         '--stream-interval', '1']
+    if config.get('fp32_lm_head', False):
+        args += ['--enable-fp32-lm-head']
     if not config.get('cuda_graph', False):
         args += ['--disable-cuda-graph']
     else:

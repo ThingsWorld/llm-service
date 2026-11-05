@@ -1,0 +1,13 @@
+{
+  "schema": "llm-gpu-environment-preflight/1",
+  "recorded_at": "2026-11-05T09:53:09.591321+00:00",
+  "observation_provenance": "Captured SSH command output after user reboot on 2026-11-05; recording is later than observation",
+  "execution_environment": "self-managed",
+  "official_score": false,
+  "gpu_model": "NVIDIA GeForce RTX 4090",
+  "nvidia_smi_output": "0, NVIDIA GeForce RTX 4090, 24564 MiB, 24041 MiB, 0 %, 580.178.04",
+  "kernel_driver_version": "580.178.04",
+  "cuda_init_return_code": 0,
+  "inference_performed": false,
+  "status": "gpu_restored_environment_setup_pending"
+}

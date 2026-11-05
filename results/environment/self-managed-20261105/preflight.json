@@ -1,0 +1,31 @@
+{
+  "schema": "llm-gpu-environment-preflight/1",
+  "observed_at": "2026-11-05T09:34:20.269907+00:00",
+  "execution_environment": "self-managed",
+  "official_score": false,
+  "ssh_connected": true,
+  "gpu_ready": false,
+  "kernel_driver_version": "580.173.02",
+  "installed_driver_version": "580.178.04",
+  "nvml_library": "/usr/lib/x86_64-linux-gnu/libnvidia-ml.so.580.178.04",
+  "nvidia_smi": {
+    "exit_code": 18,
+    "stdout": "Failed to initialize NVML: Driver/library version mismatch\nNVML library version: 580.178",
+    "stderr": ""
+  },
+  "cuda_init_return_code": 804,
+  "restart_required_file_present": true,
+  "python_version": "3.10.12",
+  "python312_in_path": null,
+  "default_python_packages": {
+    "torch": null,
+    "transformers": null,
+    "sglang": null
+  },
+  "cuda_toolkit_path": "/usr/local/cuda-12.4",
+  "nvcc_binary_exists": true,
+  "inference_performed": false,
+  "service_commit_sha": null,
+  "host_address_recorded": false,
+  "status": "gpu_unavailable_before_project_deployment"
+}

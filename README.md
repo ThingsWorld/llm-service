@@ -4,7 +4,7 @@
 
 需求映射、初始仓库审计和分阶段计划见 [实施计划](docs/implementation-plan.md)；每阶段的真实命令、结果与限制见 [测试记录](docs/test-records.md)。源码底座和固定提交见 [SOURCES.md](SOURCES.md)。参考仓库成绩没有导入本项目。
 
-CPU阶段已在GitHub通过18项软诊断与工程测试，最新源码本地139项；真实浏览器13项核心流程、两个实际SIGKILL恢复窗口通过。Daytona RTX4090练习自测已取得完整768请求矩阵、双用户真实Agent/计费/轮换、20次取消以及KV/Prefix/Attention数据；本机重算与三机制证据检查通过。optimized四个冻结目标组中三个通过，long/C16因正确率47/48低于99%未通过；short/C4也有一条输出错误。详见[GPU复核](results/gpu/daytona/review-20261105/README.md)。未发起正式GPU评测，不声明整体达标。
+CPU阶段已在GitHub通过18项软诊断与工程测试，最新开发工作区本地154项；真实浏览器13项核心流程、两个实际SIGKILL恢复窗口通过。Daytona RTX4090练习自测已取得完整768请求矩阵、双用户真实Agent/计费/轮换、20次取消以及KV/Prefix/Attention数据；本机重算与三机制证据检查通过。optimized四个冻结目标组中三个通过，long/C16因正确率47/48低于99%未通过；short/C4也有一条输出错误。详见[GPU复核](results/gpu/daytona/review-20261105/README.md)。未发起正式GPU评测，不声明整体达标。
 
 ## CPU 开发与软评测
 
@@ -105,3 +105,5 @@ python3 scripts/fetch_public_tools.py --out .cache/my-new-public-tools
 fetch 只下载和校验9份公开工具，不启动模型。`bench` 也会重新刷新到一个新目录并保存该批 manifest/acceptance。`python -m experiments.verify_evidence --case kv --directory results/<run>/kv --commit <完整SHA>` 检查本次文件矩阵、输入一致、数值门槛与机制字段；验证器不能证明自报 GPU 身份或产生官方成绩。
 
 练习结果可打包取回本机后提交Git，无需在GPU服务器配置Git写权限。确认本机压缩包完整、所需结果已保存后，在远端项目目录执行 `bash setup.sh --stop`，再通过平台销毁练习服务器；退出SSH或只停止服务不会销毁实例。`.env`、私密账本和模型权重不属于结果包。
+
+正确率问题的对照工具与复测命令见[输出诊断](docs/accuracy-diagnosis.md)。`bash scripts/gpu_validate.sh diagnose`对比完整网关与引擎直连，保留受影响完整分组和新seed控制；需要同样的私密环境与独立`BENCH_PYTHON`。`FP32_LM_HEAD=1`仅显式启用SGLang最终词表投影FP32对照，默认0，尚未验证能修复错误；`/info`声明实际配置，setup切换该项会重启自有服务。`BENCH_SEED`允许完整bench使用另一个seed，默认仍为20261018；不得重试挑选有利seed冒充通过。

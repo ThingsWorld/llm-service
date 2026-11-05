@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 import signal
 import pytest
-from server.config import configuration
+from server.config import configuration, MODEL, REVISION
 from server.supervisor import engine_command
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -40,6 +40,63 @@ def test_controlled_ablation_and_invalid_overrides(monkeypatch):
     monkeypatch.setenv('MAX_RUNNING_REQUESTS', '0')
     with pytest.raises(ValueError):
         configuration()
+
+
+@pytest.mark.parametrize('value', [None, '0', '1'])
+def test_fp32_head_is_explicit_and_preserves_neutral_decoding(monkeypatch, value):
+    monkeypatch.delenv('FP32_LM_HEAD', raising=False)
+    if value is not None:
+        monkeypatch.setenv('FP32_LM_HEAD', value)
+    monkeypatch.setenv('MODEL_ID', 'model-fixture')
+    monkeypatch.setenv('MODEL_REVISION', 'revision-fixture')
+    _, cfg = configuration()
+    assert cfg['fp32_lm_head'] is (value == '1')
+    assert ('--enable-fp32-lm-head' in engine_command(cfg)) is (value == '1')
+    assert cfg['dtype'] == 'bfloat16' and cfg['repetition_penalty'] == 1.0
+    assert cfg['top_p'] == 1.0 and cfg['top_k'] == -1
+    monkeypatch.setenv('FP32_LM_HEAD', 'true')
+    with pytest.raises(ValueError, match='FP32_LM_HEAD'):
+        configuration()
+
+
+def test_changing_fp32_head_restarts_owned_service_and_same_setting_is_idempotent(tmp_path, monkeypatch):
+    state = tmp_path / 'runtime'
+    monkeypatch.setattr(native, 'STATE', state)
+    monkeypatch.setattr(native.sys, 'argv', ['native_setup.py', '--contract-test'])
+    for name, value in {'API_KEY': 'synthetic-key', 'BENCH_PROFILE': 'optimized',
+                        'MODEL_ID': 'model-fixture', 'MODEL_REVISION': 'revision-fixture',
+                        'ENGINE_BASE_URL': 'http://127.0.0.1:30001', 'FP32_LM_HEAD': '0'}.items():
+        monkeypatch.setenv(name, value)
+    monkeypatch.setattr(native, 'run', lambda *a, **kw: None)
+    monkeypatch.setattr(native.subprocess, 'check_output', lambda *a, **kw: 'c' * 40 + '\n')
+    monkeypatch.setattr(native, 'process_identity', lambda pid: 'synthetic-start')
+    monkeypatch.setattr(native, 'healthy', lambda *a: True)
+    starts, stops = [], []
+    monkeypatch.setattr(native, 'stop_owned', lambda: stops.append(True))
+    class Child:
+        pid = 12345
+        def poll(self): return None
+    monkeypatch.setattr(native.subprocess, 'Popen', lambda *a, **kw: (starts.append(True) or Child()))
+    native.main()
+    native.main()
+    assert len(starts) == len(stops) == 1
+    monkeypatch.setenv('FP32_LM_HEAD', '1')
+    native.main()
+    native.main()
+    assert len(starts) == len(stops) == 2  # No stale service falsely reported ready.
+
+
+def test_invalid_precision_override_is_rejected_before_stopping_service(tmp_path, monkeypatch):
+    monkeypatch.setattr(native, 'STATE', tmp_path / 'runtime')
+    monkeypatch.setattr(native.sys, 'argv', ['native_setup.py'])
+    for name, value in {'API_KEY': 'synthetic-key', 'BENCH_PROFILE': 'optimized',
+                        'MODEL_ID': MODEL, 'MODEL_REVISION': REVISION,
+                        'FP32_LM_HEAD': 'true'}.items():
+        monkeypatch.setenv(name, value)
+    monkeypatch.setattr(native, 'stop_owned', lambda: pytest.fail('invalid override stopped service'))
+    monkeypatch.setattr(native, 'run', lambda *a, **kw: pytest.fail('invalid override installed or executed'))
+    with pytest.raises(ValueError, match='FP32_LM_HEAD'):
+        native.main()
 
 
 def test_runtime_pin_rejects_drift_but_accepts_cuda_build_suffix():

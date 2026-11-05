@@ -32,6 +32,12 @@ def configuration():
         if os.environ['ATTENTION_BACKEND'] not in ('triton', 'flashinfer'):
             raise ValueError('Unsupported ATTENTION_BACKEND')
         cfg['attention_backend'] = os.environ['ATTENTION_BACKEND']
+    # Opt-in numerical diagnostic: keep model weights/BF16 contract and sampling
+    # unchanged; SGLang computes the final vocabulary projection in FP32.
+    fp32_head = os.environ.get('FP32_LM_HEAD', '0')
+    if fp32_head not in ('0', '1'):
+        raise ValueError('FP32_LM_HEAD must be 0 or 1')
+    cfg['fp32_lm_head'] = fp32_head == '1'
     # These are SGLang 0.5.9's effective defaults under the explicit OpenAI policy.
     # The API accepts temperature overrides; only its request default is zero.
     if cfg.get('sampling_defaults') == 'openai':

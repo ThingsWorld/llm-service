@@ -121,3 +121,18 @@
 - GPU来源源码的[工程Actions 41982968884](https://github.com/ThingsWorld/llm-service/actions/runs/41982968884)与[软诊断41982968705](https://github.com/ThingsWorld/llm-service/actions/runs/41982968705)均已核实success；不把后续归档提交当作已在GPU重跑。
 
 原理与限制：连续批处理、前缀缓存和后端由profile同时改变，整体吞吐变化不能归因到单项。KV/Attention有独立同输入数值对照，Prefix有真实cached_tokens而非仅看速度。Prefix独立SLO未标定，因此goodput=null；鉴权/账本开销对照、持续负载、完整setup stdout/native freeze、洁净固定快照重建和正式评测均未完成。内容错误已定位，具体原因及修复效果需新GPU运行验证。此次只归档证据、文档和离线分析脚本，服务源码未改动。
+
+## 2026-11-05：正确率诊断工具与公司4090环境恢复
+
+对照原始错误输入及输出，确认是完整JSON中的字段内容错误，不能通过延长超时修复。审查Chat/payload/SSE转发，新增数字跨SSE事件的网关回归，不修改模型答案；同一短任务两个profile均失败也不能证明某个单独后端有缺陷。
+
+新增`benchmarks.diagnose_accuracy`与`gpu_validate.sh diagnose`：两个受影响完整16请求分组，加两个新seed控制组，经完整网关与引擎直连各3轮，合计384条计划请求；实际使用独立固定tokenizer，输入重生成与512/1024长度检查。保留错误、输出、期望值、实际engine参数、工作区状态，不产生分数。直连诊断不取代经鉴权/账本的性能测量，也不把不同cache/batch历史的独立请求差异直接判为网关错误。
+
+添加默认关闭的`FP32_LM_HEAD`，仅映射已核对的SGLang0.5.9官方`--enable-fp32-lm-head`；模型与中性采样不变，切换包含在setup指纹中，非法值在停止服务前拒绝。尚无该候选的GPU正确性或性能结果，不能宣称修复。完整bench可显式设置新`BENCH_SEED`验证泛化。
+
+- 新增受控传输/拒绝/指纹/幂等测试；首轮相关测试55通过/0.85秒，全量153通过/9.59秒。增加安装前拒绝非法值与实际引擎版本校验后，最终全量**154通过/10.29秒**，见[最终JUnit](../results/cpu/accuracy-diagnostic-20261105/engineering-final.xml)。这些测试不启动GPU。
+- 使用独立4.51.3 tokenizer实际重生成两个归档分组及两个新seed分组，共64个输入；归档完全一致，新控制不同，长度检查通过。这仅是输入生成检查，不是模型推理。
+- 公司服务器SSH只读初检显示实体RTX4090存在，但加载驱动580.173.02与磁盘580.178.04不符，nvidia-smi退出18、CUDA初始化804；默认Python3.10.12，存在CUDA12.4 nvcc。未安装/修改驱动。见[初检](../results/environment/self-managed-20261105/preflight.json)。
+- 用户自行重启后重新连接，RTX4090/24564MiB、空闲24041MiB、利用率0%，加载驱动580.178.04、CUDA初始化0，8000/30000无监听。见[重启后原始报告](../results/environment/self-managed-20261105/post-reboot.json)。模型服务尚待隔离Python与依赖/模型准备。
+
+上述源码改动以归档提交`1bb97cecc83ed5e204b4e948d5b08bf0350015b3`为基准，不改写既有Daytona记录的源码SHA。远端SSH连接地址、用户名、私钥和任何服务凭据未写入这些公共结果；公司自测不能替代正式Daytona评分。
