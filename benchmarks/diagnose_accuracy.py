@@ -74,12 +74,16 @@ async def run(args, config, tokenizer, key, report):
         server_args = response.json()  # SGLang 0.5.9 exposes flattened ServerArgs.
         fields = ('model_path', 'revision', 'version', 'dtype', 'attention_backend', 'sampling_defaults',
                   'enable_fp32_lm_head', 'enable_deterministic_inference', 'max_running_requests',
-                  'disable_radix_cache', 'disable_cuda_graph')
+                  'disable_radix_cache', 'disable_cuda_graph', 'triton_attention_reduce_in_fp32')
         report['engine_arguments'] = {k: server_args.get(k) for k in fields}
         if (server_args.get('version') != '0.5.9' or server_args.get('model_path') != MODEL or server_args.get('revision') != REVISION or
                 server_args.get('dtype') != 'bfloat16' or server_args.get('sampling_defaults') != 'openai' or
                 server_args.get('enable_fp32_lm_head') != info['config'].get('fp32_lm_head', False)):
             raise ValueError('Engine identity or FP32 head differs from gateway declaration')
+        for actual, declared in [('enable_deterministic_inference', 'deterministic_inference'),
+                                  ('triton_attention_reduce_in_fp32', 'triton_attention_reduce_in_fp32')]:
+            if server_args.get(actual, False) != info['config'].get(declared, False):
+                raise ValueError('Effective numerical option differs from gateway declaration')
         selected = cases(config, tokenizer, args.seed)
         write(args.out / 'inputs.json', selected)
         with (args.out / 'raw.jsonl').open('x') as raw:

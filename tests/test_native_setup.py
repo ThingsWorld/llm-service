@@ -59,13 +59,14 @@ def test_fp32_head_is_explicit_and_preserves_neutral_decoding(monkeypatch, value
         configuration()
 
 
-def test_changing_fp32_head_restarts_owned_service_and_same_setting_is_idempotent(tmp_path, monkeypatch):
+@pytest.mark.parametrize('control', ['FP32_LM_HEAD', 'DETERMINISTIC_INFERENCE', 'TRITON_ATTENTION_REDUCE_IN_FP32'])
+def test_changing_precision_control_restarts_owned_service_and_same_setting_is_idempotent(tmp_path, monkeypatch, control):
     state = tmp_path / 'runtime'
     monkeypatch.setattr(native, 'STATE', state)
     monkeypatch.setattr(native.sys, 'argv', ['native_setup.py', '--contract-test'])
     for name, value in {'API_KEY': 'synthetic-key', 'BENCH_PROFILE': 'optimized',
                         'MODEL_ID': 'model-fixture', 'MODEL_REVISION': 'revision-fixture',
-                        'ENGINE_BASE_URL': 'http://127.0.0.1:30001', 'FP32_LM_HEAD': '0'}.items():
+                        'ENGINE_BASE_URL': 'http://127.0.0.1:30001', control: '0'}.items():
         monkeypatch.setenv(name, value)
     monkeypatch.setattr(native, 'run', lambda *a, **kw: None)
     monkeypatch.setattr(native.subprocess, 'check_output', lambda *a, **kw: 'c' * 40 + '\n')
@@ -80,7 +81,7 @@ def test_changing_fp32_head_restarts_owned_service_and_same_setting_is_idempoten
     native.main()
     native.main()
     assert len(starts) == len(stops) == 1
-    monkeypatch.setenv('FP32_LM_HEAD', '1')
+    monkeypatch.setenv(control, '1')
     native.main()
     native.main()
     assert len(starts) == len(stops) == 2  # No stale service falsely reported ready.
@@ -97,6 +98,25 @@ def test_invalid_precision_override_is_rejected_before_stopping_service(tmp_path
     monkeypatch.setattr(native, 'run', lambda *a, **kw: pytest.fail('invalid override installed or executed'))
     with pytest.raises(ValueError, match='FP32_LM_HEAD'):
         native.main()
+
+
+@pytest.mark.parametrize('name,flag', [
+    ('DETERMINISTIC_INFERENCE', '--enable-deterministic-inference'),
+    ('TRITON_ATTENTION_REDUCE_IN_FP32', '--triton-attention-reduce-in-fp32')])
+def test_triton_numerical_controls_preserve_cache_and_reject_ignored_settings(monkeypatch, name, flag):
+    monkeypatch.setenv('BENCH_PROFILE', 'optimized')
+    monkeypatch.setenv('ATTENTION_BACKEND', 'triton')
+    monkeypatch.setenv('PREFIX_CACHE', '1')
+    monkeypatch.setenv(name, '1')
+    monkeypatch.setenv('MODEL_ID', MODEL)
+    monkeypatch.setenv('MODEL_REVISION', REVISION)
+    _, cfg = configuration()
+    command = engine_command(cfg)
+    assert flag in command and '--disable-radix-cache' not in command
+    assert cfg['dtype'] == 'bfloat16' and cfg['sampling_defaults'] == 'openai'
+    monkeypatch.setenv('ATTENTION_BACKEND', 'flashinfer')
+    with pytest.raises(ValueError):
+        configuration()
 
 
 def test_runtime_pin_rejects_drift_but_accepts_cuda_build_suffix():

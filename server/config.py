@@ -34,10 +34,17 @@ def configuration():
         cfg['attention_backend'] = os.environ['ATTENTION_BACKEND']
     # Opt-in numerical diagnostic: keep model weights/BF16 contract and sampling
     # unchanged; SGLang computes the final vocabulary projection in FP32.
-    fp32_head = os.environ.get('FP32_LM_HEAD', '0')
-    if fp32_head not in ('0', '1'):
-        raise ValueError('FP32_LM_HEAD must be 0 or 1')
-    cfg['fp32_lm_head'] = fp32_head == '1'
+    for name, field in [('FP32_LM_HEAD', 'fp32_lm_head'),
+                        ('DETERMINISTIC_INFERENCE', 'deterministic_inference'),
+                        ('TRITON_ATTENTION_REDUCE_IN_FP32', 'triton_attention_reduce_in_fp32')]:
+        value = os.environ.get(name, '0')
+        if value not in ('0', '1'):
+            raise ValueError(name + ' must be 0 or 1')
+        cfg[field] = value == '1'
+    if cfg['triton_attention_reduce_in_fp32'] and cfg['attention_backend'] != 'triton':
+        raise ValueError('TRITON_ATTENTION_REDUCE_IN_FP32 requires ATTENTION_BACKEND=triton')
+    if cfg['deterministic_inference'] and cfg['attention_backend'] == 'flashinfer' and cfg['prefix_cache']:
+        raise ValueError('Deterministic FlashInfer disables Radix Cache; use Triton or explicitly disable the cache')
     # These are SGLang 0.5.9's effective defaults under the explicit OpenAI policy.
     # The API accepts temperature overrides; only its request default is zero.
     if cfg.get('sampling_defaults') == 'openai':

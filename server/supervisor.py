@@ -22,6 +22,10 @@ def engine_command(config, cache=None):
         '--stream-interval', '1']
     if config.get('fp32_lm_head', False):
         args += ['--enable-fp32-lm-head']
+    if config.get('deterministic_inference', False):
+        args += ['--enable-deterministic-inference']
+    if config.get('triton_attention_reduce_in_fp32', False):
+        args += ['--triton-attention-reduce-in-fp32']
     if not config.get('cuda_graph', False):
         args += ['--disable-cuda-graph']
     else:

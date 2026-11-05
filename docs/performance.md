@@ -48,6 +48,6 @@ SSE 的首个非空 content 才计 TTFT；E2E 到完整流结束；TPOT=(最后c
 
 long/C16正确率和两profile的short/C4输出错误尚待修复及GPU复测，已定位到字段内容错误，具体数值/调度原因未证实。Prefix独立实验没有冻结的专用延迟SLO，quality_goodput=null仍为待确认，不能套用正式extraction阈值。取消记录中网关与引擎abort各20、队列归零，但没有独立显存回收时间线，不能声称预分配池显存退还。正式平台分数、完整管理黑盒及洁净重建尚未运行。
 
-新增[数值/传输对照诊断](accuracy-diagnosis.md)及显式FP32输出层候选，默认配置仍关闭该选项。公司RTX4090已在用户重启后恢复可用，诊断和新性能测量待环境准备后执行，不能把历史Daytona数据当作候选开关的通过记录。
+新增[数值/传输对照诊断](accuracy-diagnosis.md)。公司RTX4090已完成环境准备并复现内容错误；FP32输出层及单独切换Triton均未消除归档错误，直接非流式引擎请求也错。候选保持默认关闭；后续数值对照及完整性能复测尚未完成，不能把历史Daytona数据当作候选开关通过记录。
 
 执行前刷新平台9份公开工具并校验manifest；按原任务书命令运行，再将本项目 manifest/raw/summary/图表及完整commit链接到这里。数值失败保留 complete=true 和非零退出，中途失败 complete=false，不删失败行，不放宽容差。

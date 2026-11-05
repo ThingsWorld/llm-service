@@ -20,6 +20,15 @@ short/C4相同输入在baseline和optimized都把91173写成9173；optimized lon
 
 这是有源码依据的候选对照，不保证改变错误答案，也不等于全面确定性推理。不能未测就默认启用或宣称已解决。SGLang另有确定性模式，但在0.5.9中FlashInfer搭配该模式会自动关闭Radix Cache；不能直接加该开关后仍声称缓存配置未变。[确定性说明](https://docs.sglang.io/docs/advanced_features/deterministic_inference)。
 
+公司实测已否定“只打开FP32输出层就能修复这两处错误”的假设：原始FlashInfer/FP32 head off的short两路径均45/48、long网关45/48/直连48/48；FP32 head on的两个归档分组在两路径均45/48；Triton/head off同样均45/48。四个路径的新seed控制各48/48，但不能抵消归档错误。直接请求引擎非流式接口时，两个错误也都存在，排除本项目SSE拼接是这两次非流式错误的原因。
+
+另提供默认关闭的`TRITON_ATTENTION_REDUCE_IN_FP32`和`DETERMINISTIC_INFERENCE`，分别映射同版官方参数。前者仅允许Triton；后者在FlashInfer+prefix on时拒绝启动该配置，防止引擎自动关闭缓存却仍声明缓存打开。两项都进入setup指纹，并在诊断中核对引擎实际参数，单独设置进行对照，不提前认定有效：
+
+```bash
+ATTENTION_BACKEND=triton FP32_LM_HEAD=0 TRITON_ATTENTION_REDUCE_IN_FP32=1 bash scripts/gpu_validate.sh diagnose
+ATTENTION_BACKEND=triton FP32_LM_HEAD=0 DETERMINISTIC_INFERENCE=1 bash scripts/gpu_validate.sh diagnose
+```
+
 在已配置私密环境和独立benchmark Python的兼容4090服务器上，依次执行：
 
 ```bash

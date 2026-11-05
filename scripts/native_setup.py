@@ -256,8 +256,9 @@ def main():
             raise ValueError('ADMIN_API_KEY must differ from API_KEY')
         if os.environ['BENCH_PROFILE'] not in ('baseline', 'optimized'):
             raise ValueError('Invalid BENCH_PROFILE')
-        if os.environ.get('FP32_LM_HEAD', '0') not in ('0', '1'):
-            raise ValueError('FP32_LM_HEAD must be 0 or 1')
+        for name in ('FP32_LM_HEAD', 'DETERMINISTIC_INFERENCE', 'TRITON_ATTENTION_REDUCE_IN_FP32'):
+            if os.environ.get(name, '0') not in ('0', '1'):
+                raise ValueError(name + ' must be 0 or 1')
         host = os.environ.setdefault('HOST', '127.0.0.1')
         if host not in ('127.0.0.1', '0.0.0.0'):
             raise ValueError('HOST must be 127.0.0.1 or 0.0.0.0')
@@ -271,7 +272,7 @@ def main():
                   'BENCH_PROFILE', 'HF_HOME', 'SGLANG_PYTHON', 'MAX_RUNNING_REQUESTS',
                   'ADMIN_API_KEY', 'KEY_HASH_SECRET', 'DATA_DIR', 'CONTRACT_TEST', 'ENGINE_BASE_URL',
                   'GATEWAY_SLOTS', 'GATEWAY_QUEUE', 'ATTENTION_BACKEND', 'PREFIX_CACHE',
-                  'FP32_LM_HEAD']
+                  'FP32_LM_HEAD', 'DETERMINISTIC_INFERENCE', 'TRITON_ATTENTION_REDUCE_IN_FP32']
         digest = hashlib.sha256()
         for name in fields:
             digest.update((name + '=' + os.environ.get(name, '') + '\n').encode())

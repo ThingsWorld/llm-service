@@ -144,3 +144,9 @@
 源码`2a2ce25d345b27ea701024552d6939c979ab3178`第一次384行诊断中，经完整网关的192次请求全部完成，186正确：两个原始分组各45/48，两个新seed控制各48/48。两处数字错误均重复3次。引擎直连的192行均为客户端`LocalProtocolError/status=null`，没有发到GPU，不能算作模型答错。原因是诊断复用的request_once为无凭据直连构造了带尾空格的`Authorization: Bearer `，h11在真实HTTP传输中拒绝，而MockTransport未暴露这一错误。
 
 已修正为无key时不发送Authorization；普通网关请求仍带原始Bearer，服务鉴权规则未变。新增真实loopback TCP/h11回归，相关28项通过/0.32秒，全量**155通过/8.93秒**，见[JUnit](../results/cpu/accuracy-diagnostic-20261105/engine-header-regression.xml)。保留首次失败记录，修正后需重新运行GPU对照；此工具修正不声称修复模型内容错误。
+
+### 公司GPU数值对照的负结果
+
+源码`b07a87006bf8277809c4704edbf035e90190f0f3`修正直连请求头后，三个配置均实际完成384请求诊断：FlashInfer/head off，short网关及直连均45/48，long网关45/48、直连48/48；FlashInfer/head on和Triton/head off，两归档分组两路径均45/48。各配置的两类新seed控制、两路径均48/48。FP32输出层和单独切换后端没有修复归档错误，默认配置不因此改变。Triton/head off的直接非流式请求同样把91173写成9173、74写成82，不能归因于本项目SSE拼接。
+
+准备进一步的Triton FP32 attention中间结果与确定性推理单因素对照，默认关闭、按真实参数声明，避免FlashInfer确定性模式悄悄关闭Radix Cache。新增选项映射/缓存兼容性与setup重启/幂等回归，全量**159通过/8.96秒**，见[JUnit](../results/cpu/accuracy-diagnostic-20261105/numerical-controls.xml)。此处CPU通过不代表数值候选已通过GPU。
